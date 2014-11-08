@@ -45,3 +45,10 @@ Temporary Items
 
 # Qt files to ignore
 *.pro.user
+
+# Project files to ignore
+ADMeshGUI
+moc_*.cpp
+*.o
+Makefile
+ui_window.h
