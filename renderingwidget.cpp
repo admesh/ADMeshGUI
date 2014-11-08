@@ -14,7 +14,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     angleX = 0.0f;
     angleY = 70.0f;
     zoom = 100.0f;
-    char file[]="B:/Dokumenty/D/Qt/ADMeshGUI/vyvledav.stl";
+    char file[]="vyvledav.stl";
     stl_open(&stlfile, file);
 }
 
