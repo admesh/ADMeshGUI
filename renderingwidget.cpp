@@ -1,6 +1,6 @@
 #include <QtWidgets>
 #include <QtOpenGL>
-
+#include <QMessageBox>
 #include "renderingwidget.h"
 
 RenderingWidget::RenderingWidget(QWidget *parent)
@@ -16,6 +16,12 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     zoom = 100.0f;
     char file[]="vyvledav.stl";
     stl_open(&stlfile, file);
+    if(stl_get_error(&stlfile)){
+        QString msg;
+        QTextStream(&msg) << "File " << file << " could not be opened.\n";
+        QMessageBox::critical(NULL, tr("Error"), msg);
+        stl_clear_error(&stlfile);
+    }
 }
 
 RenderingWidget::~RenderingWidget()
