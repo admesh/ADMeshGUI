@@ -6,7 +6,7 @@
 #include <QFont>
 #include <QImage>
 #include <QPen>
-#include <glu.h>
+#include <GL/glu.h>
 #include "data.h"
 
 

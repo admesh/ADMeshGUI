@@ -161,7 +161,7 @@ border-right: none;
       <number>7</number>
      </property>
      <item>
-      <widget class="ButtonWidget" name="buttonWidget" native="true">
+      <widget class="QWidget" name="buttonWidget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -253,6 +253,12 @@ border-right: none;
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
        </property>
        <property name="cursor">
         <cursorShape>ArrowCursor</cursorShape>
@@ -368,15 +374,6 @@ border-right: none;
     <slot>toggleAxes()</slot>
    </slots>
   </customwidget>
-  <customwidget>
-   <class>ButtonWidget</class>
-   <extends>QWidget</extends>
-   <header>buttonwidget.h</header>
-   <container>1</container>
-   <slots>
-    <slot>toggleVisible(bool)</slot>
-   </slots>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
@@ -387,8 +384,8 @@ border-right: none;
    <slot>setXRotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>206</x>
-     <y>398</y>
+     <x>255</x>
+     <y>388</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -431,32 +428,16 @@ border-right: none;
   <connection>
    <sender>hideButton</sender>
    <signal>clicked()</signal>
-   <receiver>buttonWidget</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>487</x>
-     <y>361</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>620</x>
-     <y>428</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>hideButton</sender>
-   <signal>clicked()</signal>
    <receiver>hideButton</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>487</x>
-     <y>361</y>
+     <y>341</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
-     <y>361</y>
+     <y>341</y>
     </hint>
    </hints>
   </connection>
@@ -468,11 +449,11 @@ border-right: none;
    <hints>
     <hint type="sourcelabel">
      <x>487</x>
-     <y>361</y>
+     <y>341</y>
     </hint>
     <hint type="destinationlabel">
      <x>457</x>
-     <y>348</y>
+     <y>341</y>
     </hint>
    </hints>
   </connection>
@@ -489,22 +470,6 @@ border-right: none;
     <hint type="destinationlabel">
      <x>487</x>
      <y>321</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>showButton</sender>
-   <signal>clicked()</signal>
-   <receiver>buttonWidget</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>457</x>
-     <y>258</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>597</x>
-     <y>257</y>
     </hint>
    </hints>
   </connection>
@@ -537,6 +502,38 @@ border-right: none;
     <hint type="destinationlabel">
      <x>362</x>
      <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>hideButton</sender>
+   <signal>clicked()</signal>
+   <receiver>buttonWidget</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>473</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>544</x>
+     <y>150</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showButton</sender>
+   <signal>clicked()</signal>
+   <receiver>buttonWidget</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>447</x>
+     <y>115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>527</x>
+     <y>118</y>
     </hint>
    </hints>
   </connection>

@@ -1,9 +1,7 @@
 #include <QtWidgets>
 #include "window.h"
 #include "ui_window.h"
-
 #include "renderingwidget.h"
-#include "buttonwidget.h"
 
 Window::Window(QWidget *parent) :
     QWidget(parent),
@@ -14,7 +12,6 @@ Window::Window(QWidget *parent) :
     connect(ui->renderingWidget, SIGNAL(xRotationChanged(int)), ui->xRotSlider, SLOT(setValue(int)));
     connect(ui->renderingWidget, SIGNAL(yRotationChanged(int)), ui->yRotSlider, SLOT(setValue(int)));
     ui->showButton->hide();
-
 }
 
 Window::~Window()

@@ -1,10 +1,7 @@
 #ifndef DATA_H
 #define DATA_H
 
-
-extern "C" {
-#include "src/stl.h"
-}
+#include <admesh/stl.h>
 
 #define DEFAULT_RES_X 960
 #define DEFAULT_RES_Y 640
