@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QWidget>
 #include <QSlider>
+#include "admeshcontroller.h"
 
 namespace Ui {
 class Window;
@@ -22,6 +23,7 @@ public slots:
 
 protected:
     void keyPressEvent(QKeyEvent *event);
+    admeshController *controller;
 
 private:
     Ui::Window *ui;

@@ -12,6 +12,9 @@ Window::Window(QWidget *parent) :
     connect(ui->renderingWidget, SIGNAL(yRotationChanged(int)), ui->yRotSlider, SLOT(setValue(int)));
     ui->showButton->hide();
 
+    controller = new admeshController;
+    ui->renderingWidget->setController(controller);
+    connect(controller, SIGNAL(reDrawSignal()), ui->renderingWidget, SLOT(reDraw()));
     addActions();
     addMenus();
 }
@@ -19,13 +22,14 @@ Window::Window(QWidget *parent) :
 Window::~Window()
 {
     delete ui;
+    delete controller;
 }
 
 void Window::addActions(){
     openAct = new QAction(tr("&Open"), this);
     openAct->setShortcuts(QKeySequence::Open);
     openAct->setStatusTip(tr("Open STL file"));
-    connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
+    connect(openAct, SIGNAL(triggered()), controller, SLOT(openSTL()));
 
     axesAct = new QAction(tr("&Axes"), this);
     axesAct->setStatusTip(tr("Show or hide axes"));
@@ -41,8 +45,9 @@ void Window::addActions(){
 }
 
 void Window::addMenus(){
-    QMenuBar *menu_bar = new QMenuBar();
+    QMenuBar *menu_bar = new QMenuBar(this);
     menu_bar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    menu_bar->show();
     ui->menuLayout->addWidget(menu_bar);
     menu_bar->setContentsMargins(0,0,0,0);
 

@@ -13,20 +13,19 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     zPos = 1.0f;
     angleX = 0.0f;
     angleY = 70.0f;
-    zoom = 100.0f;
-    char file[]="vyvledav.stl";
-    stl_open(&stlfile, file);
-    if(stl_get_error(&stlfile)){
-        QString msg;
-        QTextStream(&msg) << "File " << file << " could not be opened.\n";
-        QMessageBox::critical(NULL, tr("Error"), msg);
-        stl_clear_error(&stlfile);
-    }
+    zoom = 100.0f;    
 }
+
 
 RenderingWidget::~RenderingWidget()
 {
     stl_close(&stlfile);
+}
+
+
+void RenderingWidget::setController(admeshController* cnt)
+{
+    controller = cnt;
 }
 
 QSize RenderingWidget::minimumSizeHint() const
@@ -236,6 +235,11 @@ void RenderingWidget::drawAxes()
     glEnd();
 }
 
+void RenderingWidget::reDraw()
+{
+    update();
+}
+
 void RenderingWidget::draw()
 {
     if(Axes==true)drawAxes();
@@ -247,16 +251,17 @@ void RenderingWidget::draw()
         qglColor(Qt::black);
         glDisable(GL_CULL_FACE);
     }
+    stl_file *stlfile=controller->getSTLPointer();
 
-    int N = stlfile.stats.number_of_facets;
+    int N = stlfile->stats.number_of_facets;
     glRotatef(90, -1.0f,0.0f,0.0f); //rotation to OpenGL axes system
 
     for(int i=0;i<N;i++){
         glBegin(GL_TRIANGLES);
-        glNormal3f(stlfile.facet_start[i].normal.x,stlfile.facet_start[i].normal.y,stlfile.facet_start[i].normal.z);
-        glVertex3f(stlfile.facet_start[i].vertex[0].x,stlfile.facet_start[i].vertex[0].y,stlfile.facet_start[i].vertex[0].z);
-        glVertex3f(stlfile.facet_start[i].vertex[1].x,stlfile.facet_start[i].vertex[1].y,stlfile.facet_start[i].vertex[1].z);
-        glVertex3f(stlfile.facet_start[i].vertex[2].x,stlfile.facet_start[i].vertex[2].y,stlfile.facet_start[i].vertex[2].z);
+        glNormal3f(stlfile->facet_start[i].normal.x,stlfile->facet_start[i].normal.y,stlfile->facet_start[i].normal.z);
+        glVertex3f(stlfile->facet_start[i].vertex[0].x,stlfile->facet_start[i].vertex[0].y,stlfile->facet_start[i].vertex[0].z);
+        glVertex3f(stlfile->facet_start[i].vertex[1].x,stlfile->facet_start[i].vertex[1].y,stlfile->facet_start[i].vertex[1].z);
+        glVertex3f(stlfile->facet_start[i].vertex[2].x,stlfile->facet_start[i].vertex[2].y,stlfile->facet_start[i].vertex[2].z);
         glEnd();
     }
     //glVertexPointer(3, GL_FLOAT, 3*sizeof(float), stlfile.v_shared);

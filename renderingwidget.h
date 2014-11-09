@@ -8,6 +8,7 @@
 #include <QPen>
 #include <GL/glu.h>
 #include "data.h"
+#include "admeshcontroller.h"
 
 
 class RenderingWidget : public QGLWidget
@@ -15,9 +16,8 @@ class RenderingWidget : public QGLWidget
     Q_OBJECT
 public:
     explicit  RenderingWidget(QWidget *parent = 0);
+    void setController(admeshController* cnt);
     ~ RenderingWidget();
-
-public slots:
 
 protected:
     void initializeGL();
@@ -36,6 +36,7 @@ public slots:
     void setYRotation(int angle);
     void toggleAxes();
     void toggleMode();
+    void reDraw();
 
 signals:
     void xRotationChanged(int angle);
@@ -63,6 +64,7 @@ private:
     QPoint lastPos;
 
     stl_file stlfile;
+    admeshController *controller;
 };
 
 #endif // MYGLWIDGET_H

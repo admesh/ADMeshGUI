@@ -13,11 +13,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         window.cpp \    
-    renderingwidget.cpp
+    renderingwidget.cpp \
+    admeshcontroller.cpp
 
 HEADERS  += window.h \
     data.h \
-    renderingwidget.h
+    renderingwidget.h \
+    admeshcontroller.h
 
 FORMS    += window.ui
 
