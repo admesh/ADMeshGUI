@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>622</width>
-    <height>436</height>
+    <width>979</width>
+    <height>675</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -56,192 +56,17 @@ border-right: none;
    <property name="spacing">
     <number>0</number>
    </property>
+   <item row="0" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="menuLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+    </layout>
+   </item>
    <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="leftMargin">
-      <number>11</number>
-     </property>
-     <property name="topMargin">
-      <number>11</number>
-     </property>
-     <property name="rightMargin">
-      <number>32</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>xRot</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSlider" name="xRotSlider">
-       <property name="maximum">
-        <number>360</number>
-       </property>
-       <property name="singleStep">
-        <number>16</number>
-       </property>
-       <property name="pageStep">
-        <number>15</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksAbove</enum>
-       </property>
-       <property name="tickInterval">
-        <number>15</number>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <property name="leftMargin">
-      <number>11</number>
-     </property>
-     <property name="rightMargin">
-      <number>32</number>
-     </property>
-     <property name="bottomMargin">
-      <number>11</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>yRot</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSlider" name="yRotSlider">
-       <property name="maximum">
-        <number>360</number>
-       </property>
-       <property name="singleStep">
-        <number>16</number>
-       </property>
-       <property name="pageStep">
-        <number>15</number>
-       </property>
-       <property name="value">
-        <number>70</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksAbove</enum>
-       </property>
-       <property name="tickInterval">
-        <number>15</number>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="1" rowspan="3">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>7</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
-      <number>7</number>
-     </property>
-     <item>
-      <widget class="QWidget" name="buttonWidget" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>130</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="autoFillBackground">
-        <bool>true</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>0</y>
-          <width>111</width>
-          <height>101</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Display</string>
-        </property>
-        <widget class="QPushButton" name="AxesButton">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>93</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Draw Axes</string>
-         </property>
-         <property name="default">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="toggleSolidButton">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>60</y>
-           <width>93</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Toggle Solid</string>
-         </property>
-        </widget>
-       </widget>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <property name="spacing">
       <number>0</number>
@@ -266,6 +91,24 @@ border-right: none;
        <layout class="QFormLayout" name="formLayout">
         <property name="fieldGrowthPolicy">
          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
+        <property name="horizontalSpacing">
+         <number>0</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
         </property>
        </layout>
       </widget>
@@ -361,6 +204,194 @@ border-right: none;
      </item>
     </layout>
    </item>
+   <item row="1" column="1" rowspan="3">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>7</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>7</number>
+     </property>
+     <item>
+      <widget class="QWidget" name="buttonWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>130</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>111</width>
+          <height>101</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Display</string>
+        </property>
+        <widget class="QPushButton" name="AxesButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>93</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Draw Axes</string>
+         </property>
+         <property name="default">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="toggleSolidButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>93</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Toggle Solid</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="leftMargin">
+      <number>11</number>
+     </property>
+     <property name="topMargin">
+      <number>11</number>
+     </property>
+     <property name="rightMargin">
+      <number>32</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>xRot</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="xRotSlider">
+       <property name="maximum">
+        <number>360</number>
+       </property>
+       <property name="singleStep">
+        <number>16</number>
+       </property>
+       <property name="pageStep">
+        <number>15</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="tickPosition">
+        <enum>QSlider::TicksAbove</enum>
+       </property>
+       <property name="tickInterval">
+        <number>15</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <property name="leftMargin">
+      <number>11</number>
+     </property>
+     <property name="rightMargin">
+      <number>32</number>
+     </property>
+     <property name="bottomMargin">
+      <number>11</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>yRot</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="yRotSlider">
+       <property name="maximum">
+        <number>360</number>
+       </property>
+       <property name="singleStep">
+        <number>16</number>
+       </property>
+       <property name="pageStep">
+        <number>15</number>
+       </property>
+       <property name="value">
+        <number>70</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="tickPosition">
+        <enum>QSlider::TicksAbove</enum>
+       </property>
+       <property name="tickInterval">
+        <number>15</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -372,6 +403,9 @@ border-right: none;
    <container>1</container>
    <slots>
     <slot>toggleAxes()</slot>
+    <slot>toggleMode()</slot>
+    <slot>setXRotation(int)</slot>
+    <slot>setYRotation(int)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -384,12 +418,12 @@ border-right: none;
    <slot>setXRotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>255</x>
-     <y>388</y>
+     <x>313</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel">
-     <x>91</x>
-     <y>317</y>
+     <x>101</x>
+     <y>292</y>
     </hint>
    </hints>
   </connection>
@@ -400,12 +434,12 @@ border-right: none;
    <slot>setYRotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>250</x>
-     <y>424</y>
+     <x>308</x>
+     <y>386</y>
     </hint>
     <hint type="destinationlabel">
-     <x>122</x>
-     <y>317</y>
+     <x>132</x>
+     <y>292</y>
     </hint>
    </hints>
   </connection>
@@ -416,8 +450,8 @@ border-right: none;
    <slot>toggleMode()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>603</x>
-     <y>97</y>
+     <x>634</x>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
      <x>426</x>
@@ -432,12 +466,12 @@ border-right: none;
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>487</x>
-     <y>341</y>
+     <x>512</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
-     <x>487</x>
-     <y>341</y>
+     <x>512</x>
+     <y>291</y>
     </hint>
    </hints>
   </connection>
@@ -448,12 +482,12 @@ border-right: none;
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>487</x>
-     <y>341</y>
+     <x>512</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
-     <x>457</x>
-     <y>341</y>
+     <x>482</x>
+     <y>291</y>
     </hint>
    </hints>
   </connection>
@@ -464,12 +498,12 @@ border-right: none;
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>457</x>
-     <y>315</y>
+     <x>482</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
-     <x>487</x>
-     <y>321</y>
+     <x>512</x>
+     <y>291</y>
     </hint>
    </hints>
   </connection>
@@ -496,8 +530,8 @@ border-right: none;
    <slot>toggleAxes()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>551</x>
-     <y>46</y>
+     <x>634</x>
+     <y>86</y>
     </hint>
     <hint type="destinationlabel">
      <x>362</x>
@@ -512,8 +546,8 @@ border-right: none;
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
-     <y>137</y>
+     <x>512</x>
+     <y>172</y>
     </hint>
     <hint type="destinationlabel">
      <x>544</x>
@@ -528,8 +562,8 @@ border-right: none;
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>447</x>
-     <y>115</y>
+     <x>482</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
      <x>527</x>
