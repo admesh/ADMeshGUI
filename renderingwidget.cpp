@@ -42,20 +42,20 @@ QSize RenderingWidget::sizeHint() const
 void RenderingWidget::setXRotation(int angle)
 {
     angleX = angle;
-    //updateGL();
+    update();
 }
 
 void RenderingWidget::setYRotation(int angle)
 {
     angleY = angle;
-    //updateGL();
+    update();
 }
 
 void RenderingWidget::toggleAxes()
 {
     if(Axes)Axes = false;
     else Axes = true;
-    //updateGL();
+    update();
 }
 
 void RenderingWidget::toggleMode()
@@ -68,7 +68,7 @@ void RenderingWidget::toggleMode()
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
         glEnable(GL_CULL_FACE);
     }
-    //updateGL();
+    update();
 }
 
 void RenderingWidget::initializeGL()
@@ -178,7 +178,7 @@ void RenderingWidget::paintEvent(QPaintEvent *event)
 
     QPainter painter(this);
     drawInfo(&painter);
-    update();
+
     event->accept();
 }
 
@@ -194,7 +194,7 @@ void RenderingWidget::wheelEvent(QWheelEvent* event)
 {
     GLfloat tmp = zoom - event->delta()/ZOOM_SPEED;
     if(tmp > MIN_ZOOM && tmp < MAX_ZOOM) zoom = tmp;
-    //updateGL();
+    update();
 }
 
 void RenderingWidget::mousePressEvent(QMouseEvent *event)
@@ -215,7 +215,7 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
 
         normalizeAngles();
         lastPos = event->pos();
-        //updateGL();
+        update();
     }
 }
 
