@@ -66,6 +66,10 @@ void Window::open()
 
  }
 
+void Window::openByFilename(const char* filename){
+    controller->openSTLbyName(filename);
+}
+
 void Window::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Escape)

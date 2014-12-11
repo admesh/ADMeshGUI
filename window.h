@@ -20,6 +20,7 @@ public:
 
 public slots:
     void open();
+    void openByFilename(const char* filename);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

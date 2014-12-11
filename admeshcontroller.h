@@ -17,6 +17,7 @@ signals:
 
 public slots:
     void openSTL();
+    void openSTLbyName(const char* file);
 
 private:
     stl_file* stl;

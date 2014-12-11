@@ -40,9 +40,22 @@ void admeshController::openSTL()
            QMessageBox::critical(NULL, tr("Error"), msg);
          stl_clear_error(stl);
         }
-    delete []file;
-    active = stl;
+        delete []file;
+        active = stl;
     }
+    reDrawSignal();
+}
+
+void admeshController::openSTLbyName(const char* filename){
+    char* file = const_cast<char *>(filename);
+    stl_open(stl, file);
+    if(stl_get_error(stl)){
+       QString msg;
+       QTextStream(&msg) << "File " << file << " could not be opened.\n";
+       QMessageBox::critical(NULL, tr("Error"), msg);
+     stl_clear_error(stl);
+    }
+    active = stl;
     reDrawSignal();
 }
 
