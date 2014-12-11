@@ -30,14 +30,14 @@ char* QStringToChar(QString str)
 
 void admeshController::openSTL()
 {
-    QString fileName = QFileDialog::getOpenFileName(NULL, tr("Open STL"), "/", tr("STL (*.stl)"));
+    QString fileName = QFileDialog::getOpenFileName(NULL, _("Open STL"), "/", _("STL (*.stl)"));
     if(!fileName.isEmpty()){
         char *file = QStringToChar(fileName);
         stl_open(stl, file);
         if(stl_get_error(stl)){
            QString msg;
-           QTextStream(&msg) << "File " << fileName << " could not be opened.\n";
-           QMessageBox::critical(NULL, tr("Error"), msg);
+           QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
+           QMessageBox::critical(NULL, _("Error"), msg);
          stl_clear_error(stl);
         }
         delete []file;
@@ -51,8 +51,8 @@ void admeshController::openSTLbyName(const char* filename){
     stl_open(stl, file);
     if(stl_get_error(stl)){
        QString msg;
-       QTextStream(&msg) << "File " << file << " could not be opened.\n";
-       QMessageBox::critical(NULL, tr("Error"), msg);
+       QTextStream(&msg) << _("File ") << file << _(" could not be opened.\n");
+       QMessageBox::critical(NULL, _("Error"), msg);
      stl_clear_error(stl);
     }
     active = stl;
