@@ -3,6 +3,17 @@
 
 #include <admesh/stl.h>
 
+#include <libintl.h>
+#include <locale.h>
+#include <QString>
+#define N_(String) String
+inline char * _( const char * msgid ) { return gettext( msgid ); }
+inline QString _( const char *msgid, int category )
+{
+    Q_UNUSED( category );
+    return QString::fromUtf8( _( msgid ) );
+}
+
 #define DEFAULT_RES_X 960
 #define DEFAULT_RES_Y 640
 

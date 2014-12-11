@@ -11,6 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ADMeshGUI
 TEMPLATE = app
 
+load(uic)
+uic.commands += -tr _
+
 SOURCES += main.cpp\
         window.cpp \    
     renderingwidget.cpp \
