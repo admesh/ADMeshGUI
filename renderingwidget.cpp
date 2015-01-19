@@ -63,9 +63,11 @@ void RenderingWidget::toggleMode()
     if(SolidMode){
         SolidMode = false;
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+        controller->setDrawColor(BLACK);
     }else{
         SolidMode = true;
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+        controller->setDrawColor(GREEN);
     }
     reDraw();
 }
@@ -256,7 +258,13 @@ void RenderingWidget::drawAxes()
     program.enableAttributeArray(normalLocation);
     glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (const void *)(sizeof(GLfloat)*3));
 
-    glDrawArrays(GL_LINES, 0, 12);
+
+    program.setUniformValue("color", RED);
+    glDrawArrays(GL_LINES, 0, 2);
+    program.setUniformValue("color", GREEN);
+    glDrawArrays(GL_LINES, 2, 2);
+    program.setUniformValue("color", BLUE);
+    glDrawArrays(GL_LINES, 4, 2);
 }
 
 void RenderingWidget::reDraw()

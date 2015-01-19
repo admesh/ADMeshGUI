@@ -12,8 +12,8 @@ class admeshController : public QObject
 public:
     explicit admeshController(QObject *parent = 0);
     ~admeshController();
-    stl_file* getSTLPointer();
     void drawAll(QGLShaderProgram *program);
+    void setDrawColor(QVector3D);
 
 signals:
     void reDrawSignal();
@@ -25,6 +25,7 @@ public slots:
 private:
     MeshObject* stl;
     MeshObject* active;
+    QVector3D color;
 };
 
 #endif // ADMESHCONTROLLER_H

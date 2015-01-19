@@ -2,7 +2,7 @@
 #define DATA_H
 
 #include <admesh/stl.h>
-
+#include <QVector3D>
 #include <libintl.h>
 #include <locale.h>
 #include <QString>
@@ -24,5 +24,10 @@ inline QString _( const char *msgid, int category )
 #define PERSPECTIVE 50.0f
 #define MIN_VIEW_DISTANCE 0.01f
 #define MAX_VIEW_DISTANCE 10000.0f
+
+#define GREEN QVector3D(0.0,1.0,0.0)
+#define RED QVector3D(1.0,0.0,0.0)
+#define BLUE QVector3D(0.0,0.0,1.0)
+#define BLACK QVector3D(0.0,0.0,0.0)
 
 #endif // DATA_H

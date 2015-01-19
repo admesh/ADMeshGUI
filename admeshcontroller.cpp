@@ -2,6 +2,7 @@
 #include <QFileDialog>
 #include <QtWidgets>
 #include <string>
+//#include <QVector3D>
 
 using namespace std;
 
@@ -20,7 +21,12 @@ admeshController::~admeshController()
 
 void admeshController::drawAll(QGLShaderProgram *program)
 {
+     program->setUniformValue("color", color);
      if(stl) stl->drawGeometry(program);
+}
+
+void admeshController::setDrawColor(QVector3D col){
+    color = col;
 }
 
 char* QStringToChar(QString str)
@@ -65,7 +71,3 @@ void admeshController::openSTLbyName(const char* filename)
     reDrawSignal();
 }
 
-stl_file* admeshController::getSTLPointer()
-{
-    //return stl;
-}
