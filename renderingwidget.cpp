@@ -227,24 +227,36 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
 }
 
 void RenderingWidget::initAxes(){
-
+    GLfloat vertices[]={
+       AXIS_SIZE, 0.0 , 0.0,
+       1.0, 1.0, 1.0,
+       -AXIS_SIZE, 0.0, 0.0,
+       1.0, 1.0, 1.0,
+       0.0, AXIS_SIZE, 0.0,
+       1.0, 1.0, 1.0,
+       0.0, -AXIS_SIZE, 0.0,
+       1.0, 1.0, 1.0,
+       0.0, 0.0, AXIS_SIZE,
+       1.0, 1.0, 1.0,
+       0.0, 0.0, -AXIS_SIZE,
+       1.0, 1.0, 1.0,
+    };
+    glBindBuffer(GL_ARRAY_BUFFER, axes_vbo);
+    glBufferData(GL_ARRAY_BUFFER, 36 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 }
 
 void RenderingWidget::drawAxes()
 {
-    glBegin(GL_LINES);
-    qglColor(Qt::red);
-    glVertex3f(-AXIS_SIZE, 0.0f, 0.0f);
-    glVertex3f(AXIS_SIZE, 0.0f, 0.0f);
+    glBindBuffer(GL_ARRAY_BUFFER, axes_vbo);
+    int vertexLocation = program.attributeLocation("a_position");
+    program.enableAttributeArray(vertexLocation);
+    glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, 0);
 
-    qglColor(Qt::green);
-    glVertex3f(0.0f, -AXIS_SIZE, 0.0f);
-    glVertex3f(0.0f, AXIS_SIZE, 0.0f);
+    int normalLocation = program.attributeLocation("a_normal");
+    program.enableAttributeArray(normalLocation);
+    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (const void *)(sizeof(GLfloat)*3));
 
-    qglColor(Qt::blue);
-    glVertex3f(0.0f, 0.0f, -AXIS_SIZE);
-    glVertex3f(0.0f, 0.0f, AXIS_SIZE);
-    glEnd();
+    glDrawArrays(GL_LINES, 0, 12);
 }
 
 void RenderingWidget::reDraw()
