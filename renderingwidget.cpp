@@ -16,6 +16,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     zoom = 100.0f;    
 }
 
+
 RenderingWidget::~RenderingWidget()
 {
     stl_close(&stlfile);
@@ -59,6 +60,7 @@ void RenderingWidget::toggleAxes()
 
 void RenderingWidget::toggleMode()
 {
+    makeCurrent();
     if(SolidMode){
         SolidMode = false;
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );

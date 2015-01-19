@@ -10,11 +10,11 @@ int main(int argc, char *argv[])
     setlocale(LC_NUMERIC,"C");
 
     QSurfaceFormat format;
-    /*format.setDepthBufferSize(24);
+    format.setDepthBufferSize(24);
     format.setStencilBufferSize(8);
-    format.setSamples(4);*/
+    format.setSamples(4);
     /*format.setProfile(QSurfaceFormat::CoreProfile);*/
-    //QSurfaceFormat::setDefaultFormat(format);
+    QSurfaceFormat::setDefaultFormat(format);
 
     Window window;
     window.resize(window.sizeHint());
