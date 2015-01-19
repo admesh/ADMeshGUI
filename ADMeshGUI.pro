@@ -28,6 +28,13 @@ FORMS    += window.ui
 
 LIBS += -ladmesh -L -lglut -lGLU
 
+DISTFILES += \
+    fshader.glsl \
+    vshader.glsl
+
+RESOURCES += \
+    shaders.qrc
+
 
 
 

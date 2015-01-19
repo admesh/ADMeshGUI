@@ -2,6 +2,11 @@
 #define MYGLWIDGET_H
 
 #include <QGLWidget>
+#include <QGLFunctions>
+#include <QMatrix4x4>
+#include <QVector2D>
+#include <QGLShaderProgram>
+#include <QBasicTimer>
 #include <QBrush>
 #include <QFont>
 #include <QImage>
@@ -11,7 +16,7 @@
 #include "admeshcontroller.h"
 
 
-class RenderingWidget : public QGLWidget
+class RenderingWidget : public QGLWidget, protected QGLFunctions
 {
     Q_OBJECT
 public:
@@ -21,9 +26,11 @@ public:
 
 protected:
     void initializeGL();
-    //void paintGL();
+    void initShaders();
+    void paintGL();
     void resizeGL(int width, int height);
-    void paintEvent(QPaintEvent *event);
+    //void paintEvent(QPaintEvent *event);
+    void timerEvent(QTimerEvent *e);
 
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
@@ -43,11 +50,20 @@ signals:
     void yRotationChanged(int angle);
 
 private:
+    void initAxes();
     void drawInfo(QPainter *painter);
     void drawAxes();
     void draw();
     void normalizeAngles();
     void getCamPos();
+
+    QBasicTimer timer;
+
+    QGLShaderProgram program;
+    QMatrix4x4 projection;
+    QMatrix4x4 view;
+
+    GLuint axes_vbo;
 
     GLfloat angleX;
     GLfloat angleY;

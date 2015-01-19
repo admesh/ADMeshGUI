@@ -73,6 +73,8 @@ void RenderingWidget::toggleMode()
 void RenderingWidget::initializeGL()
 {
     qglClearColor(Qt::white);
+    initializeGLFunctions();
+    //initShaders();
     glEnable(GL_DEPTH_TEST);
     glShadeModel(GL_SMOOTH);
     glEnable(GL_COLOR_MATERIAL);
@@ -84,7 +86,22 @@ void RenderingWidget::initializeGL()
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 }
 
-/*void RenderingWidget::paintGL()
+void RenderingWidget::initShaders(){
+    if (!program.addShaderFromSourceFile(QGLShader::Vertex, ":/vshader.glsl")) close();
+
+    if (!program.addShaderFromSourceFile(QGLShader::Fragment, ":/fshader.glsl")) close();
+
+    if (!program.link()) close();
+
+    if (!program.bind()) close();
+}
+
+void RenderingWidget::timerEvent(QTimerEvent *)
+{
+
+}
+
+void RenderingWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
@@ -100,7 +117,7 @@ void RenderingWidget::initializeGL()
 
     gluLookAt( xPos, yPos, zPos, 0.0, 0.0, 0.0, upX, upY, upZ );
     draw();
-}*/
+}
 
 void RenderingWidget::resizeGL(int width, int height)
 {
@@ -145,7 +162,7 @@ void RenderingWidget::getCamPos()
     gluLookAt( xPos, yPos, zPos, 0.0, 0.0, 0.0, upX, upY, upZ );
 }
 
-void RenderingWidget::paintEvent(QPaintEvent *event)
+/*void RenderingWidget::paintEvent(QPaintEvent *event)
 {
     makeCurrent();
     glMatrixMode(GL_MODELVIEW);
@@ -180,7 +197,7 @@ void RenderingWidget::paintEvent(QPaintEvent *event)
     drawInfo(&painter);
 
     event->accept();
-}
+}*/
 
 void RenderingWidget::normalizeAngles()
 {
