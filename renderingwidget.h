@@ -2,6 +2,7 @@
 #define MYGLWIDGET_H
 
 #include <QGLWidget>
+#include <QOpenGLWidget>
 #include <QGLFunctions>
 #include <QMatrix4x4>
 #include <QVector2D>
@@ -16,7 +17,7 @@
 #include "admeshcontroller.h"
 
 
-class RenderingWidget : public QGLWidget, protected QGLFunctions
+class RenderingWidget : public QOpenGLWidget, protected QGLFunctions
 {
     Q_OBJECT
 public:

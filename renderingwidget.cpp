@@ -4,7 +4,7 @@
 #include "renderingwidget.h"
 
 RenderingWidget::RenderingWidget(QWidget *parent)
-    : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
+    : QOpenGLWidget(parent)
 {    
     Axes = true;
     SolidMode = false;
@@ -15,7 +15,6 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     angleY = 70.0f;
     zoom = 100.0f;    
 }
-
 
 RenderingWidget::~RenderingWidget()
 {
@@ -78,7 +77,7 @@ void RenderingWidget::initializeGL()
     initShaders();
     glGenBuffers(1, &axes_vbo);
     initAxes();
-    qglClearColor(Qt::white);
+    glClearColor(1.0,1.0,1.0,1.0);
     glEnable(GL_DEPTH_TEST);
     timer.start(33, this);
     toggleMode();
@@ -97,7 +96,7 @@ void RenderingWidget::initShaders(){
 
 void RenderingWidget::timerEvent(QTimerEvent *)
 {
-    updateGL();
+    update();
 }
 
 void RenderingWidget::paintGL()
@@ -269,6 +268,6 @@ void RenderingWidget::drawAxes()
 
 void RenderingWidget::reDraw()
 {
-    updateGL();
+    update();
 }
 
