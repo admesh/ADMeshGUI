@@ -52,3 +52,4 @@ moc_*.cpp
 *.o
 Makefile
 ui_window.h
+qrc_shaders.cpp

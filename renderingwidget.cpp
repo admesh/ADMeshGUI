@@ -20,6 +20,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
 RenderingWidget::~RenderingWidget()
 {
     stl_close(&stlfile);
+    glDeleteBuffers(1, &axes_vbo);
 }
 
 
@@ -65,25 +66,21 @@ void RenderingWidget::toggleMode()
     }else{
         SolidMode = true;
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-        glEnable(GL_CULL_FACE);
     }
-    update();
+    reDraw();
 }
 
 void RenderingWidget::initializeGL()
 {
-    qglClearColor(Qt::white);
     initializeGLFunctions();
-    //initShaders();
+    initShaders();
+    glGenBuffers(1, &axes_vbo);
+    initAxes();
+    qglClearColor(Qt::white);
     glEnable(GL_DEPTH_TEST);
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);    
-    glDisable(GL_CULL_FACE);
-    this->toggleMode();    
-    static GLfloat lightPosition[4] = { 0, 0, 10, 1.0 };
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+    timer.start(33, this);
+    toggleMode();
+    reDraw();
 }
 
 void RenderingWidget::initShaders(){
@@ -98,34 +95,28 @@ void RenderingWidget::initShaders(){
 
 void RenderingWidget::timerEvent(QTimerEvent *)
 {
-
+    updateGL();
 }
 
 void RenderingWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-    xPos = zoom * sin(angleY*(M_PI/180)) * sin(angleX*(M_PI/180));
-    yPos = zoom * cos(angleY*(M_PI/180));
-    zPos = zoom * sin(angleY*(M_PI/180)) * cos(angleX*(M_PI/180));
-
-    GLfloat dt=1.0f; //small difference to get second point
-
-    GLfloat upX=zoom * sin(angleY*(M_PI/180)-dt) * sin(angleX*(M_PI/180)) -xPos;
-    GLfloat upY=zoom * cos(angleY*(M_PI/180)-dt) -yPos;
-    GLfloat upZ=zoom * sin(angleY*(M_PI/180)-dt) * cos(angleX*(M_PI/180)) -zPos;
-
-    gluLookAt( xPos, yPos, zPos, 0.0, 0.0, 0.0, upX, upY, upZ );
-    draw();
+    if(Axes){
+        drawAxes();
+    }
+    getCamPos();
+    QMatrix4x4 model;
+    model.setToIdentity();
+    model.rotate(90, -1.0f,0.0f,0.0f); //rotate to OpenGL axes system
+    program.setUniformValue("mvp_matrix", projection * view * model);
+    controller->drawAll(&program);
 }
 
 void RenderingWidget::resizeGL(int width, int height)
 {
     glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(PERSPECTIVE, (GLfloat)width/(GLfloat)height, MIN_VIEW_DISTANCE, MAX_VIEW_DISTANCE);
-    glMatrixMode(GL_MODELVIEW);
+    projection.setToIdentity();
+    projection.perspective(PERSPECTIVE, (GLfloat)width/(GLfloat)height, MIN_VIEW_DISTANCE, MAX_VIEW_DISTANCE);
 }
 
 void RenderingWidget::drawInfo(QPainter *painter) {
@@ -159,7 +150,8 @@ void RenderingWidget::getCamPos()
     GLfloat upY=zoom * cos(angleY*(M_PI/180)-dt) -yPos;
     GLfloat upZ=zoom * sin(angleY*(M_PI/180)-dt) * cos(angleX*(M_PI/180)) -zPos;
 
-    gluLookAt( xPos, yPos, zPos, 0.0, 0.0, 0.0, upX, upY, upZ );
+    view.setToIdentity();
+    view.lookAt (QVector3D(xPos, yPos, zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
 }
 
 /*void RenderingWidget::paintEvent(QPaintEvent *event)
@@ -211,7 +203,6 @@ void RenderingWidget::wheelEvent(QWheelEvent* event)
 {
     GLfloat tmp = zoom - event->delta()/ZOOM_SPEED;
     if(tmp > MIN_ZOOM && tmp < MAX_ZOOM) zoom = tmp;
-    update();
 }
 
 void RenderingWidget::mousePressEvent(QMouseEvent *event)
@@ -232,8 +223,11 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
 
         normalizeAngles();
         lastPos = event->pos();
-        update();
     }
+}
+
+void RenderingWidget::initAxes(){
+
 }
 
 void RenderingWidget::drawAxes()
@@ -255,33 +249,6 @@ void RenderingWidget::drawAxes()
 
 void RenderingWidget::reDraw()
 {
-    update();
+    updateGL();
 }
 
-void RenderingWidget::draw()
-{
-    if(Axes==true)drawAxes();
-
-    if(SolidMode){
-        qglColor(Qt::green);
-        glEnable(GL_CULL_FACE);
-    }else{
-        qglColor(Qt::black);
-        glDisable(GL_CULL_FACE);
-    }
-    stl_file *stlfile=controller->getSTLPointer();
-
-    int N = stlfile->stats.number_of_facets;
-    glRotatef(90, -1.0f,0.0f,0.0f); //rotation to OpenGL axes system
-
-    for(int i=0;i<N;i++){
-        glBegin(GL_TRIANGLES);
-        glNormal3f(stlfile->facet_start[i].normal.x,stlfile->facet_start[i].normal.y,stlfile->facet_start[i].normal.z);
-        glVertex3f(stlfile->facet_start[i].vertex[0].x,stlfile->facet_start[i].vertex[0].y,stlfile->facet_start[i].vertex[0].z);
-        glVertex3f(stlfile->facet_start[i].vertex[1].x,stlfile->facet_start[i].vertex[1].y,stlfile->facet_start[i].vertex[1].z);
-        glVertex3f(stlfile->facet_start[i].vertex[2].x,stlfile->facet_start[i].vertex[2].y,stlfile->facet_start[i].vertex[2].z);
-        glEnd();
-    }
-    //glVertexPointer(3, GL_FLOAT, 3*sizeof(float), stlfile.v_shared);
-    //glDrawElements(GL_TRIANGLES, 3*N, GL_UNSIGNED_INT, stlfile.v_indices);
-}

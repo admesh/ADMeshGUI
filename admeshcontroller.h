@@ -1,8 +1,10 @@
 #ifndef ADMESHCONTROLLER_H
 #define ADMESHCONTROLLER_H
 
+#include <QGLShaderProgram>
 #include <QObject>
 #include "data.h"
+#include "meshobject.h"
 
 class admeshController : public QObject
 {
@@ -11,6 +13,7 @@ public:
     explicit admeshController(QObject *parent = 0);
     ~admeshController();
     stl_file* getSTLPointer();
+    void drawAll(QGLShaderProgram *program);
 
 signals:
     void reDrawSignal();
@@ -20,8 +23,8 @@ public slots:
     void openSTLbyName(const char* file);
 
 private:
-    stl_file* stl;
-    stl_file* active;
+    MeshObject* stl;
+    MeshObject* active;
 };
 
 #endif // ADMESHCONTROLLER_H

@@ -8,16 +8,19 @@ using namespace std;
 admeshController::admeshController(QObject *parent) :
     QObject(parent)
 {
-    stl = new stl_file;
-    active = new stl_file;
-    stl_initialize(stl);
+    stl = NULL;
     active = NULL;
 }
 
 admeshController::~admeshController()
 {
-    stl_close(stl);
+    delete stl;
     active = NULL;
+}
+
+void admeshController::drawAll(QGLShaderProgram *program)
+{
+     if(stl) stl->drawGeometry(program);
 }
 
 char* QStringToChar(QString str)
@@ -32,34 +35,37 @@ void admeshController::openSTL()
 {
     QString fileName = QFileDialog::getOpenFileName(NULL, _("Open STL"), "/", _("STL (*.stl)"));
     if(!fileName.isEmpty()){
+        MeshObject* tmp = new MeshObject;
         char *file = QStringToChar(fileName);
-        stl_open(stl, file);
-        if(stl_get_error(stl)){
-           QString msg;
-           QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
-           QMessageBox::critical(NULL, _("Error"), msg);
-         stl_clear_error(stl);
+        if(!tmp->loadGeometry(file)){
+            QString msg;
+            QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
+            QMessageBox::critical(NULL, _("Error"), msg);
+        }else{
+            stl = tmp;
+            active = stl;
         }
         delete []file;
+    }
+    reDrawSignal();
+}
+
+void admeshController::openSTLbyName(const char* filename)
+{
+    char* file = const_cast<char *>(filename);
+    MeshObject* tmp = new MeshObject;
+    if(!tmp->loadGeometry(file)){
+        QString msg;
+        QTextStream(&msg) << _("File ") << file << _(" could not be opened.\n");
+        QMessageBox::critical(NULL, _("Error"), msg);
+    }else{
+        stl = tmp;
         active = stl;
     }
     reDrawSignal();
 }
 
-void admeshController::openSTLbyName(const char* filename){
-    char* file = const_cast<char *>(filename);
-    stl_open(stl, file);
-    if(stl_get_error(stl)){
-       QString msg;
-       QTextStream(&msg) << _("File ") << file << _(" could not be opened.\n");
-       QMessageBox::critical(NULL, _("Error"), msg);
-     stl_clear_error(stl);
-    }
-    active = stl;
-    reDrawSignal();
-}
-
 stl_file* admeshController::getSTLPointer()
 {
-    return stl;
+    //return stl;
 }

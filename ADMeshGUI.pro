@@ -17,12 +17,14 @@ uic.commands += -tr _
 SOURCES += main.cpp\
         window.cpp \    
     renderingwidget.cpp \
-    admeshcontroller.cpp
+    admeshcontroller.cpp \
+    meshobject.cpp
 
 HEADERS  += window.h \
     data.h \
     renderingwidget.h \
-    admeshcontroller.h
+    admeshcontroller.h \
+    meshobject.h
 
 FORMS    += window.ui
 
