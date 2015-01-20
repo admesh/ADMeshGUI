@@ -24,7 +24,6 @@ MeshObject::~MeshObject(){
     glDeleteBuffers(1, &vbo);
 }
 
-/*return true upon succesfull load*/
 bool MeshObject::loadGeometry(char* fileName)
 {
     stl_open(stl, fileName);

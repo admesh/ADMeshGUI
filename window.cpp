@@ -61,11 +61,6 @@ void Window::addMenus(){
     viewMenu->addAction(modeAct);
 }
 
-void Window::open()
- {
-
- }
-
 void Window::openByFilename(const char* filename){
     controller->openSTLbyName(filename);
 }
