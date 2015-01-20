@@ -58,8 +58,15 @@ public slots:
      */
     void openSTLbyName(const char* file);
 
-    void setScale(double param);
+    /*!
+     * \brief Set scale factor.
+     * \param factor Factor
+     */
+    void setScale(double factor);
 
+    /*!
+     * \brief Scale selected model by scale factor.
+     */
     void scale();
 
 private:
@@ -67,7 +74,7 @@ private:
     MeshObject* active;     ///< Active STL file
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
-    float m_scale;
+    float m_scale;          ///< Scale factor
 };
 
 #endif // ADMESHCONTROLLER_H

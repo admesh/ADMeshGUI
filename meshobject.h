@@ -44,6 +44,10 @@ public:
      */
     void drawGeometry(QGLShaderProgram *program);
 
+    /*!
+     * \brief Scale stl file.
+     * \param factor Scaling factor.
+     */
     void scale(float factor);
 
     /*!
