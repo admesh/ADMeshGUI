@@ -38,6 +38,12 @@ bool MeshObject::loadGeometry(char* fileName)
     return true;
 }
 
+void MeshObject::scale(float factor)
+{
+    stl_scale(stl, factor);
+    this->updateGeometry();
+}
+
 void MeshObject::updateGeometry()
 {
     int N = stl->stats.number_of_facets;

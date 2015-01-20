@@ -73,3 +73,13 @@ void admeshController::openSTLbyName(const char* filename)
     reDrawSignal();
 }
 
+void admeshController::setScale(double param)
+{
+    m_scale = (float)param;
+}
+
+void admeshController::scale()
+{
+    if(active) active->scale(m_scale);
+}
+

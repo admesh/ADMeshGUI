@@ -17,6 +17,9 @@ Window::Window(QWidget *parent) :
     connect(controller, SIGNAL(reDrawSignal()), ui->renderingWidget, SLOT(reDraw()));
     addActions();
     addMenus();
+
+    connect(ui->scaleBox, SIGNAL(valueChanged(double)), controller, SLOT(setScale(double)));
+    connect(ui->scaleButton, SIGNAL(clicked()), controller, SLOT(scale()));
 }
 
 Window::~Window()

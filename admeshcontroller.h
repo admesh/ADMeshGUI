@@ -58,11 +58,16 @@ public slots:
      */
     void openSTLbyName(const char* file);
 
+    void setScale(double param);
+
+    void scale();
+
 private:
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
+    float m_scale;
 };
 
 #endif // ADMESHCONTROLLER_H

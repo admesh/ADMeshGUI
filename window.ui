@@ -56,14 +56,49 @@ border-right: none;
    <property name="spacing">
     <number>0</number>
    </property>
-   <item row="0" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="menuLayout">
-     <property name="spacing">
-      <number>0</number>
-     </property>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="leftMargin">
+      <number>11</number>
+     </property>
+     <property name="topMargin">
+      <number>11</number>
+     </property>
+     <property name="rightMargin">
+      <number>32</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>xRot</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="xRotSlider">
+       <property name="maximum">
+        <number>360</number>
+       </property>
+       <property name="singleStep">
+        <number>16</number>
+       </property>
+       <property name="pageStep">
+        <number>15</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="tickPosition">
+        <enum>QSlider::TicksAbove</enum>
+       </property>
+       <property name="tickInterval">
+        <number>15</number>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item row="1" column="0">
@@ -204,6 +239,64 @@ border-right: none;
      </item>
     </layout>
    </item>
+   <item row="0" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="menuLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <property name="leftMargin">
+      <number>11</number>
+     </property>
+     <property name="rightMargin">
+      <number>32</number>
+     </property>
+     <property name="bottomMargin">
+      <number>11</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>yRot</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="yRotSlider">
+       <property name="maximum">
+        <number>360</number>
+       </property>
+       <property name="singleStep">
+        <number>16</number>
+       </property>
+       <property name="pageStep">
+        <number>15</number>
+       </property>
+       <property name="value">
+        <number>70</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="tickPosition">
+        <enum>QSlider::TicksAbove</enum>
+       </property>
+       <property name="tickInterval">
+        <number>15</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item row="1" column="1" rowspan="3">
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <property name="leftMargin">
@@ -228,7 +321,7 @@ border-right: none;
        </property>
        <property name="minimumSize">
         <size>
-         <width>130</width>
+         <width>150</width>
          <height>0</height>
         </size>
        </property>
@@ -295,99 +388,57 @@ border-right: none;
          </property>
         </widget>
        </widget>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="leftMargin">
-      <number>11</number>
-     </property>
-     <property name="topMargin">
-      <number>11</number>
-     </property>
-     <property name="rightMargin">
-      <number>32</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>xRot</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSlider" name="xRotSlider">
-       <property name="maximum">
-        <number>360</number>
-       </property>
-       <property name="singleStep">
-        <number>16</number>
-       </property>
-       <property name="pageStep">
-        <number>15</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksAbove</enum>
-       </property>
-       <property name="tickInterval">
-        <number>15</number>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="3" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <property name="spacing">
-      <number>6</number>
-     </property>
-     <property name="leftMargin">
-      <number>11</number>
-     </property>
-     <property name="rightMargin">
-      <number>32</number>
-     </property>
-     <property name="bottomMargin">
-      <number>11</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>yRot</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSlider" name="yRotSlider">
-       <property name="maximum">
-        <number>360</number>
-       </property>
-       <property name="singleStep">
-        <number>16</number>
-       </property>
-       <property name="pageStep">
-        <number>15</number>
-       </property>
-       <property name="value">
-        <number>70</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksAbove</enum>
-       </property>
-       <property name="tickInterval">
-        <number>15</number>
-       </property>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>110</y>
+          <width>131</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Transforms</string>
+        </property>
+        <widget class="QPushButton" name="scaleButton">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>20</y>
+           <width>51</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Scale</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="scaleBox">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>69</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <double>-99.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.500000000000000</double>
+         </property>
+         <property name="value">
+          <double>1.000000000000000</double>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -418,8 +469,8 @@ border-right: none;
    <slot>setXRotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>313</x>
-     <y>344</y>
+     <x>362</x>
+     <y>627</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -434,8 +485,8 @@ border-right: none;
    <slot>setYRotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>308</x>
-     <y>386</y>
+     <x>357</x>
+     <y>663</y>
     </hint>
     <hint type="destinationlabel">
      <x>132</x>
@@ -450,8 +501,8 @@ border-right: none;
    <slot>toggleMode()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>634</x>
-     <y>130</y>
+     <x>940</x>
+     <y>99</y>
     </hint>
     <hint type="destinationlabel">
      <x>426</x>
@@ -466,12 +517,12 @@ border-right: none;
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>512</x>
-     <y>291</y>
+     <x>824</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
-     <x>512</x>
-     <y>291</y>
+     <x>824</x>
+     <y>295</y>
     </hint>
    </hints>
   </connection>
@@ -482,12 +533,12 @@ border-right: none;
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>512</x>
-     <y>291</y>
+     <x>824</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
-     <x>482</x>
-     <y>291</y>
+     <x>794</x>
+     <y>295</y>
     </hint>
    </hints>
   </connection>
@@ -498,12 +549,12 @@ border-right: none;
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>482</x>
-     <y>291</y>
+     <x>794</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
-     <x>512</x>
-     <y>291</y>
+     <x>824</x>
+     <y>295</y>
     </hint>
    </hints>
   </connection>
@@ -514,12 +565,12 @@ border-right: none;
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>457</x>
-     <y>189</y>
+     <x>794</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
-     <x>457</x>
-     <y>180</y>
+     <x>794</x>
+     <y>184</y>
     </hint>
    </hints>
   </connection>
@@ -530,8 +581,8 @@ border-right: none;
    <slot>toggleAxes()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>634</x>
-     <y>86</y>
+     <x>940</x>
+     <y>59</y>
     </hint>
     <hint type="destinationlabel">
      <x>362</x>
@@ -546,12 +597,12 @@ border-right: none;
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>512</x>
-     <y>172</y>
+     <x>824</x>
+     <y>176</y>
     </hint>
     <hint type="destinationlabel">
-     <x>544</x>
-     <y>150</y>
+     <x>977</x>
+     <y>159</y>
     </hint>
    </hints>
   </connection>
@@ -562,12 +613,12 @@ border-right: none;
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>482</x>
-     <y>150</y>
+     <x>794</x>
+     <y>154</y>
     </hint>
     <hint type="destinationlabel">
-     <x>527</x>
-     <y>118</y>
+     <x>977</x>
+     <y>127</y>
     </hint>
    </hints>
   </connection>

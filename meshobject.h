@@ -44,6 +44,8 @@ public:
      */
     void drawGeometry(QGLShaderProgram *program);
 
+    void scale(float factor);
+
     /*!
      * \brief Destructor. Closes stl structure. Deletes vbo;
      */
