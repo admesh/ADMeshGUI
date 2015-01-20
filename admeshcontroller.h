@@ -13,7 +13,7 @@ public:
     explicit admeshController(QObject *parent = 0);
     ~admeshController();
     void drawAll(QGLShaderProgram *program);
-    void setDrawColor(QVector3D);
+    void setDrawColor(QVector3D,QVector3D);
 
 signals:
     void reDrawSignal();
@@ -26,6 +26,7 @@ private:
     MeshObject* stl;
     MeshObject* active;
     QVector3D color;
+    QVector3D badColor;
 };
 
 #endif // ADMESHCONTROLLER_H

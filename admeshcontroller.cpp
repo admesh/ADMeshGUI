@@ -22,11 +22,13 @@ admeshController::~admeshController()
 void admeshController::drawAll(QGLShaderProgram *program)
 {
      program->setUniformValue("color", color);
+     program->setUniformValue("badColor", badColor);
      if(stl) stl->drawGeometry(program);
 }
 
-void admeshController::setDrawColor(QVector3D col){
+void admeshController::setDrawColor(QVector3D col, QVector3D badCol){
     color = col;
+    badColor = badCol;
 }
 
 char* QStringToChar(QString str)

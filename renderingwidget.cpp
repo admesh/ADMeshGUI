@@ -64,11 +64,11 @@ void RenderingWidget::toggleMode()
     if(SolidMode){
         SolidMode = false;
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-        controller->setDrawColor(BLACK);
+        controller->setDrawColor(BLACK,BLACK);
     }else{
         SolidMode = true;
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-        controller->setDrawColor(GREEN);
+        controller->setDrawColor(GREEN,RED);
     }
     reDraw();
 }
