@@ -20,6 +20,9 @@ Window::Window(QWidget *parent) :
 
     connect(ui->scaleBox, SIGNAL(valueChanged(double)), controller, SLOT(setScale(double)));
     connect(ui->scaleButton, SIGNAL(clicked()), controller, SLOT(scale()));
+    connect(ui->mirrorxyButton, SIGNAL(clicked()), controller, SLOT(mirrorXY()));
+    connect(ui->mirroryzButton, SIGNAL(clicked()), controller, SLOT(mirrorYZ()));
+    connect(ui->mirrorxzButton, SIGNAL(clicked()), controller, SLOT(mirrorXZ()));
 }
 
 Window::~Window()

@@ -44,6 +44,24 @@ void MeshObject::scale(float factor)
     this->updateGeometry();
 }
 
+void MeshObject::mirrorXY()
+{
+    stl_mirror_xy(stl);
+    this->updateGeometry();
+}
+
+void MeshObject::mirrorYZ()
+{
+    stl_mirror_yz(stl);
+    this->updateGeometry();
+}
+
+void MeshObject::mirrorXZ()
+{
+    stl_mirror_xz(stl);
+    this->updateGeometry();
+}
+
 void MeshObject::updateGeometry()
 {
     int N = stl->stats.number_of_facets;

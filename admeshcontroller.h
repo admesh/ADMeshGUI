@@ -69,6 +69,21 @@ public slots:
      */
     void scale();
 
+    /*!
+     * \brief Mirror selected model by XY plane.
+     */
+    void mirrorXY();
+
+    /*!
+     * \brief Mirror selected model by YZ plane.
+     */
+    void mirrorYZ();
+
+    /*!
+     * \brief Mirror selected model by XZ plane.
+     */
+    void mirrorXZ();
+
 private:
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file

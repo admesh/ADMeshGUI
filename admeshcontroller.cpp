@@ -11,6 +11,7 @@ admeshController::admeshController(QObject *parent) :
 {
     stl = NULL;
     active = NULL;
+    m_scale = 1.0;
 }
 
 admeshController::~admeshController()
@@ -82,4 +83,20 @@ void admeshController::scale()
 {
     if(active) active->scale(m_scale);
 }
+
+void admeshController::mirrorXY()
+{
+    if(active) active->mirrorXY();
+}
+
+void admeshController::mirrorYZ()
+{
+    if(active) active->mirrorYZ();
+}
+
+void admeshController::mirrorXZ()
+{
+    if(active) active->mirrorXZ();
+}
+
 

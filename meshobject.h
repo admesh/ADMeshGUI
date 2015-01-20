@@ -51,6 +51,21 @@ public:
     void scale(float factor);
 
     /*!
+     * \brief Mirror model by XY plane.
+     */
+    void mirrorXY();
+
+    /*!
+     * \brief Mirror model by YZ plane.
+     */
+    void mirrorYZ();
+
+    /*!
+     * \brief Mirror model by XZ plane.
+     */
+    void mirrorXZ();
+
+    /*!
      * \brief Destructor. Closes stl structure. Deletes vbo;
      */
     virtual ~MeshObject();

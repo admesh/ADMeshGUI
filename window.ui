@@ -394,7 +394,7 @@ border-right: none;
           <x>10</x>
           <y>110</y>
           <width>131</width>
-          <height>80</height>
+          <height>211</height>
          </rect>
         </property>
         <property name="title">
@@ -437,6 +437,39 @@ border-right: none;
          <property name="value">
           <double>1.000000000000000</double>
          </property>
+        </widget>
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>121</width>
+           <height>95</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="mirrorxyButton">
+            <property name="text">
+             <string>Mirror XY</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mirroryzButton">
+            <property name="text">
+             <string>Mirror YZ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mirrorxzButton">
+            <property name="text">
+             <string>Mirro XZ</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </widget>
       </widget>
