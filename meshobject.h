@@ -84,6 +84,15 @@ public:
     void rotateZ(float angle);
 
     /*!
+     * \brief Translate stl file. All axes together.
+     * \param relative Relative translation on/off.
+     * \param x_trans X axis translation factor.
+     * \param y_trans Y axis translation factor.
+     * \param z_trans Z axis translation factor.
+     */
+    void translate(bool relative, float x_trans, float y_trans, float z_trans);
+
+    /*!
      * \brief Destructor. Closes stl structure. Deletes vbo;
      */
     virtual ~MeshObject();

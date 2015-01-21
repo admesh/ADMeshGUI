@@ -74,8 +74,19 @@ void MeshObject::rotateY(float angle)
     this->updateGeometry();
 }
 
-void MeshObject::rotateZ(float angle){
+void MeshObject::rotateZ(float angle)
+{
     stl_rotate_z(stl, angle);
+    this->updateGeometry();
+}
+
+void MeshObject::translate(bool relative, float x_trans, float y_trans, float z_trans)
+{
+    if(relative){
+        stl_translate_relative(stl, x_trans, y_trans, z_trans);
+    }else{
+        stl_translate(stl, x_trans, y_trans, z_trans);
+    }
     this->updateGeometry();
 }
 

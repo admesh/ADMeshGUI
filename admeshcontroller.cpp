@@ -12,6 +12,13 @@ admeshController::admeshController(QObject *parent) :
     stl = NULL;
     active = NULL;
     m_scale = 1.0;
+    x_rot = 0.0;
+    y_rot = 0.0;
+    z_rot = 0.0;
+    x_translate = 0.0;
+    y_translate = 0.0;
+    z_translate = 0.0;
+    rel_translate = true;
 }
 
 admeshController::~admeshController()
@@ -127,5 +134,31 @@ void admeshController::rotateY()
 void admeshController::rotateZ()
 {
     if(active) active->rotateZ(z_rot);
+}
+
+void admeshController::setXTranslate(double factor)
+{
+    x_translate = factor;
+}
+
+void admeshController::setYTranslate(double factor)
+{
+    y_translate = factor;
+}
+
+void admeshController::setZTranslate(double factor)
+{
+    z_translate = factor;
+}
+
+void admeshController::setRelativeTranslate()
+{
+    if(rel_translate) rel_translate = false;
+    else rel_translate = true;
+}
+
+void admeshController::translate()
+{
+    if(active) active->translate(rel_translate, x_translate, y_translate, z_translate);
 }
 

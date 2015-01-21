@@ -117,6 +117,34 @@ public slots:
      */
     void rotateZ();
 
+    /*!
+     * \brief Set X translation factor.
+     * \param factor Factor of translation.
+     */
+    void setXTranslate(double factor);
+
+    /*!
+     * \brief Set Y translation factor.
+     * \param factor Factor of translation.
+     */
+    void setYTranslate(double factor);
+
+    /*!
+     * \brief Set Z translation factor.
+     * \param factor Factor of translation.
+     */
+    void setZTranslate(double factor);
+
+    /*!
+     * \brief Switch between relative and non-relative translation.
+     */
+    void setRelativeTranslate();
+
+    /*!
+     * \brief Translate selected model with factors given.
+     */
+    void translate();
+
 private:
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file
@@ -126,6 +154,10 @@ private:
     float x_rot;            ///< X rotation angle
     float y_rot;            ///< Y rotation angle
     float z_rot;            ///< Z rotation angle
+    float x_translate;      ///< X translation factor
+    float y_translate;      ///< Y translation factor
+    float z_translate;      ///< Z translation factor
+    bool rel_translate;     ///< Relative translation
 };
 
 #endif // ADMESHCONTROLLER_H

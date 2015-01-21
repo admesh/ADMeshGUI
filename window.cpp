@@ -29,6 +29,11 @@ Window::Window(QWidget *parent) :
     connect(ui->rotateYButton, SIGNAL(clicked()), controller, SLOT(rotateY()));
     connect(ui->rotateZBox, SIGNAL(valueChanged(double)), controller, SLOT(setZRot(double)));
     connect(ui->rotateZButton, SIGNAL(clicked()), controller, SLOT(rotateZ()));
+    connect(ui->translateXBox, SIGNAL(valueChanged(double)), controller, SLOT(setXTranslate(double)));
+    connect(ui->translateYBox, SIGNAL(valueChanged(double)), controller, SLOT(setYTranslate(double)));
+    connect(ui->translateZBox, SIGNAL(valueChanged(double)), controller, SLOT(setZTranslate(double)));
+    connect(ui->translateRelBox, SIGNAL(stateChanged(int)), controller, SLOT(setRelativeTranslate()));
+    connect(ui->translateButton, SIGNAL(clicked()), controller, SLOT(translate()));
 }
 
 Window::~Window()
