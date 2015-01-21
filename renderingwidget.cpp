@@ -19,7 +19,6 @@ RenderingWidget::RenderingWidget(QWidget *parent)
 
 RenderingWidget::~RenderingWidget()
 {
-    stl_close(&stlfile);
     glDeleteBuffers(1, &axes_vbo);
 }
 

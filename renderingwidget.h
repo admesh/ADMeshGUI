@@ -187,7 +187,6 @@ private:
 
     QPoint lastPos;                 ///< Last clicked position.
 
-    stl_file stlfile;
     admeshController *controller;   ///< Pointer to main controller.
 };
 
