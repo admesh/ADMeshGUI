@@ -99,4 +99,33 @@ void admeshController::mirrorXZ()
     if(active) active->mirrorXZ();
 }
 
+void admeshController::setXRot(double angle)
+{
+    x_rot = (float)angle;
+}
+
+void admeshController::setYRot(double angle)
+{
+    y_rot = (float)angle;
+}
+
+void admeshController::setZRot(double angle)
+{
+    z_rot = (float)angle;
+}
+
+void admeshController::rotateX()
+{
+    if(active) active->rotateX(x_rot);
+}
+
+void admeshController::rotateY()
+{
+    if(active) active->rotateY(y_rot);
+}
+
+void admeshController::rotateZ()
+{
+    if(active) active->rotateZ(z_rot);
+}
 

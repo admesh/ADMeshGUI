@@ -23,6 +23,12 @@ Window::Window(QWidget *parent) :
     connect(ui->mirrorxyButton, SIGNAL(clicked()), controller, SLOT(mirrorXY()));
     connect(ui->mirroryzButton, SIGNAL(clicked()), controller, SLOT(mirrorYZ()));
     connect(ui->mirrorxzButton, SIGNAL(clicked()), controller, SLOT(mirrorXZ()));
+    connect(ui->rotateXBox, SIGNAL(valueChanged(double)), controller, SLOT(setXRot(double)));
+    connect(ui->rotateXButton, SIGNAL(clicked()), controller, SLOT(rotateX()));
+    connect(ui->rotateYBox, SIGNAL(valueChanged(double)), controller, SLOT(setYRot(double)));
+    connect(ui->rotateYButton, SIGNAL(clicked()), controller, SLOT(rotateY()));
+    connect(ui->rotateZBox, SIGNAL(valueChanged(double)), controller, SLOT(setZRot(double)));
+    connect(ui->rotateZButton, SIGNAL(clicked()), controller, SLOT(rotateZ()));
 }
 
 Window::~Window()

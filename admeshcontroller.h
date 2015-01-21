@@ -84,12 +84,48 @@ public slots:
      */
     void mirrorXZ();
 
+    /*!
+     * \brief Set X rotation angle.
+     * \param angle Angle of rotation.
+     */
+    void setXRot(double angle);
+
+    /*!
+     * \brief Set Y rotation angle.
+     * \param angle Angle of rotation.
+     */
+    void setYRot(double angle);
+
+    /*!
+     * \brief Set Z rotation angle.
+     * \param angle Angle of rotation.
+     */
+    void setZRot(double angle);
+
+    /*!
+     * \brief Rotate selected model by angle along X axis.
+     */
+    void rotateX();
+
+    /*!
+     * \brief Rotate selected model by angle along Y axis.
+     */
+    void rotateY();
+
+    /*!
+     * \brief Rotate selected model by angle along Z axis.
+     */
+    void rotateZ();
+
 private:
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
     float m_scale;          ///< Scale factor
+    float x_rot;            ///< X rotation angle
+    float y_rot;            ///< Y rotation angle
+    float z_rot;            ///< Z rotation angle
 };
 
 #endif // ADMESHCONTROLLER_H

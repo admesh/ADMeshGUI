@@ -66,6 +66,24 @@ public:
     void mirrorXZ();
 
     /*!
+     * \brief Rotate stl file along X axis.
+     * \param angle Angle of rotation.
+     */
+    void rotateX(float angle);
+
+    /*!
+     * \brief Rotate stl file along Y axis.
+     * \param angle Angle of rotation.
+     */
+    void rotateY(float angle);
+
+    /*!
+     * \brief Rotate stl file along Z axis.
+     * \param angle Angle of rotation.
+     */
+    void rotateZ(float angle);
+
+    /*!
      * \brief Destructor. Closes stl structure. Deletes vbo;
      */
     virtual ~MeshObject();

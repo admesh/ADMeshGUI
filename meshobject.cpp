@@ -62,6 +62,23 @@ void MeshObject::mirrorXZ()
     this->updateGeometry();
 }
 
+void MeshObject::rotateX(float angle)
+{
+    stl_rotate_x(stl, angle);
+    this->updateGeometry();
+}
+
+void MeshObject::rotateY(float angle)
+{
+    stl_rotate_y(stl, angle);
+    this->updateGeometry();
+}
+
+void MeshObject::rotateZ(float angle){
+    stl_rotate_z(stl, angle);
+    this->updateGeometry();
+}
+
 void MeshObject::updateGeometry()
 {
     int N = stl->stats.number_of_facets;
