@@ -19,6 +19,19 @@ admeshController::admeshController(QObject *parent) :
     y_translate = 0.0;
     z_translate = 0.0;
     rel_translate = true;
+    fixall_flag = false;
+    exact_flag = false;
+    tolerance_flag = false;
+    tolerance = 0.0;
+    increment_flag = false;
+    increment = 0.0;
+    nearby_flag = false;
+    iterations = 1;
+    remove_unconnected_flag = false;
+    fill_holes_flag = false;
+    normal_directions_flag = false;
+    normal_values_flag = false;
+    reverse_all_flag = false;
 }
 
 admeshController::~admeshController()
@@ -162,3 +175,68 @@ void admeshController::translate()
     if(active) active->translate(rel_translate, x_translate, y_translate, z_translate);
 }
 
+
+void admeshController::setFixAllFlag()
+{
+    fixall_flag = !fixall_flag;
+}
+
+void admeshController::setExactFlag()
+{
+    exact_flag = !exact_flag;
+}
+
+void admeshController::setToleranceFlag()
+{
+    tolerance_flag = !tolerance_flag;
+}
+
+void admeshController::setTolerance(double val)
+{
+    tolerance = val;
+}
+
+void admeshController::setIncrementFlag()
+{
+    increment_flag = !increment_flag;
+}
+
+void admeshController::setIncrement(double val)
+{
+    increment = val;
+}
+
+void admeshController::setNearbyFlag()
+{
+    nearby_flag = !nearby_flag;
+}
+
+void admeshController::setIterations(int val)
+{
+    iterations = val;
+}
+
+void admeshController::setRemoveUnconnectedFlag()
+{
+    remove_unconnected_flag = !remove_unconnected_flag;
+}
+
+void admeshController::setFillHolesFlag()
+{
+    fill_holes_flag = !fill_holes_flag;
+}
+
+void admeshController::setNormalDirFlag()
+{
+    normal_directions_flag = !normal_directions_flag;
+}
+
+void admeshController::setNormalValFlag()
+{
+    normal_values_flag = !normal_values_flag;
+}
+
+void admeshController::setReverseAllFlag()
+{
+    reverse_all_flag = !reverse_all_flag;
+}

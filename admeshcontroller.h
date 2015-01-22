@@ -145,6 +145,74 @@ public slots:
      */
     void translate();
 
+    /*!
+     * \brief Set fix all flag.
+     */
+    void setFixAllFlag();
+
+    /*!
+     * \brief Set exact flag.
+     */
+    void setExactFlag();
+
+    /*!
+     * \brief Set tolerance flag.
+     */
+    void setToleranceFlag();
+
+    /*!
+     * \brief Set tolerance.
+     * \param val Tolerance value.
+     */
+    void setTolerance(double val);
+
+    /*!
+     * \brief Set increment flag.
+     */
+    void setIncrementFlag();
+
+    /*!
+     * \brief Set increment.
+     * \param val Increment value;
+     */
+    void setIncrement(double val);
+
+    /*!
+     * \brief Set nearby flag.
+     */
+    void setNearbyFlag();
+
+    /*!
+     * \brief Set iterations.
+     * \param val Number of iterations.
+     */
+    void setIterations(int val);
+
+    /*!
+     * \brief Set remove unconnected vertices flag.
+     */
+    void setRemoveUnconnectedFlag();
+
+    /*!
+     * \brief Set fill holes flag.
+     */
+    void setFillHolesFlag();
+
+    /*!
+     * \brief Set repair normal directions flag.
+     */
+    void setNormalDirFlag();
+
+    /*!
+     * \brief Set repair normal values flag.
+     */
+    void setNormalValFlag();
+
+    /*!
+     * \brief Set reverse a normals flag.
+     */
+    void setReverseAllFlag();
+
 private:
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file
@@ -158,6 +226,19 @@ private:
     float y_translate;      ///< Y translation factor
     float z_translate;      ///< Z translation factor
     bool rel_translate;     ///< Relative translation
+    bool fixall_flag;
+    bool exact_flag;
+    bool tolerance_flag;
+    float tolerance;
+    bool increment_flag;
+    float increment;
+    bool nearby_flag;
+    int iterations;
+    bool remove_unconnected_flag;
+    bool fill_holes_flag;
+    bool normal_directions_flag;
+    bool normal_values_flag;
+    bool reverse_all_flag;
 };
 
 #endif // ADMESHCONTROLLER_H

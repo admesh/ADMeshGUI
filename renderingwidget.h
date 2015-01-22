@@ -19,7 +19,7 @@
 /*!
  * \brief Main rendering class
  *
- * Reimplements QOpenGLWidget (Qt version > 5.4).
+ * Reimplements QOpenGLWidget (Qt version >= 5.4).
  * Handles drawing and direct user input.
  */
 class RenderingWidget : public QOpenGLWidget, protected QGLFunctions

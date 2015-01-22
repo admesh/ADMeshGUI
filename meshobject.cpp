@@ -94,7 +94,8 @@ void MeshObject::updateGeometry()
 {
     int N = stl->stats.number_of_facets;
 
-    GLfloat vertices[N*18];
+    GLfloat *vertices;
+    vertices=new GLfloat[N*18];
     for(int i=0;i<N;i++){
         int index = i*18;
         vertices[index]=stl->facet_start[i].vertex[0].x;
@@ -120,6 +121,7 @@ void MeshObject::updateGeometry()
     }
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, N * 18 * sizeof(GLfloat), vertices, GL_DYNAMIC_DRAW);
+    delete [] vertices;
 }
 
 void MeshObject::drawGeometry(QGLShaderProgram *program)
