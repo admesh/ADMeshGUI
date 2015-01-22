@@ -53,6 +53,7 @@ private:
     QMenu *editMenu;                ///< Editation menu.
     QMenu *viewMenu;                ///< View menu.
     QAction *openAct;               ///< Open file action.
+    QAction *saveAsAct;             ///< Save as file action.
     QAction *axesAct;               ///< Show axes action.
     QAction *modeAct;               ///< Toggle mode action.
 };

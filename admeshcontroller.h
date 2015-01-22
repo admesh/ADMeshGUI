@@ -59,6 +59,11 @@ public slots:
     void openSTLbyName(const char* file);
 
     /*!
+     * \brief Save STL file into STL, OFF, VRML, DXF, OBJ
+     */
+    void saveAs();
+
+    /*!
      * \brief Set scale factor.
      * \param factor Factor
      */

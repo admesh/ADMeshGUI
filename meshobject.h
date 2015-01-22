@@ -45,6 +45,13 @@ public:
     void drawGeometry(QGLShaderProgram *program);
 
     /*!
+     * \brief Save mesh as STL.
+     * \param filename Output STL filename.
+     * \param type File type - ASCII or binary
+     */
+    void saveAs(char* filename, int type);
+
+    /*!
      * \brief Scale stl file.
      * \param factor Scaling factor.
      */

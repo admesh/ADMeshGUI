@@ -63,6 +63,11 @@ void Window::addActions(){
     openAct->setStatusTip(_("Open STL file"));
     connect(openAct, SIGNAL(triggered()), controller, SLOT(openSTL()));
 
+    saveAsAct = new QAction(_("&Save as"), this);
+    saveAsAct->setShortcuts(QKeySequence::SaveAs);
+    saveAsAct->setStatusTip(_("Save as ASCII or binary STL file"));
+    connect(saveAsAct, SIGNAL(triggered()), controller, SLOT(saveAs()));
+
     axesAct = new QAction(_("&Axes"), this);
     axesAct->setStatusTip(_("Show or hide axes"));
     axesAct->setCheckable(true);
@@ -88,6 +93,7 @@ void Window::addMenus(){
 
     fileMenu = menu_bar->addMenu(_("&File"));
     fileMenu->addAction(openAct);
+    fileMenu->addAction(saveAsAct);
     fileMenu->addSeparator();
     editMenu = menu_bar->addMenu(_("&Edit"));
     viewMenu = menu_bar->addMenu(_("&View"));

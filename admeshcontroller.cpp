@@ -79,6 +79,7 @@ void admeshController::openSTL()
     reDrawSignal();
 }
 
+
 void admeshController::openSTLbyName(const char* filename)
 {
     char* file = const_cast<char *>(filename);
@@ -92,6 +93,21 @@ void admeshController::openSTLbyName(const char* filename)
         active = stl;
     }
     reDrawSignal();
+}
+
+void admeshController::saveAs()
+{
+    QString filter="STL_ascii (*.stl)";
+    QString fileName=QFileDialog::getSaveFileName(NULL, _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
+    if(!fileName.isEmpty()){
+        char *file = QStringToChar(fileName+".stl");
+        if(filter == "STL_ascii (*.stl)"){
+            active->saveAs(file, 1);
+        }else if(filter == "STL_binary (*.stl)"){
+            active->saveAs(file, 2);
+        }
+        delete []file;
+    }
 }
 
 void admeshController::setScale(double param)
@@ -243,5 +259,17 @@ void admeshController::setReverseAllFlag()
 
 void admeshController::repair()
 {
-    if(active) active->repair(fixall_flag, exact_flag, tolerance_flag, tolerance, increment_flag, increment, nearby_flag, iterations, remove_unconnected_flag, fill_holes_flag, normal_directions_flag, normal_values_flag, reverse_all_flag);
+    if(active) active->repair(fixall_flag,
+                              exact_flag,
+                              tolerance_flag,
+                              tolerance,
+                              increment_flag,
+                              increment,
+                              nearby_flag,
+                              iterations,
+                              remove_unconnected_flag,
+                              fill_holes_flag,
+                              normal_directions_flag,
+                              normal_values_flag,
+                              reverse_all_flag);
 }

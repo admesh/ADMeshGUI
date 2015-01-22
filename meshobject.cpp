@@ -4,14 +4,6 @@
 
 using namespace std;
 
-struct VertexData
-{
-    QVector3D position;
-    QVector3D normal;
-    VertexData() {}
-    VertexData( const QVector3D pos, const QVector3D norm) : position(pos), normal(norm) {}
-};
-
 MeshObject::MeshObject()
 {
     stl = new stl_file;
@@ -36,6 +28,15 @@ bool MeshObject::loadGeometry(char* fileName)
     glGenBuffers(1, &vbo);
     this->updateGeometry();
     return true;
+}
+
+void MeshObject::saveAs(char* filename, int type)
+{
+    if(type == 1){
+        stl_write_ascii(stl, filename, "ADMeshSTLmodel");
+    }else if(type == 2){
+        stl_write_binary(stl, filename, "ADMeshSTLmodel");
+    }
 }
 
 void MeshObject::scale(float factor)
