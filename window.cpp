@@ -67,12 +67,14 @@ void Window::addActions(){
     axesAct->setStatusTip(_("Show or hide axes"));
     axesAct->setCheckable(true);
     axesAct->setChecked(true);
+    axesAct->setShortcut(AXES_SHORTCUT);
     connect(axesAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleAxes()));
 
     modeAct = new QAction(_("&Solid Mode"), this);
     modeAct->setStatusTip(_("Toggle solid or wireframe"));
     modeAct->setCheckable(true);
     modeAct->setChecked(true);
+    modeAct->setShortcut(SOLID_SHORTCUT);
     connect(modeAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleMode()));
 }
 
@@ -101,6 +103,14 @@ void Window::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Escape)
         close();
+    else if(e->key() == AXES_SHORTCUT){
+        ui->renderingWidget->toggleAxes();
+        axesAct->toggle();
+    }
+    else if(e->key() == SOLID_SHORTCUT){
+        ui->renderingWidget->toggleMode();
+        modeAct->toggle();
+    }
     else
         QWidget::keyPressEvent(e);
 }
