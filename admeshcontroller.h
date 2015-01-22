@@ -213,6 +213,11 @@ public slots:
      */
     void setReverseAllFlag();
 
+    /*!
+     * \brief Repair selected model according to selected flags.
+     */
+    void repair();
+
 private:
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file

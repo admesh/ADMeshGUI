@@ -93,6 +93,23 @@ public:
     void translate(bool relative, float x_trans, float y_trans, float z_trans);
 
     /*!
+     * \brief Repair stl file. Repair differs with parameters.
+     * \param fixall_flag Fix all errors in STL file.
+     * \param tolerance_flag Used tolerance for checking faces.
+     * \param tolerance Y Given tolerance.
+     * \param increment_flag Used tolerance increment in iterations.
+     * \param increment Given increment.
+     * \param nearby_flag Check for nearby faces.
+     * \param iterations Number of iterations used for checking.
+     * \param remove_unconnected_flag Remove unconnected vertices.
+     * \param fill_holes_flag Fill holes.
+     * \param normal_directions_flag Repair normal directions. All out.
+     * \param normal_values_flag Repair normal values. Normalization.
+     * \param reverse_all_flag Reverse all faces.
+     */
+    void repair(int fixall_flag, int exact_flag, int tolerance_flag, float tolerance, int increment_flag, float increment, int nearby_flag, int iterations, int remove_unconnected_flag, int fill_holes_flag, int normal_directions_flag, int normal_values_flag, int reverse_all_flag);
+
+    /*!
      * \brief Destructor. Closes stl structure. Deletes vbo;
      */
     virtual ~MeshObject();

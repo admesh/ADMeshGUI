@@ -34,6 +34,21 @@ Window::Window(QWidget *parent) :
     connect(ui->translateZBox, SIGNAL(valueChanged(double)), controller, SLOT(setZTranslate(double)));
     connect(ui->translateRelBox, SIGNAL(stateChanged(int)), controller, SLOT(setRelativeTranslate()));
     connect(ui->translateButton, SIGNAL(clicked()), controller, SLOT(translate()));
+
+    connect(ui->exactBox, SIGNAL(stateChanged(int)), controller, SLOT(setExactFlag()));
+    connect(ui->toleranceBox, SIGNAL(stateChanged(int)), controller, SLOT(setToleranceFlag()));
+    connect(ui->toleranceSpinBox, SIGNAL(valueChanged(double)), controller, SLOT(setTolerance(double)));
+    connect(ui->incrementBox, SIGNAL(stateChanged(int)), controller, SLOT(setIncrementFlag()));
+    connect(ui->incrementSpinBox, SIGNAL(valueChanged(double)), controller, SLOT(setIncrement(double)));
+    connect(ui->nearbyBox, SIGNAL(stateChanged(int)), controller, SLOT(setNearbyFlag()));
+    connect(ui->iterationsSpinBox, SIGNAL(valueChanged(int)), controller, SLOT(setIterations(int)));
+    connect(ui->unconnectedBox, SIGNAL(stateChanged(int)), controller, SLOT(setRemoveUnconnectedFlag()));
+    connect(ui->fillholesBox, SIGNAL(stateChanged(int)), controller, SLOT(setFillHolesFlag()));
+    connect(ui->normalDirBox, SIGNAL(stateChanged(int)), controller, SLOT(setNormalDirFlag()));
+    connect(ui->normalValBox, SIGNAL(stateChanged(int)), controller, SLOT(setNormalValFlag()));
+    connect(ui->reverseBox, SIGNAL(stateChanged(int)), controller, SLOT(setReverseAllFlag()));
+    connect(ui->fixAllBox, SIGNAL(stateChanged(int)), controller, SLOT(setFixAllFlag()));
+    connect(ui->repairButton, SIGNAL(clicked()), controller, SLOT(repair()));
 }
 
 Window::~Window()

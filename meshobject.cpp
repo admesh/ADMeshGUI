@@ -90,6 +90,26 @@ void MeshObject::translate(bool relative, float x_trans, float y_trans, float z_
     this->updateGeometry();
 }
 
+void MeshObject::repair(int fixall_flag, int exact_flag, int tolerance_flag, float tolerance, int increment_flag, float increment, int nearby_flag, int iterations, int remove_unconnected_flag, int fill_holes_flag, int normal_directions_flag, int normal_values_flag, int reverse_all_flag)
+{
+    stl_repair(stl,
+               fixall_flag,
+               exact_flag,
+               tolerance_flag,
+               tolerance,
+               increment_flag,
+               increment,
+               nearby_flag,
+               iterations,
+               remove_unconnected_flag,
+               fill_holes_flag,
+               normal_directions_flag,
+               normal_values_flag,
+               reverse_all_flag,
+               0);
+    this->updateGeometry();
+}
+
 void MeshObject::updateGeometry()
 {
     int N = stl->stats.number_of_facets;

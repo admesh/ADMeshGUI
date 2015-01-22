@@ -240,3 +240,8 @@ void admeshController::setReverseAllFlag()
 {
     reverse_all_flag = !reverse_all_flag;
 }
+
+void admeshController::repair()
+{
+    if(active) active->repair(fixall_flag, exact_flag, tolerance_flag, tolerance, increment_flag, increment, nearby_flag, iterations, remove_unconnected_flag, fill_holes_flag, normal_directions_flag, normal_values_flag, reverse_all_flag);
+}
