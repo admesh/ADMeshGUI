@@ -80,6 +80,13 @@ void Window::addActions(){
     axesAct->setShortcut(AXES_SHORTCUT);
     connect(axesAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleAxes()));
 
+    gridAct = new QAction(_("&Grid"), this);
+    gridAct->setStatusTip(_("Show or hide grid"));
+    gridAct->setCheckable(true);
+    gridAct->setChecked(false);
+    gridAct->setShortcut(GRID_SHORTCUT);
+    connect(gridAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleGrid()));
+
     modeAct = new QAction(_("&Solid Mode"), this);
     modeAct->setStatusTip(_("Toggle solid or wireframe"));
     modeAct->setCheckable(true);
@@ -105,6 +112,7 @@ void Window::addMenus(){
     viewMenu = menu_bar->addMenu(_("&View"));
     viewMenu->addAction(axesAct);
     viewMenu->addAction(modeAct);
+    viewMenu->addAction(gridAct);
 }
 
 void Window::openByFilename(const char* filename){

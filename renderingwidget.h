@@ -125,6 +125,11 @@ public slots:
     void toggleAxes();
 
     /*!
+     * \brief Changes grid mode. ON/OFF
+     */
+    void toggleGrid();
+
+    /*!
      * \brief Changes between solid and wireframe rendering.
      */
     void toggleMode();
@@ -150,6 +155,11 @@ private:
     void initAxes();
 
     /*!
+     * \brief Initialize grid vertex buffer object and fill it.
+     */
+    void initGrid();
+
+    /*!
      * \brief Draw actual info.
      * \param painter Painter used for drawing.
      */
@@ -159,6 +169,11 @@ private:
      * \brief Render x,y and z axes.
      */
     void drawAxes();
+
+    /*!
+     * \brief Render x,y grid.
+     */
+    void drawGrid();
 
     /*!
      * \brief Normalizes camera rotation angles.
@@ -177,6 +192,7 @@ private:
     QMatrix4x4 view;                ///< View matrix.
 
     GLuint axes_vbo;                ///< Vertex buffer object for axes.
+    GLuint grid_vbo;                ///< Vertex buffer object for grid.
 
     GLfloat angleX;                 ///< X axis angle.
     GLfloat angleY;                 ///< Y axis angle.
@@ -188,6 +204,7 @@ private:
     GLfloat zoom;                   ///< Camera zoom factor.
 
     bool Axes;                      ///< Axes mode on/off.
+    bool Grid;                      ///< Grid mode on/off.
     bool SolidMode;                 ///< Solid mode on/off.
 
     QPoint lastPos;                 ///< Last clicked position.

@@ -18,6 +18,7 @@ inline QString _( const char *msgid, int category )
 #define DEFAULT_RES_Y 640
 
 #define AXIS_SIZE 500.0f
+#define GRID_SIZE 10.0f
 #define MIN_ZOOM 0.01f
 #define MAX_ZOOM 500.0f
 #define ZOOM_SPEED 10.0f
@@ -32,5 +33,6 @@ inline QString _( const char *msgid, int category )
 
 #define SOLID_SHORTCUT 'S'
 #define AXES_SHORTCUT 'A'
+#define GRID_SHORTCUT 'G'
 
 #endif // DATA_H

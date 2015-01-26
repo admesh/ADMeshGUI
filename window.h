@@ -56,6 +56,7 @@ private:
     QAction *saveAsAct;             ///< Save as file action.
     QAction *exportAct;             ///< Export file action.
     QAction *axesAct;               ///< Show axes action.
+    QAction *gridAct;               ///< Show grid action.
     QAction *modeAct;               ///< Toggle mode action.
 };
 

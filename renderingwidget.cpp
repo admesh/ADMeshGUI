@@ -7,6 +7,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {    
     Axes = true;
+    Grid = false;
     SolidMode = false;
     xPos = 1.0f;
     yPos = 0.5f;
@@ -20,6 +21,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
 RenderingWidget::~RenderingWidget()
 {
     glDeleteBuffers(1, &axes_vbo);
+    glDeleteBuffers(1, &grid_vbo);
 }
 
 
@@ -50,10 +52,15 @@ void RenderingWidget::setYRotation(int angle)
     update();
 }
 
+void RenderingWidget::toggleGrid()
+{
+    Grid = !Grid;
+    update();
+}
+
 void RenderingWidget::toggleAxes()
 {
-    if(Axes)Axes = false;
-    else Axes = true;
+    Axes = !Axes;
     update();
 }
 
@@ -77,7 +84,9 @@ void RenderingWidget::initializeGL()
     initializeGLFunctions();
     initShaders();
     glGenBuffers(1, &axes_vbo);
+    glGenBuffers(1, &grid_vbo);
     initAxes();
+    initGrid();
     glClearColor(1.0,1.0,1.0,1.0);
     glEnable(GL_DEPTH_TEST);
     timer.start(33, this);
@@ -103,9 +112,8 @@ void RenderingWidget::timerEvent(QTimerEvent *)
 void RenderingWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    if(Axes){
-        drawAxes();
-    }
+    if(Axes) drawAxes();
+    if(Grid) drawGrid();
     getCamPos();
     QMatrix4x4 model;
     model.setToIdentity();
@@ -247,6 +255,26 @@ void RenderingWidget::initAxes(){
     glBufferData(GL_ARRAY_BUFFER, 36 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 }
 
+void RenderingWidget::initGrid(){
+    int size= (GRID_SIZE+1)* 4 * 4; // 4*4 for 4 sides of vertexes * 4 float
+    GLfloat *vertices= new GLfloat[size];
+    for(int i = 0;i<= GRID_SIZE*2; i++){
+        vertices[i*4]=-GRID_SIZE;
+        vertices[i*4 + 1]=i-GRID_SIZE;
+        vertices[i*4 + 2]=GRID_SIZE;
+        vertices[i*4 + 3]=i-GRID_SIZE;
+    }
+    int ind = GRID_SIZE*2*4+4;
+    for(int i = 0;i<= GRID_SIZE*2; i++){
+        vertices[ind + (i*4)]=i-GRID_SIZE;
+        vertices[ind + (i*4+1)]=-GRID_SIZE;
+        vertices[ind + (i*4+2)]=i-GRID_SIZE;
+        vertices[ind + (i*4+3)]=GRID_SIZE;
+    }
+    glBindBuffer(GL_ARRAY_BUFFER, grid_vbo);
+    glBufferData(GL_ARRAY_BUFFER, (GRID_SIZE+1) * 4 * 4 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+}
+
 void RenderingWidget::drawAxes()
 {
     glBindBuffer(GL_ARRAY_BUFFER, axes_vbo);
@@ -265,6 +293,17 @@ void RenderingWidget::drawAxes()
     glDrawArrays(GL_LINES, 2, 2);
     program.setUniformValue("color", BLUE);
     glDrawArrays(GL_LINES, 4, 2);
+}
+
+void RenderingWidget::drawGrid()
+{
+    glBindBuffer(GL_ARRAY_BUFFER, grid_vbo);
+    int vertexLocation = program.attributeLocation("a_position");
+    program.enableAttributeArray(vertexLocation);
+    glVertexAttribPointer(vertexLocation, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*2, 0);
+
+    program.setUniformValue("color", BLACK);
+    glDrawArrays(GL_LINES, 0, (GRID_SIZE)*8 +4);
 }
 
 void RenderingWidget::reDraw()
