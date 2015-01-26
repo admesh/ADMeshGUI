@@ -39,6 +39,22 @@ void MeshObject::saveAs(char* filename, int type)
     }
 }
 
+void MeshObject::exportSTL(char* filename, int type)
+{
+    stl_check_facets_exact(stl);
+    stl_generate_shared_vertices(stl);
+    char label[] = "ADMeshDXFexport";
+    if(type == 1){
+        stl_write_obj(stl, filename);
+    }else if(type == 2){
+        stl_write_off(stl, filename);
+    }else if(type == 3){
+        stl_write_dxf(stl, filename, label);
+    }else if(type == 4){
+        stl_write_vrml(stl, filename);
+    }
+}
+
 void MeshObject::scale(float factor)
 {
     stl_scale(stl, factor);

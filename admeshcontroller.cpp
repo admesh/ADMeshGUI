@@ -99,7 +99,8 @@ void admeshController::saveAs()
 {
     QString filter="STL_ascii (*.stl)";
     QString fileName=QFileDialog::getSaveFileName(NULL, _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
-    if(!fileName.isEmpty()){
+    if(!fileName.isEmpty() && active){
+        fileName=fileName.section(".",0,0);
         char *file = QStringToChar(fileName+".stl");
         if(filter == "STL_ascii (*.stl)"){
             active->saveAs(file, 1);
@@ -107,6 +108,30 @@ void admeshController::saveAs()
             active->saveAs(file, 2);
         }
         delete []file;
+    }
+}
+
+void admeshController::exportSTL()
+{
+    QString filter="OBJ (*.obj)";
+    QString fileName=QFileDialog::getSaveFileName(NULL, _("Export as"), "/", _("OBJ (*.obj);;OFF (*.off);;DXF (*.dxf);;VRML (*.vrml)"), &filter);
+    char *file = NULL;
+    if(!fileName.isEmpty() && active){
+        fileName=fileName.section(".",0,0);
+        if(filter == "OBJ (*.obj)"){
+            file = QStringToChar(fileName+".obj");
+            active->exportSTL(file, 1);
+        }else if(filter == "OFF (*.off)"){
+            file = QStringToChar(fileName+".off");
+            active->exportSTL(file, 2);
+        }else if(filter == "DXF (*.dxf)"){
+            file = QStringToChar(fileName+".dxf");
+            active->exportSTL(file, 3);
+        }else if(filter == "VRML (*.vrml)"){
+            file = QStringToChar(fileName+".vrml");
+            active->exportSTL(file, 4);
+        }
+    delete []file;
     }
 }
 

@@ -68,6 +68,10 @@ void Window::addActions(){
     saveAsAct->setStatusTip(_("Save as ASCII or binary STL file"));
     connect(saveAsAct, SIGNAL(triggered()), controller, SLOT(saveAs()));
 
+    exportAct = new QAction(_("&Export"), this);
+    exportAct->setStatusTip(_("Export as OBJ, OFF, DXF or VRML"));
+    connect(exportAct, SIGNAL(triggered()), controller, SLOT(exportSTL()));
+
     axesAct = new QAction(_("&Axes"), this);
     axesAct->setStatusTip(_("Show or hide axes"));
     axesAct->setCheckable(true);
@@ -94,6 +98,7 @@ void Window::addMenus(){
     fileMenu = menu_bar->addMenu(_("&File"));
     fileMenu->addAction(openAct);
     fileMenu->addAction(saveAsAct);
+    fileMenu->addAction(exportAct);
     fileMenu->addSeparator();
     editMenu = menu_bar->addMenu(_("&Edit"));
     viewMenu = menu_bar->addMenu(_("&View"));

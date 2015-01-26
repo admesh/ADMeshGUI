@@ -52,6 +52,13 @@ public:
     void saveAs(char* filename, int type);
 
     /*!
+     * \brief Export mesh as OFF, VRML, DXF or OBJ.
+     * \param filename Exported filename.
+     * \param type File File type.
+     */
+    void exportSTL(char* filename, int type);
+
+    /*!
      * \brief Scale stl file.
      * \param factor Scaling factor.
      */
