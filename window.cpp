@@ -15,6 +15,7 @@ Window::Window(QWidget *parent) :
     controller = new admeshController;
     ui->renderingWidget->setController(controller);
     connect(controller, SIGNAL(reDrawSignal()), ui->renderingWidget, SLOT(reDraw()));
+    connect(controller, SIGNAL(reCalculatePosition()), ui->renderingWidget, SLOT(reCalculatePosition()));
     addActions();
     addMenus();
 

@@ -55,6 +55,16 @@ void MeshObject::exportSTL(char* filename, int type)
     }
 }
 
+QVector3D MeshObject::getMin()
+{
+    QVector3D min = QVector3D(
+                    stl->stats.min.x,
+                    stl->stats.min.y,
+                    stl->stats.max.z
+                );
+    return min;
+}
+
 void MeshObject::scale(float factor)
 {
     stl_scale(stl, factor);

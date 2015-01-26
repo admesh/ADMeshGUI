@@ -45,6 +45,12 @@ public:
     void drawGeometry(QGLShaderProgram *program);
 
     /*!
+     * \brief Get vector [min x, min y, max z] for camera purposes.
+     * \return vector of mininaml values.
+     */
+    QVector3D getMin();
+
+    /*!
      * \brief Save mesh as STL.
      * \param filename Output STL filename.
      * \param type File type - ASCII or binary

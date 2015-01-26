@@ -272,3 +272,14 @@ void RenderingWidget::reDraw()
     update();
 }
 
+void RenderingWidget::reCalculatePosition()
+{
+    QVector3D vec = controller->getMinPosition();
+    xPos = 1.0f;
+    yPos = 0.5f;
+    zPos = 1.0f;
+    angleX = 0.0f;
+    angleY = 70.0f;
+    zoom = 2.5*sqrt(pow(vec.x(),2)+pow(vec.y(),2)+pow(vec.z(),2));
+}
+

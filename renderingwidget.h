@@ -134,6 +134,11 @@ public slots:
      */
     void reDraw();
 
+    /*!
+     * \brief Update scene zoom according to size of open file.
+     */
+    void reCalculatePosition();
+
 signals:
     void xRotationChanged(int angle);
     void yRotationChanged(int angle);

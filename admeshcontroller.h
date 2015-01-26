@@ -47,6 +47,11 @@ signals:
      */
     void reDrawSignal();
 
+    /*!
+     * \brief Sends signal to recalculate view according to model size.
+     */
+    void reCalculatePosition();
+
 public slots:
     /*!
      * \brief Open dialog window to open STL file
@@ -67,6 +72,12 @@ public slots:
      * \brief Export STL file as OFF, VRML, DXF or OBJ
      */
     void exportSTL();
+
+    /*!
+     * \brief Get vector [min x, min y, max z] of active file for camera purposes.
+     * \return vector of mininaml values.
+     */
+    QVector3D getMinPosition();
 
     /*!
      * \brief Set scale factor.

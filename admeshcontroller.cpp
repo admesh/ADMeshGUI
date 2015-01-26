@@ -76,6 +76,7 @@ void admeshController::openSTL()
         }
         delete []file;
     }
+    reCalculatePosition();
     reDrawSignal();
 }
 
@@ -92,6 +93,7 @@ void admeshController::openSTLbyName(const char* filename)
         stl = tmp;
         active = stl;
     }
+    reCalculatePosition();
     reDrawSignal();
 }
 
@@ -133,6 +135,11 @@ void admeshController::exportSTL()
         }
     delete []file;
     }
+}
+
+QVector3D admeshController::getMinPosition()
+{
+    return active->getMin();
 }
 
 void admeshController::setScale(double param)
