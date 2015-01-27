@@ -70,7 +70,6 @@ protected:
      * Calles upon resize of window.
      */
     void resizeGL(int width, int height);
-    //void paintEvent(QPaintEvent *event);
 
     /*!
      * \brief Reimplemented timer. Send update(); signal.

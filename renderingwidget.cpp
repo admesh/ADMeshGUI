@@ -14,7 +14,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     zPos = 1.0f;
     angleX = 0.0f;
     angleY = 70.0f;
-    zoom = 100.0f;    
+    zoom = 100.0f;
 }
 
 
@@ -111,7 +111,16 @@ void RenderingWidget::timerEvent(QTimerEvent *)
 
 void RenderingWidget::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    QPainter painter;
+    painter.begin(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.beginNativePainting();
+
+    glClearColor(1.0,1.0,1.0,1.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+
+    program.bind();
     if(Axes) drawAxes();
     if(Grid) drawGrid();
     getCamPos();
@@ -120,6 +129,15 @@ void RenderingWidget::paintGL()
     model.rotate(90, -1.0f,0.0f,0.0f); //rotate to OpenGL axes system
     program.setUniformValue("mvp_matrix", projection * view * model);
     controller->drawAll(&program);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    program.release();
+
+    glDisable(GL_DEPTH_TEST);
+    painter.endNativePainting();
+
+    painter.setRenderHint(QPainter::TextAntialiasing);
+    drawInfo(&painter);
+    painter.end();
 }
 
 void RenderingWidget::resizeGL(int width, int height)
@@ -163,43 +181,6 @@ void RenderingWidget::getCamPos()
     view.setToIdentity();
     view.lookAt (QVector3D(xPos, yPos, zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
 }
-
-/*void RenderingWidget::paintEvent(QPaintEvent *event)
-{
-    makeCurrent();
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-
-    qglClearColor(Qt::white);
-    glEnable(GL_DEPTH_TEST);
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    static GLfloat lightPosition[4] = { 0, 0, 10, 1.0 };
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-
-    this->resizeGL(width(),height());
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-
-    getCamPos();
-    draw();
-
-    glShadeModel(GL_FLAT);
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_LIGHTING);
-    glDisable(GL_CULL_FACE); //To display text rectangle
-
-    glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
-
-    QPainter painter(this);
-    drawInfo(&painter);
-
-    event->accept();
-}*/
 
 void RenderingWidget::normalizeAngles()
 {
