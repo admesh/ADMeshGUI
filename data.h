@@ -34,5 +34,6 @@ inline QString _( const char *msgid, int category )
 #define SOLID_SHORTCUT 'S'
 #define AXES_SHORTCUT 'A'
 #define GRID_SHORTCUT 'G'
+#define INFO_SHORTCUT 'I'
 
 #endif // DATA_H

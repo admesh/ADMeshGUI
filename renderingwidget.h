@@ -134,6 +134,11 @@ public slots:
     void toggleMode();
 
     /*!
+     * \brief View or hide mesh info.
+     */
+    void toggleInfo();
+
+    /*!
      * \brief Updates scene when necessary.
      */
     void reDraw();
@@ -205,6 +210,7 @@ private:
     bool Axes;                      ///< Axes mode on/off.
     bool Grid;                      ///< Grid mode on/off.
     bool SolidMode;                 ///< Solid mode on/off.
+    bool Info;                      ///< Info on/off.
 
     QPoint lastPos;                 ///< Last clicked position.
 

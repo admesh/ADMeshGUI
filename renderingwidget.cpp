@@ -9,6 +9,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     Axes = true;
     Grid = false;
     SolidMode = false;
+    Info = true;
     xPos = 1.0f;
     yPos = 0.5f;
     zPos = 1.0f;
@@ -79,6 +80,12 @@ void RenderingWidget::toggleMode()
     reDraw();
 }
 
+void RenderingWidget::toggleInfo()
+{
+    Info = !Info;
+    update();
+}
+
 void RenderingWidget::initializeGL()
 {
     initializeGLFunctions();
@@ -136,7 +143,7 @@ void RenderingWidget::paintGL()
     painter.endNativePainting();
 
     painter.setRenderHint(QPainter::TextAntialiasing);
-    drawInfo(&painter);
+    if(Info) drawInfo(&painter);
     painter.end();
 }
 

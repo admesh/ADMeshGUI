@@ -93,6 +93,13 @@ void Window::addActions(){
     modeAct->setChecked(true);
     modeAct->setShortcut(SOLID_SHORTCUT);
     connect(modeAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleMode()));
+
+    infoAct = new QAction(_("&Info"), this);
+    infoAct->setStatusTip(_("Show or hide info"));
+    infoAct->setCheckable(true);
+    infoAct->setChecked(true);
+    infoAct->setShortcut(INFO_SHORTCUT);
+    connect(infoAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleInfo()));
 }
 
 void Window::addMenus(){
@@ -110,6 +117,7 @@ void Window::addMenus(){
     fileMenu->addSeparator();
     editMenu = menu_bar->addMenu(_("&Edit"));
     viewMenu = menu_bar->addMenu(_("&View"));
+    viewMenu->addAction(infoAct);
     viewMenu->addAction(axesAct);
     viewMenu->addAction(modeAct);
     viewMenu->addAction(gridAct);

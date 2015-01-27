@@ -58,6 +58,7 @@ private:
     QAction *axesAct;               ///< Show axes action.
     QAction *gridAct;               ///< Show grid action.
     QAction *modeAct;               ///< Toggle mode action.
+    QAction *infoAct;               ///< Show/hide mesh info.
 };
 
 #endif // WINDOW_H
