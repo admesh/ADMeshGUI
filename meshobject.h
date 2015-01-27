@@ -51,6 +51,12 @@ public:
     QVector3D getMin();
 
     /*!
+     * \brief Get info about mesh.
+     * \return string containing formated info.
+     */
+    QString getInfo();
+
+    /*!
      * \brief Save mesh as STL.
      * \param filename Output STL filename.
      * \param type File type - ASCII or binary

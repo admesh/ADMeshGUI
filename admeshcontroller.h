@@ -39,6 +39,12 @@ public:
      */
     void setDrawColor(QVector3D color,QVector3D badColor);
 
+    /*!
+     * \brief Get info about selected mesh.
+     * \return string containing formated info.
+     */
+    QString getInfo();
+
 signals:
     /*!
      * \brief Sends signal to rendering widget to redraw

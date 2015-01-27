@@ -149,13 +149,8 @@ void RenderingWidget::resizeGL(int width, int height)
 
 void RenderingWidget::drawInfo(QPainter *painter) {
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-    QString text;
-    QTextStream(&text) << _("Camera angleX: ") << angleX << endl <<_("Camera angleY: ") << angleY << endl <<
-                          _("Camera distance: ") << zoom << endl <<_("Solid mode: ");
-    if(SolidMode) QTextStream(&text) << _("ON") << endl << _("Axes: ");
-    else QTextStream(&text) << _("OFF") << endl << _("Axes: ");
-    if(Axes) QTextStream(&text) << _("ON") << endl;
-    else QTextStream(&text) << _("OFF") << endl;
+    QString text = controller->getInfo();
+    QTextStream(&text) << _("Camera angleX: ") << angleX << endl <<_("Camera angleY: ") << angleY << endl;
     QFontMetrics metrics = QFontMetrics(font());
     int border = qMax(6, metrics.leading());
     QRect rect = metrics.boundingRect(0, 0, width()/4 - 2*border, int(height()/2), Qt::AlignLeft | Qt::TextWordWrap, text);

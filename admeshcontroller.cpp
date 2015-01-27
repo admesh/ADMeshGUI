@@ -60,6 +60,12 @@ char* QStringToChar(QString str)
     return cstr;
 }
 
+QString admeshController::getInfo()
+{
+    if(active) return active->getInfo();
+    else return "";
+}
+
 void admeshController::openSTL()
 {
     QString fileName = QFileDialog::getOpenFileName(NULL, _("Open STL"), "/", _("STL (*.stl)"));

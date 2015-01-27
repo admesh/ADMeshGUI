@@ -23,7 +23,8 @@ bool MeshObject::loadGeometry(char* fileName)
        stl_clear_error(stl);
        return false;
     }
-
+    stl_repair(stl,0,1,0,0,0,0,0,0,0,0,0,0,0,0);
+    stl_calculate_volume(stl);
     initializeGLFunctions();
     glGenBuffers(1, &vbo);
     this->updateGeometry();
@@ -63,6 +64,28 @@ QVector3D MeshObject::getMin()
                     stl->stats.max.z
                 );
     return min;
+}
+
+QString MeshObject::getInfo()
+{
+    QString text;
+    QTextStream(&text) << _("Min X:      ") << stl->stats.min.x << endl <<
+                          _("Min Y:      ") << stl->stats.min.y << endl <<
+                          _("Min Z:      ") << stl->stats.min.z << endl <<
+                          _("Max X:      ") << stl->stats.max.x << endl <<
+                          _("Max Y:      ") << stl->stats.max.y << endl <<
+                          _("Max Z:      ") << stl->stats.max.z << endl <<
+                          _("Number of facets:      ") << stl->stats.number_of_facets << endl <<
+                          _("Degenerate facets:     ") << stl->stats.degenerate_facets << endl <<
+                          _("Edges fixed:           ") << stl->stats.edges_fixed << endl <<
+                          _("Facets removed:        ") << stl->stats.facets_removed << endl <<
+                          _("Facets added:          ") << stl->stats.facets_added << endl <<
+                          _("Facets reversed:       ") << stl->stats.facets_reversed << endl <<
+                          _("Backwards edges:       ") << stl->stats.backwards_edges << endl <<
+                          _("Normals fixed:         ") << stl->stats.normals_fixed << endl <<
+                          _("Volume:                ") << stl->stats.volume << endl <<
+                          endl;
+    return text;
 }
 
 void MeshObject::scale(float factor)
@@ -134,6 +157,7 @@ void MeshObject::repair(int fixall_flag, int exact_flag, int tolerance_flag, flo
                normal_values_flag,
                reverse_all_flag,
                0);
+    stl_calculate_volume(stl);
     this->updateGeometry();
 }
 
