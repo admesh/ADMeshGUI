@@ -92,6 +92,29 @@ public slots:
     void setScale(double factor);
 
     /*!
+     * \brief Set scale versor X factor.
+     * \param factor Factor
+     */
+    void setVersorX(double factor);
+
+    /*!
+     * \brief Set scale versor Y factor.
+     * \param factor Factor
+     */
+    void setVersorY(double factor);
+
+    /*!
+     * \brief Set scale versor Z factor.
+     * \param factor Factor
+     */
+    void setVersorZ(double factor);
+
+    /*!
+     * \brief Use versor or not.
+     */
+    void setVersor();
+
+    /*!
      * \brief Scale selected model by scale factor.
      */
     void scale();
@@ -251,6 +274,8 @@ private:
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
     float m_scale;          ///< Scale factor
+    float versor[3];        ///< Scale versor
+    bool useVersor;         ///< Use versor or not
     float x_rot;            ///< X rotation angle
     float y_rot;            ///< Y rotation angle
     float z_rot;            ///< Z rotation angle

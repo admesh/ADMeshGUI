@@ -12,6 +12,7 @@ admeshController::admeshController(QObject *parent) :
     stl = NULL;
     active = NULL;
     m_scale = 1.0;
+    useVersor = false;
     x_rot = 0.0;
     y_rot = 0.0;
     z_rot = 0.0;
@@ -153,8 +154,29 @@ void admeshController::setScale(double param)
     m_scale = (float)param;
 }
 
+void admeshController::setVersorX(double factor)
+{
+    versor[0]=factor;
+}
+
+void admeshController::setVersorY(double factor)
+{
+    versor[1]=factor;
+}
+
+void admeshController::setVersorZ(double factor)
+{
+    versor[2]=factor;
+}
+
+void admeshController::setVersor()
+{
+    useVersor = !useVersor;
+}
+
 void admeshController::scale()
 {
+    if(active && useVersor) active->scale(versor);
     if(active) active->scale(m_scale);
 }
 

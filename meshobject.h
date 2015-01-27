@@ -77,6 +77,12 @@ public:
     void scale(float factor);
 
     /*!
+     * \brief Scale stl file by versor.
+     * \param versor Scaling versor.
+     */
+    void scale(float versor[3]);
+
+    /*!
      * \brief Mirror model by XY plane.
      */
     void mirrorXY();

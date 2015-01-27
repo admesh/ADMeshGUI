@@ -19,6 +19,10 @@ Window::Window(QWidget *parent) :
     addActions();
     addMenus();
 
+    connect(ui->versorXBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorX(double)));
+    connect(ui->versorYBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorY(double)));
+    connect(ui->versorZBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorZ(double)));
+    connect(ui->useVersorBox, SIGNAL(stateChanged(int)), controller, SLOT(setVersor()));
     connect(ui->scaleBox, SIGNAL(valueChanged(double)), controller, SLOT(setScale(double)));
     connect(ui->scaleButton, SIGNAL(clicked()), controller, SLOT(scale()));
     connect(ui->mirrorxyButton, SIGNAL(clicked()), controller, SLOT(mirrorXY()));

@@ -94,6 +94,12 @@ void MeshObject::scale(float factor)
     this->updateGeometry();
 }
 
+void MeshObject::scale(float versor[3])
+{
+    stl_scale_versor(stl, versor);
+    this->updateGeometry();
+}
+
 void MeshObject::mirrorXY()
 {
     stl_mirror_xy(stl);
