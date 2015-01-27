@@ -12,6 +12,9 @@ admeshController::admeshController(QObject *parent) :
     stl = NULL;
     active = NULL;
     m_scale = 1.0;
+    versor[0] = 1.0;
+    versor[1] = 1.0;
+    versor[2] = 1.0;
     useVersor = false;
     x_rot = 0.0;
     y_rot = 0.0;
@@ -146,7 +149,8 @@ void admeshController::exportSTL()
 
 QVector3D admeshController::getMinPosition()
 {
-    return active->getMin();
+    if(active) return active->getMin();
+    else return QVector3D(0.0,0.0,0.0);
 }
 
 void admeshController::setScale(double param)

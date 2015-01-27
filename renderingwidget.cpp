@@ -302,6 +302,7 @@ void RenderingWidget::reCalculatePosition()
     zPos = 1.0f;
     angleX = 0.0f;
     angleY = 70.0f;
-    zoom = 2.5*sqrt(pow(vec.x(),2)+pow(vec.y(),2)+pow(vec.z(),2));
+    if(!vec.isNull()) zoom = 2.5*sqrt(pow(vec.x(),2)+pow(vec.y(),2)+pow(vec.z(),2));
+    else zoom = 100;
 }
 
