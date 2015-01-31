@@ -11,6 +11,7 @@ admeshController::admeshController(QObject *parent) :
 {
     stl = NULL;
     active = NULL;
+    mode = 0;
     m_scale = 1.0;
     versor[0] = 1.0;
     versor[1] = 1.0;
@@ -44,11 +45,35 @@ admeshController::~admeshController()
     active = NULL;
 }
 
+void admeshController::setMode(int m)
+{
+    mode = m;
+}
+
 void admeshController::drawAll(QGLShaderProgram *program)
 {
-     program->setUniformValue("color", color);
-     program->setUniformValue("badColor", badColor);
-     if(stl) stl->drawGeometry(program);
+    if(mode == 0){
+        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+        program->setUniformValue("color", GREEN);
+        program->setUniformValue("badColor", RED);
+        if(stl) stl->drawGeometry(program);
+    }else if(mode == 1){
+        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+        program->setUniformValue("color", BLACK);
+        program->setUniformValue("badColor", BLACK);
+        if(stl) stl->drawGeometry(program);
+    }else if(mode == 2){
+        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+        program->setUniformValue("color", BLACK);
+        program->setUniformValue("badColor", BLACK);
+        if(stl) stl->drawGeometry(program);
+        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+        glEnable( GL_POLYGON_OFFSET_FILL );
+        glPolygonOffset( 1, 1 );
+        program->setUniformValue("color", GREEN);
+        program->setUniformValue("badColor", RED);
+        if(stl) stl->drawGeometry(program);
+    }
 }
 
 void admeshController::setDrawColor(QVector3D col, QVector3D badCol){

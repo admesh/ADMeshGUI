@@ -37,6 +37,21 @@ public slots:
      */
     void openByFilename(const char* filename);
 
+    /*!
+     * \brief Sets solid mode.
+     */
+    void setSolid();
+
+    /*!
+     * \brief Sets wireframe mode.
+     */
+    void setWireframe();
+
+    /*!
+     * \brief Sets solid mode with thick edges.
+     */
+    void setSolidWithEdges();
+
 protected:
     /*!
      * \brief Reimplemented method. Handles key pressed.
@@ -57,7 +72,9 @@ private:
     QAction *exportAct;             ///< Export file action.
     QAction *axesAct;               ///< Show axes action.
     QAction *gridAct;               ///< Show grid action.
-    QAction *modeAct;               ///< Toggle mode action.
+    QAction *solidAct;              ///< Solid mode on.
+    QAction *wireframeAct;          ///< Wireframe mode on.
+    QAction *solidwithedgesAct;     ///< Solid mode with edges on.
     QAction *infoAct;               ///< Show/hide mesh info.
 };
 

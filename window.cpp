@@ -91,12 +91,26 @@ void Window::addActions(){
     gridAct->setShortcut(GRID_SHORTCUT);
     connect(gridAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleGrid()));
 
-    modeAct = new QAction(_("&Solid Mode"), this);
-    modeAct->setStatusTip(_("Toggle solid or wireframe"));
-    modeAct->setCheckable(true);
-    modeAct->setChecked(true);
-    modeAct->setShortcut(SOLID_SHORTCUT);
-    connect(modeAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleMode()));
+    solidAct = new QAction(_("&Solid Mode"), this);
+    solidAct->setStatusTip(_("Show solid mesh"));
+    solidAct->setCheckable(true);
+    solidAct->setChecked(true);
+    solidAct->setShortcut(SOLID_SHORTCUT);
+    connect(solidAct, SIGNAL(triggered()), this, SLOT(setSolid()));
+
+    wireframeAct = new QAction(_("&Wireframe Mode"), this);
+    wireframeAct->setStatusTip(_("Show wireframe mesh"));
+    wireframeAct->setCheckable(true);
+    wireframeAct->setChecked(false);
+    wireframeAct->setShortcut(WIREFRAME_SHORTCUT);
+    connect(wireframeAct, SIGNAL(triggered()), this, SLOT(setWireframe()));
+
+    solidwithedgesAct = new QAction(_("&Solid with edged Mode"), this);
+    solidwithedgesAct->setStatusTip(_("Show solid mesh with edges"));
+    solidwithedgesAct->setCheckable(true);
+    solidwithedgesAct->setChecked(false);
+    solidwithedgesAct->setShortcut(EDGES_SHORTCUT);
+    connect(solidwithedgesAct, SIGNAL(triggered()), this, SLOT(setSolidWithEdges()));
 
     infoAct = new QAction(_("&Info"), this);
     infoAct->setStatusTip(_("Show or hide info"));
@@ -123,8 +137,11 @@ void Window::addMenus(){
     viewMenu = menu_bar->addMenu(_("&View"));
     viewMenu->addAction(infoAct);
     viewMenu->addAction(axesAct);
-    viewMenu->addAction(modeAct);
     viewMenu->addAction(gridAct);
+    viewMenu->addSeparator();
+    viewMenu->addAction(solidAct);
+    viewMenu->addAction(wireframeAct);
+    viewMenu->addAction(solidwithedgesAct);
 }
 
 void Window::openByFilename(const char* filename){
@@ -138,11 +155,30 @@ void Window::keyPressEvent(QKeyEvent *e)
     else if(e->key() == AXES_SHORTCUT){
         ui->renderingWidget->toggleAxes();
         axesAct->toggle();
-    }
-    else if(e->key() == SOLID_SHORTCUT){
-        ui->renderingWidget->toggleMode();
-        modeAct->toggle();
-    }
-    else
+    } else
         QWidget::keyPressEvent(e);
+}
+
+void Window::setSolid()
+{
+    controller->setMode(0);
+    solidAct->setChecked(true);
+    wireframeAct->setChecked(false);
+    solidwithedgesAct->setChecked(false);
+}
+
+void Window::setWireframe()
+{
+    controller->setMode(1);
+    solidAct->setChecked(false);
+    wireframeAct->setChecked(true);
+    solidwithedgesAct->setChecked(false);
+}
+
+void Window::setSolidWithEdges()
+{
+    controller->setMode(2);
+    solidAct->setChecked(false);
+    wireframeAct->setChecked(false);
+    solidwithedgesAct->setChecked(true);
 }

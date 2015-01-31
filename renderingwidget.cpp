@@ -8,7 +8,6 @@ RenderingWidget::RenderingWidget(QWidget *parent)
 {    
     Axes = true;
     Grid = false;
-    SolidMode = false;
     Info = true;
     xPos = 1.0f;
     yPos = 0.5f;
@@ -65,21 +64,6 @@ void RenderingWidget::toggleAxes()
     update();
 }
 
-void RenderingWidget::toggleMode()
-{
-    makeCurrent();
-    if(SolidMode){
-        SolidMode = false;
-        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-        controller->setDrawColor(BLACK,BLACK);
-    }else{
-        SolidMode = true;
-        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-        controller->setDrawColor(GREEN,RED);
-    }
-    reDraw();
-}
-
 void RenderingWidget::toggleInfo()
 {
     Info = !Info;
@@ -97,7 +81,6 @@ void RenderingWidget::initializeGL()
     glClearColor(1.0,1.0,1.0,1.0);
     glEnable(GL_DEPTH_TEST);
     timer.start(33, this);
-    toggleMode();
     reDraw();
 }
 
@@ -165,8 +148,7 @@ void RenderingWidget::drawInfo(QPainter *painter) {
     painter->setPen(Qt::black);
     painter->fillRect(QRect(0, 0, width()/5, height()/3), QColor(1, 1, 1, 1));
     painter->drawText(rect.width()/10, border, rect.width(), rect.height(), Qt::AlignLeft | Qt::TextWordWrap, text);
-    if(!this->SolidMode)glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
- }
+}
 
 void RenderingWidget::getCamPos()
 {

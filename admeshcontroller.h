@@ -60,6 +60,15 @@ signals:
 
 public slots:
     /*!
+     * \brief Set rendering mode.
+     *
+     * Sets solid/wireframe or solid mode with thick edges.
+     *
+     * \param m Mode selected.
+     */
+    void setMode(int m);
+
+    /*!
      * \brief Open dialog window to open STL file
      */
     void openSTL();
@@ -273,6 +282,7 @@ private:
     MeshObject* active;     ///< Active STL file
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
+    int mode;               ///< Solid or wireframe or both mode
     float m_scale;          ///< Scale factor
     float versor[3];        ///< Scale versor
     bool useVersor;         ///< Use versor or not

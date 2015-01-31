@@ -129,11 +129,6 @@ public slots:
     void toggleGrid();
 
     /*!
-     * \brief Changes between solid and wireframe rendering.
-     */
-    void toggleMode();
-
-    /*!
      * \brief View or hide mesh info.
      */
     void toggleInfo();
@@ -209,7 +204,6 @@ private:
 
     bool Axes;                      ///< Axes mode on/off.
     bool Grid;                      ///< Grid mode on/off.
-    bool SolidMode;                 ///< Solid mode on/off.
     bool Info;                      ///< Info on/off.
 
     QPoint lastPos;                 ///< Last clicked position.
