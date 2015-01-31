@@ -52,6 +52,42 @@ void RenderingWidget::setYRotation(int angle)
     update();
 }
 
+void RenderingWidget::setFrontView()
+{
+    angleX = 0;
+    angleY = 90;
+}
+
+void RenderingWidget::setBackView()
+{
+    angleX = 180;
+    angleY = 90;
+}
+
+void RenderingWidget::setLeftView()
+{
+    angleX = 270;
+    angleY = 90;
+}
+
+void RenderingWidget::setRightView()
+{
+    angleX = 90;
+    angleY = 90;
+}
+
+void RenderingWidget::setTopView()
+{
+    angleX = 0;
+    angleY = 0;
+}
+
+void RenderingWidget::setBottomView()
+{
+    angleX = 0;
+    angleY = 180;
+}
+
 void RenderingWidget::toggleGrid()
 {
     Grid = !Grid;

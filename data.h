@@ -37,5 +37,11 @@ inline QString _( const char *msgid, int category )
 #define AXES_SHORTCUT 'A'
 #define GRID_SHORTCUT 'G'
 #define INFO_SHORTCUT 'I'
+#define FRONT_SHORTCUT Qt::Key_5 + Qt::KeypadModifier
+#define BACK_SHORTCUT Qt::Key_0 + Qt::KeypadModifier
+#define LEFT_SHORTCUT Qt::Key_4 + Qt::KeypadModifier
+#define RIGHT_SHORTCUT Qt::Key_6 + Qt::KeypadModifier
+#define TOP_SHORTCUT Qt::Key_8 + Qt::KeypadModifier
+#define BOTTOM_SHORTCUT Qt::Key_2 + Qt::KeypadModifier
 
 #endif // DATA_H

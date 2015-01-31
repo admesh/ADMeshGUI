@@ -76,6 +76,12 @@ private:
     QAction *wireframeAct;          ///< Wireframe mode on.
     QAction *solidwithedgesAct;     ///< Solid mode with edges on.
     QAction *infoAct;               ///< Show/hide mesh info.
+    QAction *frontAct;              ///< Set front view.
+    QAction *backAct;               ///< Set back view.
+    QAction *leftAct;               ///< Set left view.
+    QAction *rightAct;              ///< Set right view.
+    QAction *topAct;                ///< Set top view.
+    QAction *bottomAct;             ///< Set bottom view.
 };
 
 #endif // WINDOW_H

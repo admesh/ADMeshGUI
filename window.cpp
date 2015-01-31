@@ -118,6 +118,36 @@ void Window::addActions(){
     infoAct->setChecked(true);
     infoAct->setShortcut(INFO_SHORTCUT);
     connect(infoAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(toggleInfo()));
+
+    frontAct = new QAction(_("&Front view"), this);
+    frontAct->setStatusTip(_("Set front view"));
+    frontAct->setShortcut(FRONT_SHORTCUT);
+    connect(frontAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setFrontView()));
+
+    backAct = new QAction(_("&Back view"), this);
+    backAct->setStatusTip(_("Set back view"));
+    backAct->setShortcut(BACK_SHORTCUT);
+    connect(backAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setBackView()));
+
+    leftAct = new QAction(_("&Left view"), this);
+    leftAct->setStatusTip(_("Set left view"));
+    leftAct->setShortcut(LEFT_SHORTCUT);
+    connect(leftAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setLeftView()));
+
+    rightAct = new QAction(_("&Right view"), this);
+    rightAct->setStatusTip(_("Set right view"));
+    rightAct->setShortcut(RIGHT_SHORTCUT);
+    connect(rightAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setRightView()));
+
+    topAct = new QAction(_("&Top view"), this);
+    topAct->setStatusTip(_("Set top view"));
+    topAct->setShortcut(TOP_SHORTCUT);
+    connect(topAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setTopView()));
+
+    bottomAct = new QAction(_("&Bottom view"), this);
+    bottomAct->setStatusTip(_("Set bottom view"));
+    bottomAct->setShortcut(BOTTOM_SHORTCUT);
+    connect(bottomAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setBottomView()));
 }
 
 void Window::addMenus(){
@@ -142,6 +172,13 @@ void Window::addMenus(){
     viewMenu->addAction(solidAct);
     viewMenu->addAction(wireframeAct);
     viewMenu->addAction(solidwithedgesAct);
+    viewMenu->addSeparator();
+    viewMenu->addAction(frontAct);
+    viewMenu->addAction(backAct);
+    viewMenu->addAction(leftAct);
+    viewMenu->addAction(rightAct);
+    viewMenu->addAction(topAct);
+    viewMenu->addAction(bottomAct);
 }
 
 void Window::openByFilename(const char* filename){

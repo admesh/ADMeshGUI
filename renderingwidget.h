@@ -119,6 +119,36 @@ public slots:
     void setYRotation(int angle);
 
     /*!
+     * \brief Set front view angles.
+     */
+    void setFrontView();
+
+    /*!
+     * \brief Set back view angles.
+     */
+    void setBackView();
+
+    /*!
+     * \brief Set left view angles.
+     */
+    void setLeftView();
+
+    /*!
+     * \brief Set right view angles.
+     */
+    void setRightView();
+
+    /*!
+     * \brief Set top view angles.
+     */
+    void setTopView();
+
+    /*!
+     * \brief Set bottom view angles.
+     */
+    void setBottomView();
+
+    /*!
      * \brief Changes axes mode. ON/OFF
      */
     void toggleAxes();
