@@ -60,6 +60,8 @@ protected:
      * \brief Reimplemented main drawing method.
      *
      * Makes all drawing calls each time widget is updated.
+     * Draws 3D first: main content + corner axes.
+     * Than draws 2D text over 3D content using QPainter.
      * Calculates and sets PVM matrix uniform.
      */
     void paintGL();
@@ -200,6 +202,11 @@ private:
     void drawAxes();
 
     /*!
+     * \brief Render small corner x,y and z axes.
+     */
+    void drawSmallAxes();
+
+    /*!
      * \brief Render x,y grid.
      */
     void drawGrid();
@@ -218,7 +225,9 @@ private:
 
     QGLShaderProgram program;       ///< Common shader program.
     QMatrix4x4 projection;          ///< Projection matrix.
+    QMatrix4x4 orthographic;        ///< Orthographic projection matrix.
     QMatrix4x4 view;                ///< View matrix.
+    QMatrix4x4 smallView;           ///< No zoom view.
 
     GLuint axes_vbo;                ///< Vertex buffer object for axes.
     GLuint grid_vbo;                ///< Vertex buffer object for grid.

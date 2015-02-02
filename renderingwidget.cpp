@@ -140,26 +140,31 @@ void RenderingWidget::paintGL()
     QPainter painter;
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.beginNativePainting();
+    painter.beginNativePainting();      //Start rendering 3D content
 
-    glClearColor(1.0,1.0,1.0,1.0);
+    glClearColor(1.0,1.0,1.0,1.0);      //Set OpenGl states
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
 
-    program.bind();
-    if(Axes) drawAxes();
-    if(Grid) drawGrid();
+    program.bind();                     //Use shader program
+    glViewport(0, 0, width(), height());
     getCamPos();
     QMatrix4x4 model;
     model.setToIdentity();
-    model.rotate(90, -1.0f,0.0f,0.0f); //rotate to OpenGL axes system
-    program.setUniformValue("mvp_matrix", projection * view * model);
+    model.rotate(90, -1.0f,0.0f,0.0f);  //Rotate to OpenGL axes system
+    program.setUniformValue("mvp_matrix", projection * view * model);   //Draw main window contents
+    if(Axes) drawAxes();
+    if(Grid) drawGrid();
     controller->drawAll(&program);
+
+    glViewport(5, 5, 105, 105);
+    program.setUniformValue("mvp_matrix", orthographic * smallView * model); //Draw corner orthographic axes
+    drawSmallAxes();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     program.release();
 
     glDisable(GL_DEPTH_TEST);
-    painter.endNativePainting();
+    painter.endNativePainting();        //Start rendering 2D content
 
     painter.setRenderHint(QPainter::TextAntialiasing);
     if(Info) drawInfo(&painter);
@@ -171,6 +176,8 @@ void RenderingWidget::resizeGL(int width, int height)
     glViewport(0, 0, width, height);
     projection.setToIdentity();
     projection.perspective(PERSPECTIVE, (GLfloat)width/(GLfloat)height, MIN_VIEW_DISTANCE, MAX_VIEW_DISTANCE);
+    orthographic.setToIdentity();
+    orthographic.ortho (-1.0f,1.0f,-1.0f,1.0f, -100, 100 );
 }
 
 void RenderingWidget::drawInfo(QPainter *painter) {
@@ -188,9 +195,9 @@ void RenderingWidget::drawInfo(QPainter *painter) {
 
 void RenderingWidget::getCamPos()
 {
-    xPos = zoom * sin(angleY*(M_PI/180)) * sin(angleX*(M_PI/180));
-    yPos = zoom * cos(angleY*(M_PI/180));
-    zPos = zoom * sin(angleY*(M_PI/180)) * cos(angleX*(M_PI/180));
+    xPos = sin(angleY*(M_PI/180)) * sin(angleX*(M_PI/180));
+    yPos = cos(angleY*(M_PI/180));
+    zPos = sin(angleY*(M_PI/180)) * cos(angleX*(M_PI/180));
 
     GLfloat dt=1.0f; //Small difference to get second point
 
@@ -199,7 +206,10 @@ void RenderingWidget::getCamPos()
     GLfloat upZ=zoom * sin(angleY*(M_PI/180)-dt) * cos(angleX*(M_PI/180)) -zPos;
 
     view.setToIdentity();
-    view.lookAt (QVector3D(xPos, yPos, zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
+    view.lookAt (QVector3D(zoom * xPos, zoom * yPos, zoom * zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
+
+    smallView.setToIdentity();
+    smallView.lookAt (QVector3D(xPos, yPos, zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
 }
 
 void RenderingWidget::normalizeAngles()
@@ -239,7 +249,7 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
 
 void RenderingWidget::initAxes(){
     GLfloat vertices[]={
-       AXIS_SIZE, 0.0 , 0.0,
+       AXIS_SIZE, 0.0 , 0.0,    //Main axes
        1.0, 1.0, 1.0,
        -AXIS_SIZE, 0.0, 0.0,
        1.0, 1.0, 1.0,
@@ -251,9 +261,22 @@ void RenderingWidget::initAxes(){
        1.0, 1.0, 1.0,
        0.0, 0.0, -AXIS_SIZE,
        1.0, 1.0, 1.0,
+                                //Small corner axes
+       0.5, 0.5 , -0.5, //x
+       1.0, 1.0, 1.0,
+       -0.5, 0.5, -0.5,
+       1.0, 1.0, 1.0,
+       -0.5, -0.5, -0.5, //y
+       1.0, 1.0, 1.0,
+       -0.5, 0.5, -0.5,
+       1.0, 1.0, 1.0,
+       -0.5, 0.5, 0.5, //z
+       1.0, 1.0, 1.0,
+       -0.5, 0.5, -0.5,
+       1.0, 1.0, 1.0,
     };
     glBindBuffer(GL_ARRAY_BUFFER, axes_vbo);
-    glBufferData(GL_ARRAY_BUFFER, 36 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 72 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 }
 
 void RenderingWidget::initGrid(){
@@ -287,13 +310,31 @@ void RenderingWidget::drawAxes()
     program.enableAttributeArray(normalLocation);
     glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (const void *)(sizeof(GLfloat)*3));
 
-
     program.setUniformValue("color", RED);
     glDrawArrays(GL_LINES, 0, 2);
     program.setUniformValue("color", GREEN);
     glDrawArrays(GL_LINES, 2, 2);
     program.setUniformValue("color", BLUE);
     glDrawArrays(GL_LINES, 4, 2);
+}
+
+void RenderingWidget::drawSmallAxes()
+{
+    glBindBuffer(GL_ARRAY_BUFFER, axes_vbo);
+    int vertexLocation = program.attributeLocation("a_position");
+    program.enableAttributeArray(vertexLocation);
+    glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, 0);
+
+    int normalLocation = program.attributeLocation("a_normal");
+    program.enableAttributeArray(normalLocation);
+    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (const void *)(sizeof(GLfloat)*3));
+
+    program.setUniformValue("color", RED);
+    glDrawArrays(GL_LINES, 6, 2);
+    program.setUniformValue("color", GREEN);
+    glDrawArrays(GL_LINES, 8, 2);
+    program.setUniformValue("color", BLUE);
+    glDrawArrays(GL_LINES, 10, 2);
 }
 
 void RenderingWidget::drawGrid()
