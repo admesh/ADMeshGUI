@@ -148,6 +148,11 @@ void Window::addActions(){
     bottomAct->setStatusTip(_("Set bottom view"));
     bottomAct->setShortcut(BOTTOM_SHORTCUT);
     connect(bottomAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setBottomView()));
+
+    centerAct = new QAction(_("&To center"), this);
+    centerAct->setStatusTip(_("Reset camera translation to zero"));
+    centerAct->setShortcut(RESET_SHORTCUT);
+    connect(centerAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(centerPosition()));
 }
 
 void Window::addMenus(){
@@ -172,6 +177,8 @@ void Window::addMenus(){
     viewMenu->addAction(solidAct);
     viewMenu->addAction(wireframeAct);
     viewMenu->addAction(solidwithedgesAct);
+    viewMenu->addSeparator();
+    viewMenu->addAction(centerAct);
     viewMenu->addSeparator();
     viewMenu->addAction(frontAct);
     viewMenu->addAction(backAct);

@@ -399,3 +399,8 @@ void RenderingWidget::reCalculatePosition()
     else zoom = 100;
 }
 
+void RenderingWidget::centerPosition()
+{
+    xTrans = yTrans = 0;
+}
+

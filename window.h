@@ -82,6 +82,7 @@ private:
     QAction *rightAct;              ///< Set right view.
     QAction *topAct;                ///< Set top view.
     QAction *bottomAct;             ///< Set bottom view.
+    QAction *centerAct;             ///< Reset view to center.
 };
 
 #endif // WINDOW_H

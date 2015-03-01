@@ -175,6 +175,11 @@ public slots:
      */
     void reCalculatePosition();
 
+    /*!
+     * \brief Reset camera translation to zero.
+     */
+    void centerPosition();
+
 signals:
     void xRotationChanged(int angle);
     void yRotationChanged(int angle);
