@@ -229,6 +229,7 @@ void RenderingWidget::getCamPos()
     GLfloat upZ=zoom * sin(angleY*(M_PI/180)-dt) * cos(angleX*(M_PI/180)) -zPos;
 
     view.setToIdentity();
+    view.translate(xTrans, yTrans);
     view.lookAt (QVector3D(zoom * xPos, zoom * yPos, zoom * zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
 
     smallView.setToIdentity();
@@ -251,7 +252,8 @@ void RenderingWidget::wheelEvent(QWheelEvent* event)
 
 void RenderingWidget::mousePressEvent(QMouseEvent *event)
 {
-    lastPos = event->pos();
+    if(event->buttons() & Qt::LeftButton) lastPos = event->pos();
+    if(event->buttons() & Qt::RightButton) lastTransPos = event->pos();
 }
 
 void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
@@ -267,6 +269,15 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
 
         normalizeAngles();
         lastPos = event->pos();
+    }
+    if(event->buttons() & Qt::RightButton)
+    {
+        int dx = (event->x() - lastTransPos.x());
+        int dy = (event->y() - lastTransPos.y());
+
+        xTrans -= (GLfloat)dx/3;
+        yTrans += (GLfloat)dy/3;
+        lastTransPos = event->pos();
     }
 }
 

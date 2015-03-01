@@ -261,7 +261,11 @@ private:
     bool Grid;                      ///< Grid mode on/off.
     bool Info;                      ///< Info on/off.
 
-    QPoint lastPos;                 ///< Last clicked position.
+    QPoint lastPos;                 ///< Last clicked position (LMB).
+    QPoint lastTransPos;            ///< Last clicked position (RMB)
+
+    GLfloat xTrans;                 ///< X direction translation factor.
+    GLfloat yTrans;                 ///< Y direction translation factor.
 
     admeshController *controller;   ///< Pointer to main controller.
 };
