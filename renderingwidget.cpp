@@ -15,6 +15,9 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     angleX = 0.0f;
     angleY = 70.0f;
     zoom = 100.0f;
+    model.setToIdentity();
+    model.rotate(90, -1.0f,0.0f,0.0f);  //Rotate to OpenGL axes system
+    smallAxesBox = QVector4D(5, 5, 105, 105);
 }
 
 
@@ -149,15 +152,13 @@ void RenderingWidget::paintGL()
     program.bind();                     //Use shader program
     glViewport(0, 0, width(), height());
     getCamPos();
-    QMatrix4x4 model;
-    model.setToIdentity();
-    model.rotate(90, -1.0f,0.0f,0.0f);  //Rotate to OpenGL axes system
+
     program.setUniformValue("mvp_matrix", projection * view * model);   //Draw main window contents
     if(Axes) drawAxes();
     if(Grid) drawGrid();
     controller->drawAll(&program);
 
-    glViewport(5, 5, 105, 105);
+    glViewport(smallAxesBox.x(), smallAxesBox.y(), smallAxesBox.z(), smallAxesBox.w()); // xStart, yStart, xWidth, yWidth
     program.setUniformValue("mvp_matrix", orthographic * smallView * model); //Draw corner orthographic axes
     drawSmallAxes();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -168,6 +169,7 @@ void RenderingWidget::paintGL()
 
     painter.setRenderHint(QPainter::TextAntialiasing);
     if(Info) drawInfo(&painter);
+    drawLabels(&painter);
     painter.end();
 }
 
@@ -180,7 +182,8 @@ void RenderingWidget::resizeGL(int width, int height)
     orthographic.ortho (-1.0f,1.0f,-1.0f,1.0f, -100, 100 );
 }
 
-void RenderingWidget::drawInfo(QPainter *painter) {
+void RenderingWidget::drawInfo(QPainter *painter)
+{
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     QString text = controller->getInfo();
     QTextStream(&text) << _("Camera angleX: ") << angleX << endl <<_("Camera angleY: ") << angleY << endl;
@@ -191,6 +194,26 @@ void RenderingWidget::drawInfo(QPainter *painter) {
     painter->setPen(Qt::black);
     painter->fillRect(QRect(0, 0, width()/5, height()/3), QColor(1, 1, 1, 1));
     painter->drawText(rect.width()/10, border, rect.width(), rect.height(), Qt::AlignLeft | Qt::TextWordWrap, text);
+}
+
+QVector2D RenderingWidget::getScreenCoords(QVector3D worldCoords){
+    QVector4D homogCoords = orthographic * smallView * model * QVector4D(worldCoords, 1.0);
+    GLfloat X = homogCoords.x() / homogCoords.w();
+    GLfloat Y = homogCoords.y() / homogCoords.w();
+    return QVector2D(smallAxesBox.x() + smallAxesBox.z() * (X+1)/2,smallAxesBox.y() + smallAxesBox.w() * (Y+1)/2);
+}
+
+void RenderingWidget::drawLabels(QPainter *painter)
+{
+    QVector2D screenCoords = getScreenCoords(QVector3D(0.7, 0.5 , -0.55));  // X axis
+    painter->setPen(Qt::red);
+    painter->drawText(screenCoords.x(),height()-screenCoords.y(),"x");
+    screenCoords = getScreenCoords(QVector3D(-0.5, -0.7, -0.55));           // Y axis
+    painter->setPen(Qt::green);
+    painter->drawText(screenCoords.x(),height()-screenCoords.y(),"y");
+    screenCoords = getScreenCoords(QVector3D(-0.5, 0.5, 0.7));              // Z axis
+    painter->setPen(Qt::blue);
+    painter->drawText(screenCoords.x(),height()-screenCoords.y(),"z");
 }
 
 void RenderingWidget::getCamPos()

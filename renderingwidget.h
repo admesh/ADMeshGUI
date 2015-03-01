@@ -191,10 +191,23 @@ private:
     void initGrid();
 
     /*!
+     * \brief Convert point in 3D scene to screen coordinates.
+     * \param worldCoords Coordinates of 3D point.
+     * \return Coordinates of point in screen space.
+     */
+    QVector2D getScreenCoords(QVector3D worldCoords);
+
+    /*!
      * \brief Draw actual info.
      * \param painter Painter used for drawing.
      */
     void drawInfo(QPainter *painter);
+
+    /*!
+     * \brief Draw labels for corner axes.
+     * \param painter Painter used for drawing.
+     */
+    void drawLabels(QPainter *painter);
 
     /*!
      * \brief Render x,y and z axes.
@@ -228,6 +241,7 @@ private:
     QMatrix4x4 orthographic;        ///< Orthographic projection matrix.
     QMatrix4x4 view;                ///< View matrix.
     QMatrix4x4 smallView;           ///< No zoom view.
+    QMatrix4x4 model;               ///< Model matrix.
 
     GLuint axes_vbo;                ///< Vertex buffer object for axes.
     GLuint grid_vbo;                ///< Vertex buffer object for grid.
@@ -240,6 +254,8 @@ private:
     GLfloat zPos;                   ///< Camera Z position.
 
     GLfloat zoom;                   ///< Camera zoom factor.
+
+    QVector4D smallAxesBox;         ///< Dimension and position of small axes box in screen coordinates.
 
     bool Axes;                      ///< Axes mode on/off.
     bool Grid;                      ///< Grid mode on/off.
