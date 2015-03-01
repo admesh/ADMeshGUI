@@ -206,7 +206,7 @@ void admeshController::setVersor()
 void admeshController::scale()
 {
     if(active && useVersor) active->scale(versor);
-    if(active) active->scale(m_scale);
+    else if(active) active->scale(m_scale);
 }
 
 void admeshController::mirrorXY()
