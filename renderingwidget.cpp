@@ -208,6 +208,7 @@ QVector2D RenderingWidget::getScreenCoords(QVector3D worldCoords){
 
 void RenderingWidget::drawLabels(QPainter *painter)
 {
+    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     QVector2D screenCoords = getScreenCoords(QVector3D(0.7, 0.5 , -0.55));  // X axis
     painter->setPen(Qt::red);
     painter->drawText(screenCoords.x(),height()-screenCoords.y(),"x");
