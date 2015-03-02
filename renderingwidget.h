@@ -239,6 +239,13 @@ private:
      */
     void getCamPos();
 
+    /*!
+     * \brief Recalculate grid step according to current zoom factor.
+     *
+     * Calculated in range of {1,2,3,4,5,10,15,..} and further in multiples of 5.
+     */
+    void recalculateGridStep();
+
     QBasicTimer timer;              ///< Timer used to regular redrawing.
 
     QGLShaderProgram program;       ///< Common shader program.
@@ -271,6 +278,8 @@ private:
 
     GLfloat xTrans;                 ///< X direction translation factor.
     GLfloat yTrans;                 ///< Y direction translation factor.
+
+    int gridStep;                   ///< Step between grid lines.
 
     admeshController *controller;   ///< Pointer to main controller.
 };

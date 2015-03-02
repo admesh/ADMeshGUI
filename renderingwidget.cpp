@@ -18,6 +18,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     model.setToIdentity();
     model.rotate(90, -1.0f,0.0f,0.0f);  //Rotate to OpenGL axes system
     smallAxesBox = QVector4D(5, 5, 105, 105);
+    gridStep = 1;
 }
 
 
@@ -120,6 +121,7 @@ void RenderingWidget::initializeGL()
     glClearColor(1.0,1.0,1.0,1.0);
     glEnable(GL_DEPTH_TEST);
     timer.start(33, this);
+    recalculateGridStep();
     reDraw();
 }
 
@@ -187,6 +189,7 @@ void RenderingWidget::drawInfo(QPainter *painter)
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     QString text = controller->getInfo();
     QTextStream(&text) << _("Camera angleX: ") << angleX << endl <<_("Camera angleY: ") << angleY << endl;
+    if(Grid) QTextStream(&text) <<_("Grid step: ") << gridStep << endl;
     QFontMetrics metrics = QFontMetrics(font());
     int border = qMax(6, metrics.leading());
     QRect rect = metrics.boundingRect(0, 0, width()/4 - 2*border, int(height()/2), Qt::AlignLeft | Qt::TextWordWrap, text);
@@ -224,13 +227,13 @@ void RenderingWidget::getCamPos()
 
     GLfloat dt=1.0f; //Small difference to get second point
 
-    GLfloat upX=zoom * sin(angleY*(M_PI/180)-dt) * sin(angleX*(M_PI/180)) -xPos;
-    GLfloat upY=zoom * cos(angleY*(M_PI/180)-dt) -yPos;
-    GLfloat upZ=zoom * sin(angleY*(M_PI/180)-dt) * cos(angleX*(M_PI/180)) -zPos;
+    GLfloat upX=sin(angleY*(M_PI/180)-dt) * sin(angleX*(M_PI/180)) -xPos;
+    GLfloat upY=cos(angleY*(M_PI/180)-dt) -yPos;
+    GLfloat upZ=sin(angleY*(M_PI/180)-dt) * cos(angleX*(M_PI/180)) -zPos;
 
     view.setToIdentity();
-    view.translate(xTrans, yTrans);
-    view.lookAt (QVector3D(zoom * xPos, zoom * yPos, zoom * zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
+    view.translate(xTrans, yTrans, -zoom);
+    view.lookAt (QVector3D(xPos, yPos,zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
 
     smallView.setToIdentity();
     smallView.lookAt (QVector3D(xPos, yPos, zPos), QVector3D(0.0, 0.0, 0.0), QVector3D(upX, upY, upZ));
@@ -244,10 +247,31 @@ void RenderingWidget::normalizeAngles()
     if(angleY < 0.0f) angleY = 360.0f - angleY;
 }
 
+void RenderingWidget::recalculateGridStep()
+{
+    int factor = (int)(zoom/GRID_SIZE);
+    if(factor > 5){
+        int remainder = factor % 5;
+        factor -= remainder;
+    }else{
+        factor = qMax(1,factor);
+    }
+    if(factor != gridStep) {
+        gridStep = factor;
+        initGrid();
+    }
+}
+
 void RenderingWidget::wheelEvent(QWheelEvent* event)
 {
-    GLfloat tmp = zoom - event->delta()/ZOOM_SPEED;
+    float tmp = zoom;
+    if(event->delta()<0){
+        tmp *= 1.25;
+    }else{
+        tmp *= 0.8;
+    }
     if(tmp > MIN_ZOOM && tmp < MAX_ZOOM) zoom = tmp;
+    recalculateGridStep();
 }
 
 void RenderingWidget::mousePressEvent(QMouseEvent *event)
@@ -317,20 +341,20 @@ void RenderingWidget::initGrid(){
     int size= (GRID_SIZE+1)* 4 * 4; // 4*4 for 4 sides of vertexes * 4 float
     GLfloat *vertices= new GLfloat[size];
     for(int i = 0;i<= GRID_SIZE*2; i++){
-        vertices[i*4]=-GRID_SIZE;
-        vertices[i*4 + 1]=i-GRID_SIZE;
-        vertices[i*4 + 2]=GRID_SIZE;
-        vertices[i*4 + 3]=i-GRID_SIZE;
+        vertices[i*4]=-GRID_SIZE*gridStep;
+        vertices[i*4 + 1]=(i-GRID_SIZE)*gridStep;
+        vertices[i*4 + 2]=GRID_SIZE*gridStep;
+        vertices[i*4 + 3]=(i-GRID_SIZE)*gridStep;
     }
     int ind = GRID_SIZE*2*4+4;
     for(int i = 0;i<= GRID_SIZE*2; i++){
-        vertices[ind + (i*4)]=i-GRID_SIZE;
-        vertices[ind + (i*4+1)]=-GRID_SIZE;
-        vertices[ind + (i*4+2)]=i-GRID_SIZE;
-        vertices[ind + (i*4+3)]=GRID_SIZE;
+        vertices[ind + (i*4)]=(i-GRID_SIZE)*gridStep;
+        vertices[ind + (i*4+1)]=-GRID_SIZE*gridStep;
+        vertices[ind + (i*4+2)]=(i-GRID_SIZE)*gridStep;
+        vertices[ind + (i*4+3)]=GRID_SIZE*gridStep;
     }
     glBindBuffer(GL_ARRAY_BUFFER, grid_vbo);
-    glBufferData(GL_ARRAY_BUFFER, (GRID_SIZE+1) * 4 * 4 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, (GRID_SIZE+1) * 4 * 4 * sizeof(GLfloat), vertices, GL_DYNAMIC_DRAW);
 }
 
 void RenderingWidget::drawAxes()
@@ -397,6 +421,7 @@ void RenderingWidget::reCalculatePosition()
     angleY = 70.0f;
     if(!vec.isNull()) zoom = 2.5*sqrt(pow(vec.x(),2)+pow(vec.y(),2)+pow(vec.z(),2));
     else zoom = 100;
+    recalculateGridStep();
 }
 
 void RenderingWidget::centerPosition()
