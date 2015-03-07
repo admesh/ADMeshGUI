@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
     else
         window.showMaximized();
 
-    if(argv[1]){ // read input file from line
-        window.openByFilename(argv[1]);
+    for(int i=1;i<argc;i++){
+        window.openByFilename(argv[i]);
     }
     return app.exec();
 }

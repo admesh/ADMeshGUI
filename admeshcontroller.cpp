@@ -168,6 +168,7 @@ QString admeshController::getInfo()
 {
     QString text = "";
     float minx, miny, minz, maxx, maxy, maxz, num_facets, deg_facets, edges_fixed, facets_removed, facet_sadded, facets_reversed, backward, normals_fixed, volume;
+    minx = miny = minz = maxx = maxy = maxz = num_facets = deg_facets = edges_fixed = facets_removed = facet_sadded = facets_reversed = backward = normals_fixed = volume = 0;
     int count = 0;
     bool initialized = false;
     float* arr;
