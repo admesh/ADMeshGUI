@@ -2,6 +2,7 @@
 #define ADMESHCONTROLLER_H
 
 #include <QGLShaderProgram>
+#include <QLabel>
 #include <QObject>
 #include <vector>
 #include "data.h"
@@ -47,6 +48,8 @@ public:
      * \return string containing formated info.
      */
     QString getInfo();
+
+    void addStatusBar(QLabel *l);
 
 signals:
     /*!
@@ -323,6 +326,7 @@ private:
     MeshObject* active;     ///< Active STL file
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
+    QLabel* statusBar;
     int mode;               ///< Solid or wireframe or both mode
     float m_scale;          ///< Scale factor
     float versor[3];        ///< Scale versor

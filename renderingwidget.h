@@ -109,18 +109,6 @@ protected:
 
 public slots:    
     /*!
-     * \brief Set X angle rotation.
-     * \param angle Angle value.
-     */
-    void setXRotation(int angle);
-
-    /*!
-     * \brief Set Y angle rotation.
-     * \param angle Angle value.
-     */
-    void setYRotation(int angle);
-
-    /*!
      * \brief Set front view angles.
      */
     void setFrontView();
@@ -186,8 +174,6 @@ public slots:
     void toggleShift();
 
 signals:
-    void xRotationChanged(int angle);
-    void yRotationChanged(int angle);
 
 private:
     /*!

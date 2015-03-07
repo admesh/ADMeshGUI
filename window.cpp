@@ -8,11 +8,12 @@ Window::Window(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->renderingWidget, SIGNAL(xRotationChanged(int)), ui->xRotSlider, SLOT(setValue(int)));
-    connect(ui->renderingWidget, SIGNAL(yRotationChanged(int)), ui->yRotSlider, SLOT(setValue(int)));
+    /*connect(ui->renderingWidget, SIGNAL(xRotationChanged(int)), ui->xRotSlider, SLOT(setValue(int)));
+    connect(ui->renderingWidget, SIGNAL(yRotationChanged(int)), ui->yRotSlider, SLOT(setValue(int)));*/
     ui->showButton->hide();
 
     controller = new admeshController;
+    controller->addStatusBar(ui->statusBar);
     ui->renderingWidget->setController(controller);
     connect(controller, SIGNAL(reDrawSignal()), ui->renderingWidget, SLOT(reDraw()));
     connect(controller, SIGNAL(reCalculatePosition()), ui->renderingWidget, SLOT(reCalculatePosition()));

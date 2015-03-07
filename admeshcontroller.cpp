@@ -156,6 +156,11 @@ void admeshController::setDrawColor(QVector3D col, QVector3D badCol){
     badColor = badCol;
 }
 
+void admeshController::addStatusBar(QLabel *l)
+{
+    statusBar = l;
+}
+
 char* QStringToChar(QString str)
 {
     string s = str.toStdString();
@@ -251,6 +256,7 @@ void admeshController::openSTL()
         }
         delete []file;
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: File opened"));
     reCalculatePosition();
     reDrawSignal();
 }
@@ -268,6 +274,7 @@ void admeshController::openSTLbyName(const char* filename)
         objectList.push_back(tmp);
         objectList.back()->setActive();
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: File(s) opened"));
     reCalculatePosition();
     reDrawSignal();
 }
@@ -282,16 +289,22 @@ void admeshController::saveAs()
     }
     QString filter="STL_ascii (*.stl)";
     QString fileName=QFileDialog::getSaveFileName(NULL, _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
-    if(!fileName.isEmpty() && active){
+    if(!fileName.isEmpty()){
         fileName=fileName.section(".",0,0);
         char *file = QStringToChar(fileName+".stl");
         if(filter == "STL_ascii (*.stl)"){
             for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
-                 if(objectList[i]->isActive()) objectList[i]->saveAs(file, 1);
+                 if(objectList[i]->isActive()) {
+                     objectList[i]->saveAs(file, 1);
+                     if(selectedCount()>0)statusBar->setText(_("Status: File saved as ASCII STl"));
+                 }
             }
         }else if(filter == "STL_binary (*.stl)"){
             for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
-                 if(objectList[i]->isActive()) objectList[i]->saveAs(file, 2);
+                 if(objectList[i]->isActive()){
+                     objectList[i]->saveAs(file, 2);
+                     if(selectedCount()>0)statusBar->setText(_("Status: File saved as ASCII STl"));
+                 }
             }
         }
         delete []file;
@@ -309,27 +322,39 @@ void admeshController::exportSTL()
     QString filter="OBJ (*.obj)";
     QString fileName=QFileDialog::getSaveFileName(NULL, _("Export as"), "/", _("OBJ (*.obj);;OFF (*.off);;DXF (*.dxf);;VRML (*.vrml)"), &filter);
     char *file = NULL;
-    if(!fileName.isEmpty() && active){
+    if(!fileName.isEmpty()){
         fileName=fileName.section(".",0,0);
         if(filter == "OBJ (*.obj)"){
             file = QStringToChar(fileName+".obj");
             for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
-                 if(objectList[i]->isActive()) objectList[i]->exportSTL(file, 1);
+                 if(objectList[i]->isActive()) {
+                     objectList[i]->exportSTL(file, 1);
+                     if(selectedCount()>0)statusBar->setText(_("Status: File exported to OBJ format"));
+                 }
             }
         }else if(filter == "OFF (*.off)"){
             file = QStringToChar(fileName+".off");
             for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
-                 if(objectList[i]->isActive()) objectList[i]->exportSTL(file, 2);
+                 if(objectList[i]->isActive()) {
+                     objectList[i]->exportSTL(file, 2);
+                     if(selectedCount()>0)statusBar->setText(_("Status: File exported to OFF format"));
+                 }
             }
         }else if(filter == "DXF (*.dxf)"){
             file = QStringToChar(fileName+".dxf");
             for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
-                 if(objectList[i]->isActive()) objectList[i]->exportSTL(file, 3);
+                 if(objectList[i]->isActive()) {
+                     objectList[i]->exportSTL(file, 3);
+                     if(selectedCount()>0)statusBar->setText(_("Status: File exported to DXF format"));
+                 }
             }
         }else if(filter == "VRML (*.vrml)"){
             file = QStringToChar(fileName+".vrml");
             for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
-                 if(objectList[i]->isActive()) objectList[i]->exportSTL(file, 4);
+                 if(objectList[i]->isActive()) {
+                     objectList[i]->exportSTL(file, 4);
+                     if(selectedCount()>0)statusBar->setText(_("Status: File exported to VRML format"));
+                 }
             }
         }
     delete []file;
@@ -373,6 +398,7 @@ void admeshController::scale()
         if(objectList[i]->isActive() && useVersor)objectList[i]->scale(versor);
         else if(objectList[i]->isActive()) objectList[i]->scale(m_scale);
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) scaled"));
 }
 
 void admeshController::mirrorXY()
@@ -380,6 +406,7 @@ void admeshController::mirrorXY()
     for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
         if(objectList[i]->isActive())objectList[i]->mirrorXY();
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XY plane"));
 }
 
 void admeshController::mirrorYZ()
@@ -387,6 +414,7 @@ void admeshController::mirrorYZ()
     for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
         if(objectList[i]->isActive())objectList[i]->mirrorYZ();
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along YZ plane"));
 }
 
 void admeshController::mirrorXZ()
@@ -394,6 +422,7 @@ void admeshController::mirrorXZ()
     for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
         if(objectList[i]->isActive())objectList[i]->mirrorXZ();
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XZ plane"));
 }
 
 void admeshController::setXRot(double angle)
@@ -416,6 +445,7 @@ void admeshController::rotateX()
     for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
         if(objectList[i]->isActive())objectList[i]->rotateX(x_rot);
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along X axis"));
 }
 
 void admeshController::rotateY()
@@ -423,6 +453,7 @@ void admeshController::rotateY()
     for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
         if(objectList[i]->isActive())objectList[i]->rotateY(y_rot);
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Y axis"));
 }
 
 void admeshController::rotateZ()
@@ -430,6 +461,7 @@ void admeshController::rotateZ()
     for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
         if(objectList[i]->isActive())objectList[i]->rotateZ(z_rot);
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Z axis"));
 }
 
 void admeshController::setXTranslate(double factor)
@@ -458,6 +490,8 @@ void admeshController::translate()
     for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
         if(objectList[i]->isActive())objectList[i]->translate(rel_translate, x_translate, y_translate, z_translate);
     }
+    if(selectedCount()>0 && rel_translate)statusBar->setText(_("Status: mesh(es) translated relatively to position"));
+    else if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) translated to origin"));
 }
 
 
@@ -543,4 +577,5 @@ void admeshController::repair()
                               normal_values_flag,
                               reverse_all_flag);
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) repaired"));
 }

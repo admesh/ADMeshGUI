@@ -45,18 +45,6 @@ QSize RenderingWidget::sizeHint() const
     return QSize(DEFAULT_RES_X, DEFAULT_RES_Y);
 }
 
-void RenderingWidget::setXRotation(int angle)
-{
-    angleX = angle;
-    update();
-}
-
-void RenderingWidget::setYRotation(int angle)
-{
-    angleY = angle;
-    update();
-}
-
 void RenderingWidget::setFrontView()
 {
     angleX = 0;
