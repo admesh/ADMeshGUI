@@ -153,6 +153,16 @@ void Window::addActions(){
     centerAct->setStatusTip(_("Reset camera translation to zero"));
     centerAct->setShortcut(RESET_SHORTCUT);
     connect(centerAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(centerPosition()));
+
+    selectAllAct = new QAction(_("&Select all"), this);
+    selectAllAct->setStatusTip(_("Make all objects in scene active"));
+    selectAllAct->setShortcut(QKeySequence::SelectAll);
+    connect(selectAllAct, SIGNAL(triggered()), controller, SLOT(setAllActive()));
+
+    selectInverseAct = new QAction(_("&Select inverse"), this);
+    selectInverseAct->setStatusTip(_("Active objects are set inactive and vice versa"));
+    selectInverseAct->setShortcut(QKeySequence::Italic);
+    connect(selectInverseAct, SIGNAL(triggered()), controller, SLOT(setAllInverseActive()));
 }
 
 void Window::addMenus(){
@@ -169,6 +179,8 @@ void Window::addMenus(){
     fileMenu->addAction(exportAct);
     fileMenu->addSeparator();
     editMenu = menu_bar->addMenu(_("&Edit"));
+    editMenu->addAction(selectAllAct);
+    editMenu->addAction(selectInverseAct);
     viewMenu = menu_bar->addMenu(_("&View"));
     viewMenu->addAction(infoAct);
     viewMenu->addAction(axesAct);
@@ -199,9 +211,23 @@ void Window::keyPressEvent(QKeyEvent *e)
     else if(e->key() == AXES_SHORTCUT){
         ui->renderingWidget->toggleAxes();
         axesAct->toggle();
-    } else
+    } else if(e->key() == Qt::Key_Shift){
+        ui->renderingWidget->toggleShift();
+    }else {
         QWidget::keyPressEvent(e);
+    }
 }
+
+
+void Window::keyReleaseEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Shift){
+        ui->renderingWidget->toggleShift();
+    } else {
+        QWidget::keyReleaseEvent(event);
+    }
+}
+
 
 void Window::setSolid()
 {

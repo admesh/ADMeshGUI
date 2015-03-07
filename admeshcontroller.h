@@ -43,7 +43,7 @@ public:
     void setDrawColor(QVector3D color,QVector3D badColor);
 
     /*!
-     * \brief Get info about selected mesh.
+     * \brief Get info about all selected meshes.
      * \return string containing formated info.
      */
     QString getInfo();
@@ -71,12 +71,42 @@ public slots:
      */
     void setMode(int m);
 
-
+    /*!
+     * \brief Get count of selected objects.
+     *
+     * \return count
+     */
     int selectedCount();
 
+    /*!
+     * \brief Draw into picking offsreen buffer.
+     *
+     * Draws all objects into scene. Each object with own different color used to determine which one was clicked.
+     *
+     * \param program Shader program used.
+     */
     void drawPicking(QGLShaderProgram *program);
 
+    /*!
+     * \brief Set object active by given index.
+     * \param id Index to be selected.
+     */
     void setActiveByIndex(GLuint id);
+
+    /*!
+     * \brief Set all objects active.
+     */
+    void setAllActive();
+
+    /*!
+     * \brief Set all objects ainctive.
+     */
+    void setAllInactive();
+
+    /*!
+     * \brief Inverse all objects active state.
+     */
+    void setAllInverseActive();
 
     /*!
      * \brief Open dialog window to open STL file
@@ -288,7 +318,7 @@ public slots:
     void repair();
 
 private:
-    vector <MeshObject*> objectList;
+    vector <MeshObject*> objectList;  ///< List of currently drawn objects.
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file
     QVector3D color;        ///< Default color

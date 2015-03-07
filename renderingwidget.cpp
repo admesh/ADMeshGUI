@@ -19,6 +19,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     model.rotate(90, -1.0f,0.0f,0.0f);  //Rotate to OpenGL axes system
     smallAxesBox = QVector4D(5, 5, 105, 105);
     gridStep = 1;
+    shiftPressed = false;
 }
 
 
@@ -214,7 +215,12 @@ void RenderingWidget::doPicking(){
     fbo.toImage().save("something.jpg");
     QRgb color = img.pixel(lastTransPos.x(),lastTransPos.y());
     int id = qRed(color);
-    controller->setActiveByIndex(id);
+    if(shiftPressed){
+        controller->setActiveByIndex(id);
+    }else{
+        controller->setAllInactive();
+        controller->setActiveByIndex(id);
+    }
     fbo.release();
 }
 
@@ -295,6 +301,11 @@ void RenderingWidget::recalculateGridStep()
         gridStep = factor;
         initGrid();
     }
+}
+
+void RenderingWidget::toggleShift()
+{
+    shiftPressed = !shiftPressed;
 }
 
 void RenderingWidget::wheelEvent(QWheelEvent* event)

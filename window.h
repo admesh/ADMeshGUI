@@ -54,9 +54,14 @@ public slots:
 
 protected:
     /*!
-     * \brief Reimplemented method. Handles key pressed.
+     * \brief Reimplemented method. Handles key press.
      */
     void keyPressEvent(QKeyEvent *event);
+
+    /*!
+     * \brief Reimplemented method. Handles key release.
+     */
+    void keyReleaseEvent(QKeyEvent *event);
 
     admeshController *controller;    ///< Main ADMeshController
 
@@ -83,6 +88,8 @@ private:
     QAction *topAct;                ///< Set top view.
     QAction *bottomAct;             ///< Set bottom view.
     QAction *centerAct;             ///< Reset view to center.
+    QAction *selectAllAct;          ///< Select all objects.
+    QAction *selectInverseAct;      ///< Select inverse.
 };
 
 #endif // WINDOW_H

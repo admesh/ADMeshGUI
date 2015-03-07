@@ -180,6 +180,11 @@ public slots:
      */
     void centerPosition();
 
+    /*!
+     * \brief Toggle Shift key pressed information.
+     */
+    void toggleShift();
+
 signals:
     void xRotationChanged(int angle);
     void yRotationChanged(int angle);
@@ -246,6 +251,11 @@ private:
      */
     void recalculateGridStep();
 
+    /*!
+     * \brief Do color based object picking.
+     *
+     * Uses offscreen color + depth framebuffer for drawing. Based on color of pixel clicked.
+     */
     void doPicking();
 
     QBasicTimer timer;              ///< Timer used to regular redrawing.
@@ -258,7 +268,7 @@ private:
     QMatrix4x4 smallView;           ///< No zoom view.
     QMatrix4x4 model;               ///< Model matrix.
 
-    QOpenGLFramebufferObjectFormat pickFboFormat;
+    QOpenGLFramebufferObjectFormat pickFboFormat;  ///< Framebuffer used offscreen for object picking.
 
     GLuint axes_vbo;                ///< Vertex buffer object for axes.
     GLuint grid_vbo;                ///< Vertex buffer object for grid.
@@ -278,7 +288,9 @@ private:
     bool Grid;                      ///< Grid mode on/off.
     bool Info;                      ///< Info on/off.
 
-    bool selection;
+    bool selection;                 ///< Object picking action.
+
+    bool shiftPressed;              ///< Shift key pressed.
 
     QPoint lastPos;                 ///< Last clicked position (LMB).
     QPoint lastTransPos;            ///< Last clicked position (RMB)

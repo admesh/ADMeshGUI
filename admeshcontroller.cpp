@@ -130,6 +130,27 @@ void admeshController::setActiveByIndex(GLuint id)
     if(id<255) objectList[id]->toggleActive();
 }
 
+void admeshController::setAllActive()
+{
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        objectList[i]->setActive();
+    }
+}
+
+void admeshController::setAllInactive()
+{
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        objectList[i]->setInactive();
+    }
+}
+
+void admeshController::setAllInverseActive()
+{
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        objectList[i]->toggleActive();
+    }
+}
+
 void admeshController::setDrawColor(QVector3D col, QVector3D badCol){
     color = col;
     badColor = badCol;

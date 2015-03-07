@@ -141,12 +141,26 @@ public:
      */
     void repair(int fixall_flag, int exact_flag, int tolerance_flag, float tolerance, int increment_flag, float increment, int nearby_flag, int iterations, int remove_unconnected_flag, int fill_holes_flag, int normal_directions_flag, int normal_values_flag, int reverse_all_flag);
 
+    /*!
+     * \brief Set active.
+     */
     void setActive();
 
+    /*!
+     * \brief Set inactive.
+     */
     void setInactive();
 
+    /*!
+     * \brief Toggle active.
+     */
     void toggleActive();
 
+    /*!
+     * \brief Is active?
+     *
+     * \return true upon active
+     */
     bool isActive();
 
     /*!
