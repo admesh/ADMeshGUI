@@ -3,8 +3,11 @@
 
 #include <QGLShaderProgram>
 #include <QObject>
+#include <vector>
 #include "data.h"
 #include "meshobject.h"
+
+using namespace std;
 
 /*!
  * \brief Controls loaded MeshObjects and drawing
@@ -67,6 +70,11 @@ public slots:
      * \param m Mode selected.
      */
     void setMode(int m);
+
+
+    int selectedCount();
+
+    void setActiveByIndex(GLuint id);
 
     /*!
      * \brief Open dialog window to open STL file
@@ -278,6 +286,7 @@ public slots:
     void repair();
 
 private:
+    vector <MeshObject*> objectList;
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file
     QVector3D color;        ///< Default color

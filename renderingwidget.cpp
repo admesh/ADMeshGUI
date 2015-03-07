@@ -120,6 +120,8 @@ void RenderingWidget::initializeGL()
     initGrid();
     glClearColor(1.0,1.0,1.0,1.0);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_STENCIL_TEST);
+    glClearStencil(2);
     timer.start(33, this);
     recalculateGridStep();
     reDraw();
@@ -148,8 +150,8 @@ void RenderingWidget::paintGL()
     painter.beginNativePainting();      //Start rendering 3D content
 
     glClearColor(1.0,1.0,1.0,1.0);      //Set OpenGl states
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     program.bind();                     //Use shader program
     glViewport(0, 0, width(), height());
@@ -164,7 +166,6 @@ void RenderingWidget::paintGL()
     program.setUniformValue("mvp_matrix", orthographic * smallView * model); //Draw corner orthographic axes
     drawSmallAxes();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    program.release();
 
     glDisable(GL_DEPTH_TEST);
     painter.endNativePainting();        //Start rendering 2D content
@@ -278,7 +279,11 @@ void RenderingWidget::wheelEvent(QWheelEvent* event)
 void RenderingWidget::mousePressEvent(QMouseEvent *event)
 {
     if(event->buttons() & Qt::LeftButton) lastPos = event->pos();
-    if(event->buttons() & Qt::RightButton) lastTransPos = event->pos();
+    if(event->buttons() & Qt::RightButton) {
+        lastTransPos = event->pos();
+        GLfloat id = 0;
+        glReadPixels(event->x(), height()-event->y(), 1, 1, GL_RED, GL_FLOAT, &id);
+    }
 }
 
 void RenderingWidget::mouseMoveEvent(QMouseEvent *event)

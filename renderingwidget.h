@@ -1,7 +1,6 @@
 #ifndef MYGLWIDGET_H
 #define MYGLWIDGET_H
 
-#include <QGLWidget>
 #include <QOpenGLWidget>
 #include <QGLFunctions>
 #include <QMatrix4x4>

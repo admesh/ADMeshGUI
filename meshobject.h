@@ -52,9 +52,9 @@ public:
 
     /*!
      * \brief Get info about mesh.
-     * \return string containing formated info.
+     * \return array containing info.
      */
-    QString getInfo();
+    float* getInfo();
 
     /*!
      * \brief Save mesh as STL.
@@ -141,6 +141,14 @@ public:
      */
     void repair(int fixall_flag, int exact_flag, int tolerance_flag, float tolerance, int increment_flag, float increment, int nearby_flag, int iterations, int remove_unconnected_flag, int fill_holes_flag, int normal_directions_flag, int normal_values_flag, int reverse_all_flag);
 
+    void setActive();
+
+    void setInactive();
+
+    void toggleActive();
+
+    bool isActive();
+
     /*!
      * \brief Destructor. Closes stl structure. Deletes vbo;
      */
@@ -149,6 +157,7 @@ public:
 private:
     stl_file* stl;  ///< Stored STL file
     GLuint vbo;     ///< Vertex buffer object used to store STL file for drawing
+    bool active;
 };
 
 #endif // MESHOBJECT_H

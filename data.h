@@ -30,6 +30,7 @@ inline QString _( const char *msgid, int category )
 #define RED QVector3D(1.0,0.0,0.0)
 #define BLUE QVector3D(0.0,0.0,1.0)
 #define BLACK QVector3D(0.0,0.0,0.0)
+#define GREY QVector3D(0.7,0.7,0.7)
 
 #define SOLID_SHORTCUT 'S'
 #define WIREFRAME_SHORTCUT 'W'

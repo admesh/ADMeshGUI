@@ -8,6 +8,7 @@ MeshObject::MeshObject()
 {
     stl = new stl_file;
     stl_initialize(stl);
+    active = true;
 }
 
 MeshObject::~MeshObject(){
@@ -66,26 +67,25 @@ QVector3D MeshObject::getMin()
     return min;
 }
 
-QString MeshObject::getInfo()
+float* MeshObject::getInfo()
 {
-    QString text;
-    QTextStream(&text) << _("Min X:      ") << stl->stats.min.x << endl <<
-                          _("Min Y:      ") << stl->stats.min.y << endl <<
-                          _("Min Z:      ") << stl->stats.min.z << endl <<
-                          _("Max X:      ") << stl->stats.max.x << endl <<
-                          _("Max Y:      ") << stl->stats.max.y << endl <<
-                          _("Max Z:      ") << stl->stats.max.z << endl <<
-                          _("Number of facets:      ") << stl->stats.number_of_facets << endl <<
-                          _("Degenerate facets:     ") << stl->stats.degenerate_facets << endl <<
-                          _("Edges fixed:           ") << stl->stats.edges_fixed << endl <<
-                          _("Facets removed:        ") << stl->stats.facets_removed << endl <<
-                          _("Facets added:          ") << stl->stats.facets_added << endl <<
-                          _("Facets reversed:       ") << stl->stats.facets_reversed << endl <<
-                          _("Backwards edges:       ") << stl->stats.backwards_edges << endl <<
-                          _("Normals fixed:         ") << stl->stats.normals_fixed << endl <<
-                          _("Volume:                ") << stl->stats.volume << endl <<
-                          endl;
-    return text;
+    float *arr = new float[15];
+    arr[0] = stl->stats.min.x;
+    arr[1] = stl->stats.min.y;
+    arr[2] = stl->stats.min.z;
+    arr[3] = stl->stats.max.x;
+    arr[4] = stl->stats.max.y;
+    arr[5] = stl->stats.max.z;
+    arr[6] = (float)stl->stats.number_of_facets;
+    arr[7] = (float)stl->stats.degenerate_facets;
+    arr[8] = (float)stl->stats.edges_fixed;
+    arr[9] = (float)stl->stats.facets_removed;
+    arr[10] = (float)stl->stats.facets_added;
+    arr[11] = (float)stl->stats.facets_reversed;
+    arr[12] = (float)stl->stats.backwards_edges;
+    arr[13] = (float)stl->stats.normals_fixed;
+    arr[14] = stl->stats.volume;
+    return arr;
 }
 
 void MeshObject::scale(float factor)
@@ -165,6 +165,26 @@ void MeshObject::repair(int fixall_flag, int exact_flag, int tolerance_flag, flo
                0);
     stl_calculate_volume(stl);
     this->updateGeometry();
+}
+
+void MeshObject::setActive()
+{
+    active = true;
+}
+
+void MeshObject::setInactive()
+{
+    active = false;
+}
+
+void MeshObject::toggleActive()
+{
+    active = !active;
+}
+
+bool MeshObject::isActive()
+{
+    return active;
 }
 
 void MeshObject::updateGeometry()

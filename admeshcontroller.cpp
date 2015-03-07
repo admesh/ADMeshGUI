@@ -1,4 +1,4 @@
-#include "admeshcontroller.h"
+﻿#include "admeshcontroller.h"
 #include <QFileDialog>
 #include <QtWidgets>
 #include <string>
@@ -43,6 +43,9 @@ admeshController::~admeshController()
 {
     delete stl;
     active = NULL;
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        delete objectList[i];
+    }
 }
 
 void admeshController::setMode(int m)
@@ -54,26 +57,68 @@ void admeshController::drawAll(QGLShaderProgram *program)
 {
     if(mode == 0){
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-        program->setUniformValue("color", GREEN);
-        program->setUniformValue("badColor", RED);
-        if(stl) stl->drawGeometry(program);
+        for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+            if(objectList[i]->isActive()){
+                program->setUniformValue("color", GREEN);
+                program->setUniformValue("badColor", RED);
+            }else{
+                program->setUniformValue("color", GREY);
+                program->setUniformValue("badColor", GREY);
+            }
+            objectList[i]->drawGeometry(program);
+        }
     }else if(mode == 1){
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-        program->setUniformValue("color", BLACK);
-        program->setUniformValue("badColor", BLACK);
-        if(stl) stl->drawGeometry(program);
+        for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+            if(objectList[i]->isActive()){
+                program->setUniformValue("color", BLACK);
+                program->setUniformValue("badColor", BLACK);
+            }else{
+                program->setUniformValue("color", GREY);
+                program->setUniformValue("badColor", GREY);
+            }
+            objectList[i]->drawGeometry(program);
+        }
     }else if(mode == 2){
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-        program->setUniformValue("color", BLACK);
-        program->setUniformValue("badColor", BLACK);
-        if(stl) stl->drawGeometry(program);
+        for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+            if(objectList[i]->isActive()){
+                program->setUniformValue("color", BLACK);
+                program->setUniformValue("badColor", BLACK);
+            }else{
+                program->setUniformValue("color", GREY);
+                program->setUniformValue("badColor", GREY);
+            }
+            objectList[i]->drawGeometry(program);
+        }
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
         glEnable( GL_POLYGON_OFFSET_FILL );
         glPolygonOffset( 1, 1 );
-        program->setUniformValue("color", GREEN);
-        program->setUniformValue("badColor", RED);
-        if(stl) stl->drawGeometry(program);
+        for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+            if(objectList[i]->isActive()){
+                program->setUniformValue("color", GREEN);
+                program->setUniformValue("badColor", RED);
+            }else{
+                program->setUniformValue("color", GREY);
+                program->setUniformValue("badColor", GREY);
+            }
+            objectList[i]->drawGeometry(program);
+        }
     }
+}
+
+int admeshController::selectedCount()
+{
+    int count = 0;
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive()) count++;
+    }
+    return count;
+}
+
+void admeshController::setActiveByIndex(GLuint id)
+{
+    if(id!=0) objectList[id]->toggleActive();
 }
 
 void admeshController::setDrawColor(QVector3D col, QVector3D badCol){
@@ -91,8 +136,72 @@ char* QStringToChar(QString str)
 
 QString admeshController::getInfo()
 {
-    if(active) return active->getInfo();
-    else return "";
+    QString text = "";
+    float minx, miny, minz, maxx, maxy, maxz, num_facets, deg_facets, edges_fixed, facets_removed, facet_sadded, facets_reversed, backward, normals_fixed, volume;
+    int count = 0;
+    bool initialized = false;
+    float* arr;
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive()){
+            arr = objectList[i]->getInfo();
+            if(!initialized){
+                minx = arr[0];
+                miny = arr[1];
+                minz = arr[2];
+                maxx = arr[3];
+                maxy = arr[4];
+                maxz = arr[5];
+                num_facets = arr[6];
+                deg_facets = arr[7];
+                edges_fixed = arr[8];
+                facets_removed = arr[9];
+                facet_sadded = arr[10];
+                facets_reversed = arr[11];
+                backward = arr[12];
+                normals_fixed = arr[13];
+                volume = arr[14];
+                initialized = true;
+            }else{
+                if(arr[0]<minx)minx = arr[0];
+                if(arr[1]<miny)miny = arr[1];
+                if(arr[2]<minz)minz = arr[2];
+                if(arr[3]>maxx)maxx = arr[3];
+                if(arr[4]>maxy)maxy = arr[4];
+                if(arr[5]>maxz)maxz = arr[5];
+                num_facets += arr[6];
+                deg_facets += arr[7];
+                edges_fixed += arr[8];
+                facets_removed += arr[9];
+                facet_sadded += arr[10];
+                facets_reversed += arr[11];
+                backward += arr[12];
+                normals_fixed += arr[13];
+                volume += arr[14];
+            }
+            count++;
+            delete arr;
+        }
+    }
+    if(initialized){
+        QTextStream(&text) << _("Objects selected:      ") << count << endl <<
+                              _("Min X:      ") << minx << endl <<
+                              _("Min Y:      ") << miny << endl <<
+                              _("Min Z:      ") << minz << endl <<
+                              _("Max X:      ") << maxx << endl <<
+                              _("Max Y:      ") << maxy << endl <<
+                              _("Max Z:      ") << maxz << endl <<
+                              _("Number of facets:      ") << num_facets << endl <<
+                              _("Degenerate facets:     ") << deg_facets << endl <<
+                              _("Edges fixed:           ") << edges_fixed << endl <<
+                              _("Facets removed:        ") << facets_removed << endl <<
+                              _("Facets added:          ") << facet_sadded << endl <<
+                              _("Facets reversed:       ") << facets_reversed << endl <<
+                              _("Backwards edges:       ") << backward << endl <<
+                              _("Normals fixed:         ") << normals_fixed << endl <<
+                              _("Total volume:                ") << volume << endl <<
+                              endl;
+    }
+    return text;
 }
 
 void admeshController::openSTL()
@@ -106,8 +215,8 @@ void admeshController::openSTL()
             QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
             QMessageBox::critical(NULL, _("Error"), msg);
         }else{
-            stl = tmp;
-            active = stl;
+            objectList.push_back(tmp);
+            objectList.back()->setActive();
         }
         delete []file;
     }
@@ -125,8 +234,8 @@ void admeshController::openSTLbyName(const char* filename)
         QTextStream(&msg) << _("File ") << file << _(" could not be opened.\n");
         QMessageBox::critical(NULL, _("Error"), msg);
     }else{
-        stl = tmp;
-        active = stl;
+        objectList.push_back(tmp);
+        objectList.back()->setActive();
     }
     reCalculatePosition();
     reDrawSignal();
@@ -134,15 +243,25 @@ void admeshController::openSTLbyName(const char* filename)
 
 void admeshController::saveAs()
 {
+    if(selectedCount()!=1){
+        QString msg;
+        QTextStream(&msg) << _("Select only one file to save.\n");
+        QMessageBox::warning(NULL, _("Warning"), msg);
+        return;
+    }
     QString filter="STL_ascii (*.stl)";
     QString fileName=QFileDialog::getSaveFileName(NULL, _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
     if(!fileName.isEmpty() && active){
         fileName=fileName.section(".",0,0);
         char *file = QStringToChar(fileName+".stl");
         if(filter == "STL_ascii (*.stl)"){
-            active->saveAs(file, 1);
+            for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+                 if(objectList[i]->isActive()) objectList[i]->saveAs(file, 1);
+            }
         }else if(filter == "STL_binary (*.stl)"){
-            active->saveAs(file, 2);
+            for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+                 if(objectList[i]->isActive()) objectList[i]->saveAs(file, 2);
+            }
         }
         delete []file;
     }
@@ -150,6 +269,12 @@ void admeshController::saveAs()
 
 void admeshController::exportSTL()
 {
+    if(selectedCount()!=1){
+        QString msg;
+        QTextStream(&msg) << _("Select only one file to export.\n");
+        QMessageBox::warning(NULL, _("Warning"), msg);
+        return;
+    }
     QString filter="OBJ (*.obj)";
     QString fileName=QFileDialog::getSaveFileName(NULL, _("Export as"), "/", _("OBJ (*.obj);;OFF (*.off);;DXF (*.dxf);;VRML (*.vrml)"), &filter);
     char *file = NULL;
@@ -157,16 +282,24 @@ void admeshController::exportSTL()
         fileName=fileName.section(".",0,0);
         if(filter == "OBJ (*.obj)"){
             file = QStringToChar(fileName+".obj");
-            active->exportSTL(file, 1);
+            for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+                 if(objectList[i]->isActive()) objectList[i]->exportSTL(file, 1);
+            }
         }else if(filter == "OFF (*.off)"){
             file = QStringToChar(fileName+".off");
-            active->exportSTL(file, 2);
+            for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+                 if(objectList[i]->isActive()) objectList[i]->exportSTL(file, 2);
+            }
         }else if(filter == "DXF (*.dxf)"){
             file = QStringToChar(fileName+".dxf");
-            active->exportSTL(file, 3);
+            for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+                 if(objectList[i]->isActive()) objectList[i]->exportSTL(file, 3);
+            }
         }else if(filter == "VRML (*.vrml)"){
             file = QStringToChar(fileName+".vrml");
-            active->exportSTL(file, 4);
+            for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+                 if(objectList[i]->isActive()) objectList[i]->exportSTL(file, 4);
+            }
         }
     delete []file;
     }
@@ -174,7 +307,7 @@ void admeshController::exportSTL()
 
 QVector3D admeshController::getMinPosition()
 {
-    if(active) return active->getMin();
+    if(objectList.back()) return objectList.back()->getMin();
     else return QVector3D(0.0,0.0,0.0);
 }
 
@@ -205,23 +338,31 @@ void admeshController::setVersor()
 
 void admeshController::scale()
 {
-    if(active && useVersor) active->scale(versor);
-    else if(active) active->scale(m_scale);
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive() && useVersor)objectList[i]->scale(versor);
+        else if(objectList[i]->isActive()) objectList[i]->scale(m_scale);
+    }
 }
 
 void admeshController::mirrorXY()
 {
-    if(active) active->mirrorXY();
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive())objectList[i]->mirrorXY();
+    }
 }
 
 void admeshController::mirrorYZ()
 {
-    if(active) active->mirrorYZ();
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive())objectList[i]->mirrorYZ();
+    }
 }
 
 void admeshController::mirrorXZ()
 {
-    if(active) active->mirrorXZ();
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive())objectList[i]->mirrorXZ();
+    }
 }
 
 void admeshController::setXRot(double angle)
@@ -241,17 +382,23 @@ void admeshController::setZRot(double angle)
 
 void admeshController::rotateX()
 {
-    if(active) active->rotateX(x_rot);
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive())objectList[i]->rotateX(x_rot);
+    }
 }
 
 void admeshController::rotateY()
 {
-    if(active) active->rotateY(y_rot);
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive())objectList[i]->rotateY(y_rot);
+    }
 }
 
 void admeshController::rotateZ()
 {
-    if(active) active->rotateZ(z_rot);
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive())objectList[i]->rotateZ(z_rot);
+    }
 }
 
 void admeshController::setXTranslate(double factor)
@@ -277,7 +424,9 @@ void admeshController::setRelativeTranslate()
 
 void admeshController::translate()
 {
-    if(active) active->translate(rel_translate, x_translate, y_translate, z_translate);
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive())objectList[i]->translate(rel_translate, x_translate, y_translate, z_translate);
+    }
 }
 
 
@@ -348,7 +497,8 @@ void admeshController::setReverseAllFlag()
 
 void admeshController::repair()
 {
-    if(active) active->repair(fixall_flag,
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        if(objectList[i]->isActive())objectList[i]->repair(fixall_flag,
                               exact_flag,
                               tolerance_flag,
                               tolerance,
@@ -361,4 +511,5 @@ void admeshController::repair()
                               normal_directions_flag,
                               normal_values_flag,
                               reverse_all_flag);
+    }
 }
