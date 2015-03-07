@@ -74,6 +74,8 @@ public slots:
 
     int selectedCount();
 
+    void drawPicking(QGLShaderProgram *program);
+
     void setActiveByIndex(GLuint id);
 
     /*!

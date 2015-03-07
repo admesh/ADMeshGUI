@@ -116,12 +116,14 @@ void RenderingWidget::initializeGL()
     initShaders();
     glGenBuffers(1, &axes_vbo);
     glGenBuffers(1, &grid_vbo);
+    selection = false;
     initAxes();
     initGrid();
     glClearColor(1.0,1.0,1.0,1.0);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_STENCIL_TEST);
-    glClearStencil(2);
+    pickFboFormat.setAttachment(QOpenGLFramebufferObject::Depth);
+    pickFboFormat.setTextureTarget(GL_TEXTURE_2D);
+    pickFboFormat.setInternalTextureFormat(GL_RGBA8);
     timer.start(33, this);
     recalculateGridStep();
     reDraw();
@@ -135,6 +137,15 @@ void RenderingWidget::initShaders(){
     if (!program.link()) close();
 
     if (!program.bind()) close();
+
+    if (!pick_program.addShaderFromSourceFile(QGLShader::Vertex, ":/picking_vshader.glsl")) close();
+
+    if (!pick_program.addShaderFromSourceFile(QGLShader::Fragment, ":/picking_fshader.glsl")) close();
+
+    if (!pick_program.link()) close();
+
+    if (!pick_program.bind()) close();
+
 }
 
 void RenderingWidget::timerEvent(QTimerEvent *)
@@ -148,6 +159,11 @@ void RenderingWidget::paintGL()
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.beginNativePainting();      //Start rendering 3D content
+
+    if(selection){
+        doPicking();
+        selection = false;
+    }
 
     glClearColor(1.0,1.0,1.0,1.0);      //Set OpenGl states
     glEnable(GL_DEPTH_TEST);
@@ -183,6 +199,23 @@ void RenderingWidget::resizeGL(int width, int height)
     projection.perspective(PERSPECTIVE, (GLfloat)width/(GLfloat)height, MIN_VIEW_DISTANCE, MAX_VIEW_DISTANCE);
     orthographic.setToIdentity();
     orthographic.ortho (-1.0f,1.0f,-1.0f,1.0f, -100, 100 );
+}
+
+void RenderingWidget::doPicking(){
+    glViewport(0, 0, width(), height());
+    QOpenGLFramebufferObject fbo(width(),height(), pickFboFormat);
+    glEnable(GL_DEPTH_TEST);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    fbo.bind();
+    pick_program.bind();
+    pick_program.setUniformValue("mvp_matrix", projection * view * model);
+    controller->drawPicking(&pick_program);
+    QImage img = fbo.toImage();
+    fbo.toImage().save("something.jpg");
+    QRgb color = img.pixel(lastTransPos.x(),lastTransPos.y());
+    int id = qRed(color);
+    controller->setActiveByIndex(id);
+    fbo.release();
 }
 
 void RenderingWidget::drawInfo(QPainter *painter)
@@ -281,8 +314,7 @@ void RenderingWidget::mousePressEvent(QMouseEvent *event)
     if(event->buttons() & Qt::LeftButton) lastPos = event->pos();
     if(event->buttons() & Qt::RightButton) {
         lastTransPos = event->pos();
-        GLfloat id = 0;
-        glReadPixels(event->x(), height()-event->y(), 1, 1, GL_RED, GL_FLOAT, &id);
+        selection = true;
     }
 }
 

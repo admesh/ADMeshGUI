@@ -107,6 +107,15 @@ void admeshController::drawAll(QGLShaderProgram *program)
     }
 }
 
+void admeshController::drawPicking(QGLShaderProgram *program)
+{
+    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    for(vector<MeshObject*>::size_type i = 0; i != objectList.size();i++){
+        program->setUniformValue("color", QVector3D((float)i/255,(float)i/255,(float)i/255));
+        objectList[i]->drawGeometry(program);
+    }
+}
+
 int admeshController::selectedCount()
 {
     int count = 0;
@@ -118,7 +127,7 @@ int admeshController::selectedCount()
 
 void admeshController::setActiveByIndex(GLuint id)
 {
-    if(id!=0) objectList[id]->toggleActive();
+    if(id<255) objectList[id]->toggleActive();
 }
 
 void admeshController::setDrawColor(QVector3D col, QVector3D badCol){

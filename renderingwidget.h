@@ -6,6 +6,7 @@
 #include <QMatrix4x4>
 #include <QVector2D>
 #include <QGLShaderProgram>
+#include <QOpenGLFramebufferObject>
 #include <QBasicTimer>
 #include <QBrush>
 #include <QFont>
@@ -245,14 +246,19 @@ private:
      */
     void recalculateGridStep();
 
+    void doPicking();
+
     QBasicTimer timer;              ///< Timer used to regular redrawing.
 
     QGLShaderProgram program;       ///< Common shader program.
+    QGLShaderProgram pick_program;  ///< Picking shader program.
     QMatrix4x4 projection;          ///< Projection matrix.
     QMatrix4x4 orthographic;        ///< Orthographic projection matrix.
     QMatrix4x4 view;                ///< View matrix.
     QMatrix4x4 smallView;           ///< No zoom view.
     QMatrix4x4 model;               ///< Model matrix.
+
+    QOpenGLFramebufferObjectFormat pickFboFormat;
 
     GLuint axes_vbo;                ///< Vertex buffer object for axes.
     GLuint grid_vbo;                ///< Vertex buffer object for grid.
@@ -271,6 +277,8 @@ private:
     bool Axes;                      ///< Axes mode on/off.
     bool Grid;                      ///< Grid mode on/off.
     bool Info;                      ///< Info on/off.
+
+    bool selection;
 
     QPoint lastPos;                 ///< Last clicked position (LMB).
     QPoint lastTransPos;            ///< Last clicked position (RMB)
