@@ -64,6 +64,8 @@ signals:
      */
     void reCalculatePosition();
 
+    void enableEdit(bool);
+
 public slots:
     /*!
      * \brief Set rendering mode.
@@ -187,22 +189,10 @@ public slots:
     void mirrorXZ();
 
     /*!
-     * \brief Set X rotation angle.
+     * \brief Set rotation angle.
      * \param angle Angle of rotation.
      */
-    void setXRot(double angle);
-
-    /*!
-     * \brief Set Y rotation angle.
-     * \param angle Angle of rotation.
-     */
-    void setYRot(double angle);
-
-    /*!
-     * \brief Set Z rotation angle.
-     * \param angle Angle of rotation.
-     */
-    void setZRot(double angle);
+    void setRot(double angle);
 
     /*!
      * \brief Rotate selected model by angle along X axis.
@@ -327,13 +317,12 @@ private:
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
     QLabel* statusBar;
+    unsigned int count;     ///< Count of all objects.
     int mode;               ///< Solid or wireframe or both mode
     float m_scale;          ///< Scale factor
     float versor[3];        ///< Scale versor
     bool useVersor;         ///< Use versor or not
-    float x_rot;            ///< X rotation angle
-    float y_rot;            ///< Y rotation angle
-    float z_rot;            ///< Z rotation angle
+    float rot;              ///< Rotation angle
     float x_translate;      ///< X translation factor
     float y_translate;      ///< Y translation factor
     float z_translate;      ///< Z translation factor

@@ -173,6 +173,7 @@ void RenderingWidget::paintGL()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glDisable(GL_DEPTH_TEST);
+    program.release();
     painter.endNativePainting();        //Start rendering 2D content
 
     painter.setRenderHint(QPainter::TextAntialiasing);
@@ -192,15 +193,14 @@ void RenderingWidget::resizeGL(int width, int height)
 
 void RenderingWidget::doPicking(){
     glViewport(0, 0, width(), height());
-    QOpenGLFramebufferObject fbo(width(),height(), pickFboFormat);
+    QOpenGLFramebufferObject fbo(width(),height(), pickFboFormat);    
+    fbo.bind();
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    fbo.bind();
     pick_program.bind();
     pick_program.setUniformValue("mvp_matrix", projection * view * model);
     controller->drawPicking(&pick_program);
     QImage img = fbo.toImage();
-    fbo.toImage().save("something.jpg");
     QRgb color = img.pixel(lastTransPos.x(),lastTransPos.y());
     int id = qRed(color);
     if(shiftPressed){
@@ -209,6 +209,7 @@ void RenderingWidget::doPicking(){
         controller->setAllInactive();
         controller->setActiveByIndex(id);
     }
+    pick_program.release();
     fbo.release();
 }
 
