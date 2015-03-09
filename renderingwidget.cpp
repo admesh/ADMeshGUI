@@ -393,6 +393,7 @@ void RenderingWidget::initGrid(){
     }
     glBindBuffer(GL_ARRAY_BUFFER, grid_vbo);
     glBufferData(GL_ARRAY_BUFFER, (GRID_SIZE+1) * 4 * 4 * sizeof(GLfloat), vertices, GL_DYNAMIC_DRAW);
+    delete []vertices;
 }
 
 void RenderingWidget::drawAxes()

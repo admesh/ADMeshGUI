@@ -42,9 +42,11 @@ admeshController::~admeshController()
 {
     delete stl;
     active = NULL;
-    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+    /*for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         delete objectList[i];
-    }
+    }*/
+    setAllActive();
+    closeSTL();
 }
 
 void admeshController::setMode(int m)
@@ -218,7 +220,7 @@ QString admeshController::getInfo()
                 volume += arr[14];
             }
             objects++;
-            delete arr;
+            delete []arr;
         }
     }
     if(initialized){
@@ -286,6 +288,20 @@ void admeshController::openSTLbyName(const char* filename)
     reCalculatePosition();
     reDrawSignal();
     enableEdit(true);
+}
+
+void admeshController::closeSTL()
+{
+    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isActive()){
+            delete objectList[i];
+            objectList.erase(objectList.begin() + i);
+            count--;
+            i--;
+        }
+    }
+    if(count == 1) objectList[0]->setActive();
+    else if(count == 0) enableEdit(false);
 }
 
 void admeshController::saveAs()

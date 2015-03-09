@@ -75,6 +75,7 @@ private:
     QAction *openAct;               ///< Open file action.
     QAction *saveAsAct;             ///< Save as file action.
     QAction *exportAct;             ///< Export file action.
+    QAction *closeAct;              ///< Close selected objects.
     QAction *axesAct;               ///< Show axes action.
     QAction *gridAct;               ///< Show grid action.
     QAction *solidAct;              ///< Solid mode on.

@@ -78,6 +78,12 @@ void Window::addActions(){
     exportAct->setStatusTip(_("Export as OBJ, OFF, DXF or VRML"));
     connect(exportAct, SIGNAL(triggered()), controller, SLOT(exportSTL()));
 
+    closeAct = new QAction(_("&Close"), this);
+    closeAct->setShortcuts(QKeySequence::Close);
+    closeAct->setStatusTip(_("Close selected files"));
+    connect(closeAct, SIGNAL(triggered()), controller, SLOT(closeSTL()));
+
+
     axesAct = new QAction(_("&Axes"), this);
     axesAct->setStatusTip(_("Show or hide axes"));
     axesAct->setCheckable(true);
@@ -179,6 +185,7 @@ void Window::addMenus(){
     fileMenu->addAction(saveAsAct);
     fileMenu->addAction(exportAct);
     fileMenu->addSeparator();
+    fileMenu->addAction(closeAct);
     editMenu = menu_bar->addMenu(_("&Edit"));
     editMenu->addAction(selectAllAct);
     editMenu->addAction(selectInverseAct);

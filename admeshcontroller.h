@@ -64,6 +64,11 @@ signals:
      */
     void reCalculatePosition();
 
+    /*!
+     * \brief Sends signal to enable or disable edit panel.
+     *
+     * 0 objects in scene = disabled edit
+     */
     void enableEdit(bool);
 
 public slots:
@@ -122,6 +127,11 @@ public slots:
      * \brief Open STL file given by parameter
      */
     void openSTLbyName(const char* file);
+
+    /*!
+     * \brief Close selected objects
+     */
+    void closeSTL();
 
     /*!
      * \brief Save STL file as binary or ascii
