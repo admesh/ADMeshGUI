@@ -255,12 +255,12 @@ void admeshController::openSTL()
             QString msg;
             QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
             QMessageBox::critical(NULL, _("Error"), msg);
+            delete file;
             return;
         }else{
             objectList.push_back(tmp);
             objectList.back()->setActive();
         }
-        delete []file;
         count++;
         if(selectedCount()>0)statusBar->setText(_("Status: File opened"));
         reCalculatePosition();
@@ -272,12 +272,13 @@ void admeshController::openSTL()
 
 void admeshController::openSTLbyName(const char* filename)
 {
-    char* file = const_cast<char *>(filename);
+    char *file = (char*)malloc(strlen(filename)+1);
+    strcpy(file, filename);
     MeshObject* tmp = new MeshObject;
     if(!tmp->loadGeometry(file)){
         QString msg;
         QTextStream(&msg) << _("File ") << file << _(" could not be opened.\n");
-        QMessageBox::critical(NULL, _("Error"), msg);
+        QMessageBox::critical(NULL, _("Error"), msg);        
         return;
     }else{
         objectList.push_back(tmp);
@@ -321,18 +322,41 @@ void admeshController::saveAs()
             for(vector<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()) {
                      objectList[i]->saveAs(file, 1);
-                     if(selectedCount()>0)statusBar->setText(_("Status: File saved as ASCII STl"));
+                     statusBar->setText(_("Status: File saved as ASCII STl"));
                  }
             }
         }else if(filter == "STL_binary (*.stl)"){
             for(vector<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()){
                      objectList[i]->saveAs(file, 2);
-                     if(selectedCount()>0)statusBar->setText(_("Status: File saved as ASCII STl"));
+                     statusBar->setText(_("Status: File saved as ASCII STl"));
                  }
             }
         }
-        delete []file;
+    }
+}
+
+void admeshController::save()
+{
+    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isActive() && !objectList[i]->isSaved() && objectList[i]->hasValidName()) { // current mesh is saveable
+            objectList[i]->save();
+            statusBar->setText(_("Status: File saved"));
+        }else if(objectList[i]->isActive() && !objectList[i]->isSaved()){    // current mesh has no valid name stored (eg. merged one)
+            QString filter="STL_ascii (*.stl)";
+            QString fileName=QFileDialog::getSaveFileName(NULL, _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
+            if(!fileName.isEmpty()){
+                fileName=fileName.section(".",0,0);
+                char *file = QStringToChar(fileName+".stl");
+                if(filter == "STL_ascii (*.stl)"){
+                   objectList[i]->saveAs(file, 1);
+                   statusBar->setText(_("Status: File saved as ASCII STl"));
+                }else if(filter == "STL_binary (*.stl)"){
+                   objectList[i]->saveAs(file, 2);
+                   statusBar->setText(_("Status: File saved as ASCII STl"));
+                }
+            }
+        }
     }
 }
 

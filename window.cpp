@@ -69,6 +69,11 @@ void Window::addActions(){
     openAct->setStatusTip(_("Open STL file"));
     connect(openAct, SIGNAL(triggered()), controller, SLOT(openSTL()));
 
+    saveAct = new QAction(_("&Save"), this);
+    saveAct->setShortcuts(QKeySequence::Save);
+    saveAct->setStatusTip(_("Save in default STL format"));
+    connect(saveAct, SIGNAL(triggered()), controller, SLOT(save()));
+
     saveAsAct = new QAction(_("&Save as"), this);
     saveAsAct->setShortcuts(QKeySequence::SaveAs);
     saveAsAct->setStatusTip(_("Save as ASCII or binary STL file"));
@@ -182,6 +187,7 @@ void Window::addMenus(){
 
     fileMenu = menu_bar->addMenu(_("&File"));
     fileMenu->addAction(openAct);
+    fileMenu->addAction(saveAct);
     fileMenu->addAction(saveAsAct);
     fileMenu->addAction(exportAct);
     fileMenu->addSeparator();

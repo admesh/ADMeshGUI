@@ -9,12 +9,15 @@ MeshObject::MeshObject()
     stl = new stl_file;
     stl_initialize(stl);
     active = true;
+    saved = true;
+    file = NULL;
 }
 
 MeshObject::~MeshObject(){
     stl_close(stl);
     delete(stl);
     glDeleteBuffers(1, &vbo);
+    free(file);
 }
 
 bool MeshObject::loadGeometry(char* fileName)
@@ -29,7 +32,20 @@ bool MeshObject::loadGeometry(char* fileName)
     initializeGLFunctions();
     glGenBuffers(1, &vbo);
     this->updateGeometry();
+    file = fileName;
     return true;
+}
+
+bool MeshObject::hasValidName()
+{
+    if(!file)return false;
+    else if(strlen(file)<5)return false;
+    else return true;
+}
+
+bool MeshObject::isSaved()
+{
+    return saved;
 }
 
 void MeshObject::saveAs(char* filename, int type)
@@ -39,6 +55,19 @@ void MeshObject::saveAs(char* filename, int type)
     }else if(type == 2){
         stl_write_binary(stl, filename, "ADMeshSTLmodel");
     }
+    delete []file;
+    file = filename;
+    saved = true;
+}
+
+void MeshObject::save()
+{
+    if(stl->stats.type == binary){
+        stl_write_binary(stl, file, "ADMeshSTLmodel");
+    }else if(stl->stats.type == ascii){
+        stl_write_ascii(stl, file, "ADMeshSTLmodel");
+    }
+    saved = true;
 }
 
 void MeshObject::exportSTL(char* filename, int type)
@@ -219,6 +248,7 @@ void MeshObject::updateGeometry()
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, N * 18 * sizeof(GLfloat), vertices, GL_DYNAMIC_DRAW);
     delete [] vertices;
+    saved = false;
 }
 
 void MeshObject::drawGeometry(QGLShaderProgram *program)

@@ -73,6 +73,7 @@ private:
     QMenu *editMenu;                ///< Editation menu.
     QMenu *viewMenu;                ///< View menu.
     QAction *openAct;               ///< Open file action.
+    QAction *saveAct;               ///< Save file action.
     QAction *saveAsAct;             ///< Save as file action.
     QAction *exportAct;             ///< Export file action.
     QAction *closeAct;              ///< Close selected objects.

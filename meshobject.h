@@ -64,6 +64,21 @@ public:
     void saveAs(char* filename, int type);
 
     /*!
+     * \brief Save mesh in its default format.
+     */
+    void save();
+
+    /*!
+     * \brief True if stored filename is valid.
+     */
+    bool hasValidName();
+
+    /*!
+     * \brief True if current state of mesh is saved.
+     */
+    bool isSaved();
+
+    /*!
      * \brief Export mesh as OFF, VRML, DXF or OBJ.
      * \param filename Exported filename.
      * \param type File File type.
@@ -171,7 +186,9 @@ public:
 private:
     stl_file* stl;  ///< Stored STL file
     GLuint vbo;     ///< Vertex buffer object used to store STL file for drawing
-    bool active;
+    bool active;    ///< Set active/inactive
+    bool saved;     ///< Is saved/unsaved
+    char* file;     ///< File name
 };
 
 #endif // MESHOBJECT_H

@@ -139,6 +139,11 @@ public slots:
     void saveAs();
 
     /*!
+     * \brief Save selected STL files in default format
+     */
+    void save();
+
+    /*!
      * \brief Export STL file as OFF, VRML, DXF or OBJ
      */
     void exportSTL();
