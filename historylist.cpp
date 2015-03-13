@@ -28,14 +28,12 @@ vector <MeshObject*> historyList::current()
 
 vector <MeshObject*> historyList::undo()
 {
-    vector <MeshObject*> row;
-    if(current_index > 0){
-        row = current();
-        --current_index;
+    if(current_index == 0){
+        return current();
     }else{
-        row = current();
+        --current_index;
+        return current();
     }
-    return row;
 }
 
 vector <MeshObject*> historyList::redo()
@@ -50,9 +48,9 @@ void historyList::deleteRow(vector <vector <MeshObject*> >::size_type index)
         if(history[index][i]->hasReferences()){
             history[index][i]->removeReference();
         }else{
+            //history[index].erase(history[index].begin() + i);
             delete history[index][i];
         }
-        history.erase(history.begin() + index);
     }
 }
 
@@ -63,8 +61,9 @@ void historyList::cutOldest()
 
 void historyList::cutRedos()
 {
-    while(max_index > current_index){
+    while(max_index != current_index){
         deleteRow(max_index);
+        history.pop_back();
         --max_index;
     }
 }

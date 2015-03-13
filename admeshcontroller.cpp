@@ -54,6 +54,42 @@ void admeshController::setMode(int m)
     mode = m;
 }
 
+void admeshController::pushHistory()
+{
+    history.add(objectList);
+}
+
+void admeshController::renewList()
+{
+    vector <MeshObject*> tmp = objectList;
+    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+        if(!tmp[i]->isActive()){    //inactive object is reused via same pointer
+            tmp[i]->addReference();
+        }else{
+            tmp[i] = new MeshObject(*tmp[i]);
+        }
+    }
+    objectList = tmp;
+}
+
+void admeshController::undo()
+{
+    objectList = history.undo();
+    count = objectList.size();
+    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+        objectList[i]->updateGeometry();
+    }
+}
+
+void admeshController::redo()
+{
+    objectList = history.redo();
+    count = objectList.size();
+    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+        objectList[i]->updateGeometry();
+    }
+}
+
 void admeshController::drawAll(QGLShaderProgram *program)
 {
     if(mode == 0){
@@ -258,8 +294,10 @@ void admeshController::openSTL()
             delete file;
             return;
         }else{
+            renewList();
             objectList.push_back(tmp);
             objectList.back()->setActive();
+            pushHistory();
         }
         count++;
         if(selectedCount()>0)statusBar->setText(_("Status: File opened"));
@@ -283,6 +321,7 @@ void admeshController::openSTLbyName(const char* filename)
     }else{
         objectList.push_back(tmp);
         objectList.back()->setActive();
+        history.add(objectList);
     }
     count++;
     if(selectedCount()>0)statusBar->setText(_("Status: File(s) opened"));
@@ -443,35 +482,43 @@ void admeshController::setVersor()
 
 void admeshController::scale()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive() && useVersor)objectList[i]->scale(versor);
         else if(objectList[i]->isActive()) objectList[i]->scale(m_scale);
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) scaled"));
+    pushHistory();
 }
 
 void admeshController::mirrorXY()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorXY();
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XY plane"));
+    pushHistory();
 }
 
 void admeshController::mirrorYZ()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorYZ();
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along YZ plane"));
+    pushHistory();
 }
 
 void admeshController::mirrorXZ()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorXZ();
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XZ plane"));
+    pushHistory();
 }
 
 void admeshController::setRot(double angle)
@@ -481,26 +528,32 @@ void admeshController::setRot(double angle)
 
 void admeshController::rotateX()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->rotateX(rot);
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along X axis"));
+    pushHistory();
 }
 
 void admeshController::rotateY()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->rotateY(rot);
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Y axis"));
+    pushHistory();
 }
 
 void admeshController::rotateZ()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->rotateZ(rot);
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Z axis"));
+    pushHistory();
 }
 
 void admeshController::setXTranslate(double factor)
@@ -526,11 +579,13 @@ void admeshController::setRelativeTranslate()
 
 void admeshController::translate()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->translate(rel_translate, x_translate, y_translate, z_translate);
     }
     if(selectedCount()>0 && rel_translate)statusBar->setText(_("Status: mesh(es) translated relatively to position"));
     else if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) translated to origin"));
+    pushHistory();
 }
 
 
@@ -601,6 +656,7 @@ void admeshController::setReverseAllFlag()
 
 void admeshController::repair()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->repair(fixall_flag,
                               exact_flag,
@@ -617,4 +673,5 @@ void admeshController::repair()
                               reverse_all_flag);
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) repaired"));
+    pushHistory();
 }

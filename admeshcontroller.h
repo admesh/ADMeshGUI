@@ -7,6 +7,7 @@
 #include <vector>
 #include "data.h"
 #include "meshobject.h"
+#include "historylist.h"
 
 using namespace std;
 
@@ -325,7 +326,14 @@ public slots:
      */
     void repair();
 
+    void undo();
+
+    void redo();
+
 private:
+    void pushHistory();
+    void renewList();
+    historyList history;
     vector <MeshObject*> objectList;  ///< List of currently drawn objects.
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file

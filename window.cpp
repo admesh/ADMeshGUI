@@ -175,6 +175,16 @@ void Window::addActions(){
     selectInverseAct->setStatusTip(_("Active objects are set inactive and vice versa"));
     selectInverseAct->setShortcut(QKeySequence::Italic);
     connect(selectInverseAct, SIGNAL(triggered()), controller, SLOT(setAllInverseActive()));
+
+    undoAct = new QAction(_("&Undo"), this);
+    undoAct->setShortcuts(QKeySequence::Undo);
+    undoAct->setStatusTip(_("Undo last action"));
+    connect(undoAct, SIGNAL(triggered()), controller, SLOT(undo()));
+
+    redoAct = new QAction(_("&Redo"), this);
+    redoAct->setShortcuts(QKeySequence::Redo);
+    redoAct->setStatusTip(_("Redo last action"));
+    connect(redoAct, SIGNAL(triggered()), controller, SLOT(redo()));
 }
 
 void Window::addMenus(){
@@ -193,6 +203,8 @@ void Window::addMenus(){
     fileMenu->addSeparator();
     fileMenu->addAction(closeAct);
     editMenu = menu_bar->addMenu(_("&Edit"));
+    editMenu->addAction(undoAct);
+    editMenu->addAction(redoAct);
     editMenu->addAction(selectAllAct);
     editMenu->addAction(selectInverseAct);
     viewMenu = menu_bar->addMenu(_("&View"));

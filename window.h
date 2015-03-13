@@ -92,6 +92,8 @@ private:
     QAction *centerAct;             ///< Reset view to center.
     QAction *selectAllAct;          ///< Select all objects.
     QAction *selectInverseAct;      ///< Select inverse.
+    QAction *undoAct;
+    QAction *redoAct;
 };
 
 #endif // WINDOW_H
