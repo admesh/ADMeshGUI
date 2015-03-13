@@ -2,13 +2,21 @@
 
 historyList::historyList()
 {
-    current_index = -1;
-    max_index = -1;
+    current_index = 0;
+    max_index = 0;
+    history.push_back(vector<MeshObject*>());
 }
 
 historyList::~historyList()
 {
-
+    while(max_index != 0){
+        for(vector<MeshObject*>::size_type i = 0; i < history[max_index].size();i++){
+            delete history[max_index][i];
+            history[max_index][i] = NULL;
+        }
+        history.pop_back();
+        --max_index;
+    }
 }
 
 void historyList::add(vector <MeshObject*> item)
@@ -28,7 +36,7 @@ vector <MeshObject*> historyList::current()
 
 vector <MeshObject*> historyList::undo()
 {
-    if(current_index == 0){
+    if(current_index == 0 || current_index == 1){
         return current();
     }else{
         --current_index;
@@ -48,8 +56,8 @@ void historyList::deleteRow(vector <vector <MeshObject*> >::size_type index)
         if(history[index][i]->hasReferences()){
             history[index][i]->removeReference();
         }else{
-            //history[index].erase(history[index].begin() + i);
             delete history[index][i];
+            history[index][i]=NULL;
         }
     }
 }

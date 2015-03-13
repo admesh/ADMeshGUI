@@ -8,8 +8,6 @@ Window::Window(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    /*connect(ui->renderingWidget, SIGNAL(xRotationChanged(int)), ui->xRotSlider, SLOT(setValue(int)));
-    connect(ui->renderingWidget, SIGNAL(yRotationChanged(int)), ui->yRotSlider, SLOT(setValue(int)));*/
     ui->showButton->hide();
 
     controller = new admeshController;
@@ -205,6 +203,7 @@ void Window::addMenus(){
     editMenu = menu_bar->addMenu(_("&Edit"));
     editMenu->addAction(undoAct);
     editMenu->addAction(redoAct);
+    editMenu->addSeparator();
     editMenu->addAction(selectAllAct);
     editMenu->addAction(selectInverseAct);
     viewMenu = menu_bar->addMenu(_("&View"));

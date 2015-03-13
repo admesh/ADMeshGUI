@@ -14,9 +14,8 @@ MeshObject::MeshObject()
     references = 0;
 }
 
-MeshObject::MeshObject(const MeshObject& m)
+MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
 {
-    //vbo = m.vbo;
     references = 0;
     file = (char*)malloc(strlen(m.file)+1);
     strcpy(file, m.file);
@@ -34,14 +33,9 @@ MeshObject::MeshObject(const MeshObject& m)
         stl->facet_start[i] = m.stl->facet_start[i];
         stl->neighbors_start[i] = m.stl->neighbors_start[i];
     }
-    /*for(int i=0; i<stl->stats.number_of_facets * 3;i++){
-        stl->edge_start[i] = m.stl->edge_start[i];
-    }*/
     initializeGLFunctions();
     glGenBuffers(1, &vbo);
     this->updateGeometry();
-    /*stl_verify_neighbors(stl);
-    stl_generate_shared_vertices(stl);*/
 }
 
 MeshObject::~MeshObject(){

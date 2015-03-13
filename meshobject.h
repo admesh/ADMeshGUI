@@ -20,6 +20,9 @@ public:
      */
     MeshObject();
 
+    /*!
+     * \brief Copy constructor. Creates deep copy of MeshObject.
+     */
     MeshObject(const MeshObject& m);
 
     /*!
@@ -181,14 +184,25 @@ public:
     bool isActive();
 
     /*!
-     * \brief Destructor. Closes stl structure. Deletes vbo;
+     * \brief Destructor. Closes stl structure. Deletes vbo.
      */
     virtual ~MeshObject();
 
+    /*!
+     * \brief Has references?
+     *
+     * return true upon references > 0
+     */
     bool hasReferences();
 
+    /*!
+     * \brief Raise references count by 1.
+     */
     void addReference();
 
+    /*!
+     * \brief Decrease references count by 1.
+     */
     void removeReference();
 
 private:
@@ -197,7 +211,7 @@ private:
     bool active;    ///< Set active/inactive
     bool saved;     ///< Is saved/unsaved
     char* file;     ///< File name
-    unsigned int references;
+    unsigned int references;    ///< Count if references - how many history items use this object.
 };
 
 #endif // MESHOBJECT_H

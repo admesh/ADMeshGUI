@@ -224,7 +224,7 @@ void RenderingWidget::drawInfo(QPainter *painter)
     QRect rect = metrics.boundingRect(0, 0, width()/4 - 2*border, int(height()/2), Qt::AlignLeft | Qt::TextWordWrap, text);
     painter->setRenderHint(QPainter::TextAntialiasing);
     painter->setPen(Qt::black);
-    painter->fillRect(QRect(0, 0, width()/5, height()/3), QColor(1, 1, 1, 1));
+    painter->fillRect(QRect(0, 0, qMin(width()/2,250), qMin(height(),370)), QColor(1, 1, 1, 1));
     painter->drawText(rect.width()/10, border, rect.width(), rect.height(), Qt::AlignLeft | Qt::TextWordWrap, text);
 }
 

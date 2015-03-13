@@ -326,14 +326,29 @@ public slots:
      */
     void repair();
 
+    /*!
+     * \brief Undo last operation.
+     */
     void undo();
 
+    /*!
+     * \brief Redo last undoed operation.
+     */
     void redo();
 
 private:
+    /*!
+     * \brief Add current items state into history list.
+     */
     void pushHistory();
+    /*!
+     * \brief Prepare items for next operation.
+     *
+     * Active items are deep copied.
+     * Reference for each inactive item is raised.
+     */
     void renewList();
-    historyList history;
+    historyList history;    ///< History list
     vector <MeshObject*> objectList;  ///< List of currently drawn objects.
     MeshObject* stl;        ///< One STL file
     MeshObject* active;     ///< Active STL file

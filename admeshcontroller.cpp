@@ -44,9 +44,9 @@ admeshController::~admeshController()
     active = NULL;
     /*for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         delete objectList[i];
-    }*/
+    }
     setAllActive();
-    closeSTL();
+    closeSTL();*/
 }
 
 void admeshController::setMode(int m)
@@ -332,14 +332,15 @@ void admeshController::openSTLbyName(const char* filename)
 
 void admeshController::closeSTL()
 {
+    renewList();
     for(vector<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive()){
-            delete objectList[i];
             objectList.erase(objectList.begin() + i);
             count--;
             i--;
         }
     }
+    pushHistory();
     if(count == 1) objectList[0]->setActive();
     else if(count == 0) enableEdit(false);
 }
@@ -482,13 +483,15 @@ void admeshController::setVersor()
 
 void admeshController::scale()
 {
-    renewList();
-    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
-        if(objectList[i]->isActive() && useVersor)objectList[i]->scale(versor);
-        else if(objectList[i]->isActive()) objectList[i]->scale(m_scale);
+    if(m_scale !=0.0 || versor[0] != 0.0 || versor[1] != 0.0 || versor[2] != 0.0){
+        renewList();
+        for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+            if(objectList[i]->isActive() && useVersor)objectList[i]->scale(versor);
+            else if(objectList[i]->isActive()) objectList[i]->scale(m_scale);
+        }
+        if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) scaled"));
+        pushHistory();
     }
-    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) scaled"));
-    pushHistory();
 }
 
 void admeshController::mirrorXY()
@@ -528,32 +531,38 @@ void admeshController::setRot(double angle)
 
 void admeshController::rotateX()
 {
-    renewList();
-    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
-        if(objectList[i]->isActive())objectList[i]->rotateX(rot);
+    if(rot != 0.0){
+        renewList();
+        for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+            if(objectList[i]->isActive())objectList[i]->rotateX(rot);
+        }
+        if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along X axis"));
+        pushHistory();
     }
-    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along X axis"));
-    pushHistory();
 }
 
 void admeshController::rotateY()
 {
-    renewList();
-    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
-        if(objectList[i]->isActive())objectList[i]->rotateY(rot);
+    if(rot != 0.0){
+        renewList();
+        for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+            if(objectList[i]->isActive())objectList[i]->rotateY(rot);
+        }
+        if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Y axis"));
+        pushHistory();
     }
-    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Y axis"));
-    pushHistory();
 }
 
 void admeshController::rotateZ()
 {
-    renewList();
-    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
-        if(objectList[i]->isActive())objectList[i]->rotateZ(rot);
+    if(rot != 0.0){
+        renewList();
+        for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+            if(objectList[i]->isActive())objectList[i]->rotateZ(rot);
+        }
+        if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Z axis"));
+        pushHistory();
     }
-    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Z axis"));
-    pushHistory();
 }
 
 void admeshController::setXTranslate(double factor)
@@ -579,13 +588,15 @@ void admeshController::setRelativeTranslate()
 
 void admeshController::translate()
 {
-    renewList();
-    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
-        if(objectList[i]->isActive())objectList[i]->translate(rel_translate, x_translate, y_translate, z_translate);
+    if(x_translate != 0.0 || y_translate != 0.0 || z_translate != 0.0){
+        renewList();
+        for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+            if(objectList[i]->isActive())objectList[i]->translate(rel_translate, x_translate, y_translate, z_translate);
+        }
+        if(selectedCount()>0 && rel_translate)statusBar->setText(_("Status: mesh(es) translated relatively to position"));
+        else if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) translated to origin"));
+        pushHistory();
     }
-    if(selectedCount()>0 && rel_translate)statusBar->setText(_("Status: mesh(es) translated relatively to position"));
-    else if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) translated to origin"));
-    pushHistory();
 }
 
 
