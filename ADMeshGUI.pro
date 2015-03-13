@@ -18,13 +18,15 @@ SOURCES += main.cpp\
         window.cpp \    
     renderingwidget.cpp \
     admeshcontroller.cpp \
-    meshobject.cpp
+    meshobject.cpp \
+    historylist.cpp
 
 HEADERS  += window.h \
     data.h \
     renderingwidget.h \
     admeshcontroller.h \
-    meshobject.h
+    meshobject.h \
+    historylist.h
 
 FORMS    += window.ui
 

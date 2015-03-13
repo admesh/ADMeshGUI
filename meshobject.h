@@ -20,6 +20,8 @@ public:
      */
     MeshObject();
 
+    MeshObject(const MeshObject& m);
+
     /*!
      * \brief Read in given file.
      *
@@ -183,12 +185,19 @@ public:
      */
     virtual ~MeshObject();
 
+    bool hasReferences();
+
+    void addReference();
+
+    void removeReference();
+
 private:
     stl_file* stl;  ///< Stored STL file
     GLuint vbo;     ///< Vertex buffer object used to store STL file for drawing
     bool active;    ///< Set active/inactive
     bool saved;     ///< Is saved/unsaved
     char* file;     ///< File name
+    unsigned int references;
 };
 
 #endif // MESHOBJECT_H

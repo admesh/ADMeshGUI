@@ -11,6 +11,35 @@ MeshObject::MeshObject()
     active = true;
     saved = true;
     file = NULL;
+    references = 0;
+}
+
+MeshObject::MeshObject(const MeshObject& m)
+{
+    vbo = m.vbo;
+    references = 0;
+    file = (char*)malloc(strlen(m.file)+1);
+    strcpy(file, m.file);
+    file = m.file;
+    saved = false;
+    active = m.active;
+    stl = new stl_file;
+    stl_initialize(stl);
+    stl->fp = m.stl->fp;
+    stl->stats = m.stl->stats;
+    stl->M = m.stl->M;
+    stl->error = m.stl->error;
+    stl_reallocate(stl);
+    for(int i=0; i<stl->stats.number_of_facets;i++){
+        stl->facet_start[i] = m.stl->facet_start[i];
+    }
+    /*for(int i=0; i<stl->stats.number_of_facets * 3;i++){
+        stl->edge_start[i] = m.stl->edge_start[i];
+    }*/
+    initializeGLFunctions();
+    this->updateGeometry();
+    /*stl_verify_neighbors(stl);
+    stl_generate_shared_vertices(stl);*/
 }
 
 MeshObject::~MeshObject(){
@@ -214,6 +243,22 @@ void MeshObject::toggleActive()
 bool MeshObject::isActive()
 {
     return active;
+}
+
+bool MeshObject::hasReferences()
+{
+    if(references > 0) return true;
+    else return false;
+}
+
+void MeshObject::addReference()
+{
+    references++;
+}
+
+void MeshObject::removeReference()
+{
+    references--;
 }
 
 void MeshObject::updateGeometry()
