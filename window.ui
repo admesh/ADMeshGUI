@@ -27,11 +27,13 @@ color: grey;
 padding: 6px; 
 border-left: 1px solid rgb(239, 239, 239);
 border-right: 1px solid grey;
+outline: none;
 }
 
 #showButton:pressed, #hideButton:pressed{
 border-right: 1px solid black; 
 border-left: 1px solid black; 
+outline: none;
 }
 
 #renderingWidget{

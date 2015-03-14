@@ -9,8 +9,6 @@ using namespace std;
 admeshController::admeshController(QObject *parent) :
     QObject(parent)
 {
-    stl = NULL;
-    active = NULL;
     count = 0;
     mode = 0;
     m_scale = 1.0;
@@ -40,13 +38,6 @@ admeshController::admeshController(QObject *parent) :
 
 admeshController::~admeshController()
 {
-    delete stl;
-    active = NULL;
-    /*for(vector<MeshObject*>::size_type i = 0; i < count;i++){
-        delete objectList[i];
-    }
-    setAllActive();
-    closeSTL();*/
 }
 
 void admeshController::setMode(int m)
@@ -291,7 +282,6 @@ void admeshController::openSTL()
             QString msg;
             QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
             QMessageBox::critical(NULL, _("Error"), msg);
-            delete file;
             return;
         }else{
             renewList();
@@ -333,14 +323,15 @@ void admeshController::openSTLbyName(const char* filename)
 void admeshController::closeSTL()
 {
     renewList();
-    for(vector<MeshObject*>::size_type i = 0; i < count;i++){
+    pushHistory();
+    for(vector<MeshObject*>::size_type i = 0; i < count;i++){        
         if(objectList[i]->isActive()){
             objectList.erase(objectList.begin() + i);
-            count--;
-            i--;
+            --count;
+            --i;
         }
     }
-    pushHistory();
+
     if(count == 1) objectList[0]->setActive();
     else if(count == 0) enableEdit(false);
 }

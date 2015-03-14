@@ -11,8 +11,12 @@ historyList::~historyList()
 {
     while(max_index != 0){
         for(vector<MeshObject*>::size_type i = 0; i < history[max_index].size();i++){
-            delete history[max_index][i];
-            history[max_index][i] = NULL;
+            if(history[max_index][i]->hasReferences()){
+                history[max_index][i]->removeReference();
+            }else{
+                delete history[max_index][i];
+                history[max_index][i]=NULL;
+            }
         }
         history.pop_back();
         --max_index;

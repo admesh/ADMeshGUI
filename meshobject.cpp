@@ -17,9 +17,8 @@ MeshObject::MeshObject()
 MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
 {
     references = 0;
-    file = (char*)malloc(strlen(m.file)+1);
+    file = new char[strlen(m.file) + 1];
     strcpy(file, m.file);
-    file = m.file;
     saved = false;
     active = m.active;
     stl = new stl_file;
@@ -42,7 +41,7 @@ MeshObject::~MeshObject(){
     stl_close(stl);
     delete(stl);
     glDeleteBuffers(1, &vbo);
-    //free(file);
+    delete []file;
 }
 
 bool MeshObject::loadGeometry(char* fileName)

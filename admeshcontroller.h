@@ -350,12 +350,10 @@ private:
     void renewList();
     historyList history;    ///< History list
     vector <MeshObject*> objectList;  ///< List of currently drawn objects.
-    MeshObject* stl;        ///< One STL file
-    MeshObject* active;     ///< Active STL file
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
     QLabel* statusBar;
-    unsigned int count;     ///< Count of all objects.
+    vector <MeshObject*>::size_type count;     ///< Count of all objects.
     int mode;               ///< Solid or wireframe or both mode
     float m_scale;          ///< Scale factor
     float versor[3];        ///< Scale versor
