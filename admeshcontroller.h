@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QObject>
 #include <vector>
+#include <QList>
 #include "data.h"
 #include "meshobject.h"
 #include "historylist.h"
@@ -349,11 +350,11 @@ private:
      */
     void renewList();
     historyList history;    ///< History list
-    vector <MeshObject*> objectList;  ///< List of currently drawn objects.
+    QList <MeshObject*> objectList;  ///< List of currently drawn objects.
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
     QLabel* statusBar;
-    vector <MeshObject*>::size_type count;     ///< Count of all objects.
+    QList <MeshObject*>::size_type count;     ///< Count of all objects.
     int mode;               ///< Solid or wireframe or both mode
     float m_scale;          ///< Scale factor
     float versor[3];        ///< Scale versor

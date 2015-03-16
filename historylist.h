@@ -1,7 +1,7 @@
 #ifndef HISTORYLIST_H
 #define HISTORYLIST_H
 
-#include <vector>
+#include <QList>
 #include "data.h"
 #include "meshobject.h"
 
@@ -28,31 +28,31 @@ public:
      * \brief Add item into history
      * \param item Objects in current state to add to history.
      */
-    void add(vector <MeshObject*> item);
+    void add(QList <MeshObject*> item);
 
     /*!
      * \brief Delete history item given by index
      * \param index Index of item to delete.
      */
-    void deleteRow(vector <vector <MeshObject*> >::size_type index);
+    void deleteRow(QList <QList <MeshObject*> >::size_type index);
 
     /*!
      * \brief Returns item under current_index
      * \return Current item.
      */
-    vector <MeshObject*> current();
+    QList <MeshObject*> current();
 
     /*!
      * \brief Returns item one position back in history.
      * \return Previous item.
      */
-    vector <MeshObject*> undo();
+    QList <MeshObject*> undo();
 
     /*!
      * \brief Returns item one position further in history.
      * \return Next item.
      */
-    vector <MeshObject*> redo();
+    QList <MeshObject*> redo();
 
     /*!
      * \brief Delete oldest entries in history.
@@ -69,9 +69,9 @@ public:
      */
     void cutRedos();
 private:
-    vector <vector <MeshObject*> > history;                     ///< Editation history list
-    vector <vector <MeshObject*> >::size_type current_index;    ///< Current index position
-    vector <vector <MeshObject*> >::size_type max_index;        ///< Maximum index position
+    QList <QList <MeshObject*> > history;                     ///< Editation history list
+    QList <QList <MeshObject*> >::size_type current_index;    ///< Current index position
+    QList <QList <MeshObject*> >::size_type max_index;        ///< Maximum index position
 };
 
 #endif // HISTORYLIST_H

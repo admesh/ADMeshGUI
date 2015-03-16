@@ -4,13 +4,13 @@ historyList::historyList()
 {
     current_index = 0;
     max_index = 0;
-    history.push_back(vector<MeshObject*>());
+    history.push_back(QList<MeshObject*>());
 }
 
 historyList::~historyList()
 {
     while(max_index != 0){
-        for(vector<MeshObject*>::size_type i = 0; i < history[max_index].size();i++){
+        for(QList<MeshObject*>::size_type i = 0; i < history[max_index].size();i++){
             if(history[max_index][i]->hasReferences()){
                 history[max_index][i]->removeReference();
             }else{
@@ -23,7 +23,7 @@ historyList::~historyList()
     }
 }
 
-void historyList::add(vector <MeshObject*> item)
+void historyList::add(QList <MeshObject*> item)
 {
     if(current_index != max_index){ // not on the end of history
         cutRedos();
@@ -33,12 +33,12 @@ void historyList::add(vector <MeshObject*> item)
     max_index++;
 }
 
-vector <MeshObject*> historyList::current()
+QList <MeshObject*> historyList::current()
 {
     return history[current_index];
 }
 
-vector <MeshObject*> historyList::undo()
+QList <MeshObject*> historyList::undo()
 {
     if(current_index == 0 || current_index == 1){
         return current();
@@ -48,15 +48,15 @@ vector <MeshObject*> historyList::undo()
     }
 }
 
-vector <MeshObject*> historyList::redo()
+QList <MeshObject*> historyList::redo()
 {
     if(current_index < max_index) ++current_index;
     return current();
 }
 
-void historyList::deleteRow(vector <vector <MeshObject*> >::size_type index)
+void historyList::deleteRow(QList <QList <MeshObject*> >::size_type index)
 {
-    for(vector<MeshObject*>::size_type i = 0; i < history[index].size();i++){
+    for(QList<MeshObject*>::size_type i = 0; i < history[index].size();i++){
         if(history[index][i]->hasReferences()){
             history[index][i]->removeReference();
         }else{

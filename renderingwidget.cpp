@@ -347,17 +347,28 @@ void RenderingWidget::initAxes(){
     GLfloat vertices[]={
        AXIS_SIZE, 0.0 , 0.0,    //Main axes
        1.0, 1.0, 1.0,
-       -AXIS_SIZE, 0.0, 0.0,
+       0.0, 0.0, 0.0,
        1.0, 1.0, 1.0,
+        0.0, 0.0 , 0.0,
+        1.0, 1.0, 1.0,
+        -AXIS_SIZE, 0.0, 0.0,
+        1.0, 1.0, 1.0,
        0.0, AXIS_SIZE, 0.0,
        1.0, 1.0, 1.0,
-       0.0, -AXIS_SIZE, 0.0,
+       0.0, 0.0, 0.0,
        1.0, 1.0, 1.0,
+        0.0, 0.0, 0.0,
+        1.0, 1.0, 1.0,
+        0.0, -AXIS_SIZE, 0.0,
+        1.0, 1.0, 1.0,
        0.0, 0.0, AXIS_SIZE,
        1.0, 1.0, 1.0,
-       0.0, 0.0, -AXIS_SIZE,
+       0.0, 0.0, 0.0,
        1.0, 1.0, 1.0,
-                                //Small corner axes
+        0.0, 0.0, 0.0,
+        1.0, 1.0, 1.0,
+        0.0, 0.0, -AXIS_SIZE,
+        1.0, 1.0, 1.0,           //Small corner axes
        0.5, 0.5 , -0.5, //x
        1.0, 1.0, 1.0,
        -0.5, 0.5, -0.5,
@@ -372,7 +383,7 @@ void RenderingWidget::initAxes(){
        1.0, 1.0, 1.0,
     };
     glBindBuffer(GL_ARRAY_BUFFER, axes_vbo);
-    glBufferData(GL_ARRAY_BUFFER, 72 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 108 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 }
 
 void RenderingWidget::initGrid(){
@@ -408,11 +419,11 @@ void RenderingWidget::drawAxes()
     glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (const void *)(sizeof(GLfloat)*3));
 
     program.setUniformValue("color", RED);
-    glDrawArrays(GL_LINES, 0, 2);
+    glDrawArrays(GL_LINES, 0, 4);
     program.setUniformValue("color", GREEN);
-    glDrawArrays(GL_LINES, 2, 2);
+    glDrawArrays(GL_LINES, 4, 4);
     program.setUniformValue("color", BLUE);
-    glDrawArrays(GL_LINES, 4, 2);
+    glDrawArrays(GL_LINES, 8, 4);
 }
 
 void RenderingWidget::drawSmallAxes()
@@ -427,11 +438,11 @@ void RenderingWidget::drawSmallAxes()
     glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (const void *)(sizeof(GLfloat)*3));
 
     program.setUniformValue("color", RED);
-    glDrawArrays(GL_LINES, 6, 2);
+    glDrawArrays(GL_LINES, 12, 2);
     program.setUniformValue("color", GREEN);
-    glDrawArrays(GL_LINES, 8, 2);
+    glDrawArrays(GL_LINES, 14, 2);
     program.setUniformValue("color", BLUE);
-    glDrawArrays(GL_LINES, 10, 2);
+    glDrawArrays(GL_LINES, 16, 2);
 }
 
 void RenderingWidget::drawGrid()
@@ -458,7 +469,7 @@ void RenderingWidget::reCalculatePosition()
     zPos = 1.0f;
     angleX = 0.0f;
     angleY = 70.0f;
-    if(!vec.isNull()) zoom = 2.5*sqrt(pow(vec.x(),2)+pow(vec.y(),2)+pow(vec.z(),2));
+    if(!vec.isNull()) zoom = qMin(float(2.5*sqrt(pow(vec.x(),2)+pow(vec.y(),2)+pow(vec.z(),2))),MAX_ZOOM);
     else zoom = 100;
     recalculateGridStep();
 }
