@@ -37,6 +37,11 @@ public:
     bool loadGeometry(char* filename);
 
     /*!
+     * \brief Set filename to NULL.
+     */
+    void resetFilename();
+
+    /*!
      * \brief Update geometry (update VBO)
      *
      * Copies vertex and normal coordinates from stl_file structure into VBO.
@@ -204,6 +209,13 @@ public:
      * \brief Decrease references count by 1.
      */
     void removeReference();
+
+    /*!
+     * \brief Get pointer to stl_file structure stored.
+     *
+     * return stored stl file structure
+     */
+    stl_file* getStlPointer();
 
 private:
     stl_file* stl;  ///< Stored STL file

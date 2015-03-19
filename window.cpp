@@ -24,12 +24,12 @@ Window::Window(QWidget *parent) :
     connect(ui->versorYBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorY(double)));
     connect(ui->versorZBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorZ(double)));
     connect(ui->useVersorBox, SIGNAL(stateChanged(int)), controller, SLOT(setVersor()));
-    connect(ui->scaleBox, SIGNAL(valueChanged(double)), controller, SLOT(setScale(double)));
+    connect(ui->ScaleBox, SIGNAL(valueChanged(double)), controller, SLOT(setScale(double)));
     connect(ui->scaleButton, SIGNAL(clicked()), controller, SLOT(scale()));
     connect(ui->mirrorxyButton, SIGNAL(clicked()), controller, SLOT(mirrorXY()));
     connect(ui->mirroryzButton, SIGNAL(clicked()), controller, SLOT(mirrorYZ()));
     connect(ui->mirrorxzButton, SIGNAL(clicked()), controller, SLOT(mirrorXZ()));
-    connect(ui->rotateBox, SIGNAL(valueChanged(double)), controller, SLOT(setRot(double)));
+    connect(ui->RotateBox, SIGNAL(valueChanged(double)), controller, SLOT(setRot(double)));
     connect(ui->rotateXButton, SIGNAL(clicked()), controller, SLOT(rotateX()));
     connect(ui->rotateYButton, SIGNAL(clicked()), controller, SLOT(rotateY()));
     connect(ui->rotateZButton, SIGNAL(clicked()), controller, SLOT(rotateZ()));
@@ -38,6 +38,7 @@ Window::Window(QWidget *parent) :
     connect(ui->translateZBox, SIGNAL(valueChanged(double)), controller, SLOT(setZTranslate(double)));
     connect(ui->translateRelBox, SIGNAL(stateChanged(int)), controller, SLOT(setRelativeTranslate()));
     connect(ui->translateButton, SIGNAL(clicked()), controller, SLOT(translate()));
+    connect(ui->mergeButton, SIGNAL(clicked()), controller, SLOT(merge()));
 
     connect(ui->exactBox, SIGNAL(stateChanged(int)), controller, SLOT(setExactFlag()));
     connect(ui->toleranceBox, SIGNAL(stateChanged(int)), controller, SLOT(setToleranceFlag()));

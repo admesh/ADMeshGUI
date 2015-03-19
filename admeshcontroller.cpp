@@ -352,14 +352,14 @@ void admeshController::saveAs()
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()) {
                      objectList[i]->saveAs(file, 1);
-                     statusBar->setText(_("Status: File saved as ASCII STl"));
+                     statusBar->setText(_("Status: File saved as ASCII STL"));
                  }
             }
         }else if(filter == "STL_binary (*.stl)"){
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()){
                      objectList[i]->saveAs(file, 2);
-                     statusBar->setText(_("Status: File saved as ASCII STl"));
+                     statusBar->setText(_("Status: File saved as binary STL"));
                  }
             }
         }
@@ -674,5 +674,69 @@ void admeshController::repair()
                               reverse_all_flag);
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) repaired"));
+    pushHistory();
+}
+
+void stl_merge(stl_file *stl, stl_file *stl_to_merge) {
+    int num_facets_so_far;
+    if (stl->error) return;
+    num_facets_so_far = stl->stats.number_of_facets;
+    stl->stats.type=stl_to_merge->stats.type;
+    stl->stats.number_of_facets+=stl_to_merge->stats.number_of_facets;
+    stl_reallocate(stl);
+    for(int i=0; i<stl_to_merge->stats.number_of_facets;i++){
+        stl->facet_start[num_facets_so_far+i] = stl_to_merge->facet_start[i];
+        stl->neighbors_start[num_facets_so_far+i] = stl_to_merge->neighbors_start[i];
+    }
+    stl->stats.max.x = (stl->stats.max.x > stl_to_merge->stats.max.x) ? stl->stats.max.x : stl_to_merge->stats.max.x;
+    stl->stats.max.y = (stl->stats.max.y > stl_to_merge->stats.max.y) ? stl->stats.max.y : stl_to_merge->stats.max.y;
+    stl->stats.max.z = (stl->stats.max.z > stl_to_merge->stats.max.z) ? stl->stats.max.z : stl_to_merge->stats.max.z;
+    stl->stats.min.x = (stl->stats.min.x < stl_to_merge->stats.min.x) ? stl->stats.min.x : stl_to_merge->stats.min.x;
+    stl->stats.min.y = (stl->stats.min.y < stl_to_merge->stats.min.y) ? stl->stats.min.y : stl_to_merge->stats.min.y;
+    stl->stats.min.z = (stl->stats.min.z < stl_to_merge->stats.min.z) ? stl->stats.min.z : stl_to_merge->stats.min.z;
+    stl->stats.size.x = stl->stats.max.x - stl->stats.min.x;
+    stl->stats.size.y = stl->stats.max.y - stl->stats.min.y;
+    stl->stats.size.z = stl->stats.max.z - stl->stats.min.z;
+    stl->stats.bounding_diameter = sqrt(
+                                     stl->stats.size.x * stl->stats.size.x +
+                                     stl->stats.size.y * stl->stats.size.y +
+                                     stl->stats.size.z * stl->stats.size.z
+                                     );
+}
+
+void admeshController::merge()
+{
+    if(selectedCount()<2){
+        QString msg;
+        QTextStream(&msg) << _("Not enough files to merge selected.\n");
+        QMessageBox::warning(NULL, _("Warning"), msg);
+        return;
+    }
+    MeshObject *mergedMesh;
+    int next = 0;
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isActive()){
+            mergedMesh = new MeshObject(*objectList[i]);
+            objectList.erase(objectList.begin() + i);
+            --count;
+            next = i;
+            --i;
+            break;
+        }
+    }
+    for(QList<MeshObject*>::size_type i = next; i < count;i++){
+        if(objectList[i]->isActive()){
+            stl_merge(mergedMesh->getStlPointer(), objectList[i]->getStlPointer());
+            objectList.erase(objectList.begin() + i);
+            --count;
+            --i;
+        }
+    }
+    stl_calculate_volume(mergedMesh->getStlPointer());
+    mergedMesh->resetFilename();
+    mergedMesh->updateGeometry();
+    objectList.push_back(mergedMesh);
+    count++;
+    statusBar->setText(_("Status: meshes merged"));
     pushHistory();
 }

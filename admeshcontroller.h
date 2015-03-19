@@ -328,6 +328,11 @@ public slots:
     void repair();
 
     /*!
+     * \brief Merge all active models into one.
+     */
+    void merge();
+
+    /*!
      * \brief Undo last operation.
      */
     void undo();

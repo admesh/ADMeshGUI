@@ -17,8 +17,10 @@ MeshObject::MeshObject()
 MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
 {
     references = 0;
-    file = new char[strlen(m.file) + 1];
-    strcpy(file, m.file);
+    if(m.file){
+        file = new char[strlen(m.file) + 1];
+        strcpy(file, m.file);
+    }else file = NULL;
     saved = false;
     active = m.active;
     stl = new stl_file;
@@ -60,11 +62,22 @@ bool MeshObject::loadGeometry(char* fileName)
     return true;
 }
 
+void MeshObject::resetFilename()
+{
+    delete []file;
+    file = NULL;
+}
+
 bool MeshObject::hasValidName()
 {
     if(!file)return false;
     else if(strlen(file)<5)return false;
     else return true;
+}
+
+stl_file* MeshObject::getStlPointer()
+{
+    return stl;
 }
 
 bool MeshObject::isSaved()
