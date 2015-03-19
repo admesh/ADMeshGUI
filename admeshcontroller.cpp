@@ -273,7 +273,7 @@ QString admeshController::getInfo()
 
 void admeshController::openSTL()
 {
-    QString fileName = QFileDialog::getOpenFileName(NULL, _("Open STL"), "/", _("STL (*.stl)"));
+    QString fileName = QFileDialog::getOpenFileName((QWidget*)parent(), _("Open STL"), "/", _("STL (*.stl)"));
     if(!fileName.isEmpty()){
         MeshObject* tmp = new MeshObject;
         char *file = QStringToChar(fileName);
@@ -344,7 +344,7 @@ void admeshController::saveAs()
         return;
     }
     QString filter="STL_ascii (*.stl)";
-    QString fileName=QFileDialog::getSaveFileName(NULL, _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
+    QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
     if(!fileName.isEmpty()){
         fileName=fileName.section(".",0,0);
         char *file = QStringToChar(fileName+".stl");
@@ -374,7 +374,7 @@ void admeshController::save()
             statusBar->setText(_("Status: File saved"));
         }else if(objectList[i]->isActive() && !objectList[i]->isSaved()){    // current mesh has no valid name stored (eg. merged one)
             QString filter="STL_ascii (*.stl)";
-            QString fileName=QFileDialog::getSaveFileName(NULL, _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
+            QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
             if(!fileName.isEmpty()){
                 fileName=fileName.section(".",0,0);
                 char *file = QStringToChar(fileName+".stl");
@@ -399,7 +399,7 @@ void admeshController::exportSTL()
         return;
     }
     QString filter="OBJ (*.obj)";
-    QString fileName=QFileDialog::getSaveFileName(NULL, _("Export as"), "/", _("OBJ (*.obj);;OFF (*.off);;DXF (*.dxf);;VRML (*.vrml)"), &filter);
+    QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Export as"), "/", _("OBJ (*.obj);;OFF (*.off);;DXF (*.dxf);;VRML (*.vrml)"), &filter);
     char *file = NULL;
     if(!fileName.isEmpty()){
         fileName=fileName.section(".",0,0);

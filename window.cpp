@@ -10,7 +10,7 @@ Window::Window(QWidget *parent) :
 
     ui->showButton->hide();
 
-    controller = new admeshController;
+    controller = new admeshController(this);
     controller->addStatusBar(ui->statusBar);
     ui->renderingWidget->setController(controller);
     ui->buttonWidget->setEnabled(false);
