@@ -34,7 +34,7 @@ public:
      * \param filename Input STL file.
      * \return True upon successful load.
      */
-    bool loadGeometry(char* filename);
+    bool loadGeometry(QString filename);
 
     /*!
      * \brief Set filename to NULL.
@@ -66,14 +66,14 @@ public:
      */
     float* getInfo();
 
-    char* getName();
+    QString getName();
 
     /*!
      * \brief Save mesh as STL.
      * \param filename Output STL filename.
      * \param type File type - ASCII or binary
      */
-    void saveAs(char* filename, int type);
+    void saveAs(QString filename, int type);
 
     /*!
      * \brief Save mesh in its default format.
@@ -95,7 +95,7 @@ public:
      * \param filename Exported filename.
      * \param type File File type.
      */
-    void exportSTL(char* filename, int type);
+    void exportSTL(QString, int type);
 
     /*!
      * \brief Scale stl file by versor.
@@ -218,7 +218,7 @@ private:
     GLuint vbo;     ///< Vertex buffer object used to store STL file for drawing
     bool active;    ///< Set active/inactive
     bool saved;     ///< Is saved/unsaved
-    char* file;     ///< File name
+    QString file;     ///< File name
     unsigned int references;    ///< Count if references - how many history items use this object.
 };
 

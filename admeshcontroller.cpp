@@ -191,14 +191,6 @@ void admeshController::addStatusBar(QLabel *l)
     statusBar = l;
 }
 
-char* QStringToChar(QString str)
-{
-    string s = str.toStdString();
-    char *cstr = new char[s.length() + 1];
-    strcpy(cstr, s.c_str());
-    return cstr;
-}
-
 QString admeshController::getInfo()
 {
     QString text = "";
@@ -275,8 +267,7 @@ void admeshController::openSTL()
     QString fileName = QFileDialog::getOpenFileName((QWidget*)parent(), _("Open STL"), "/", _("STL (*.stl)"));
     if(!fileName.isEmpty()){
         MeshObject* tmp = new MeshObject;
-        char *file = QStringToChar(fileName);
-        if(!tmp->loadGeometry(file)){
+        if(!tmp->loadGeometry(fileName)){
             QString msg;
             QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
             QMessageBox::critical(NULL, _("Error"), msg);
@@ -298,12 +289,11 @@ void admeshController::openSTL()
 
 void admeshController::openSTLbyName(const char* filename)
 {
-    char *file = (char*)malloc(strlen(filename)+1);
-    strcpy(file, filename);
+    QString fileName(filename);
     MeshObject* tmp = new MeshObject;
-    if(!tmp->loadGeometry(file)){
+    if(!tmp->loadGeometry(fileName)){
         QString msg;
-        QTextStream(&msg) << _("File ") << file << _(" could not be opened.\n");
+        QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
         QMessageBox::critical(NULL, _("Error"), msg);        
         return;
     }else{
@@ -346,18 +336,18 @@ void admeshController::saveAs()
     QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
     if(!fileName.isEmpty()){
         fileName=fileName.section(".",0,0);
-        char *file = QStringToChar(fileName+".stl");
+        fileName+=".stl";
         if(filter == "STL_ascii (*.stl)"){
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()) {
-                     objectList[i]->saveAs(file, 1);
+                     objectList[i]->saveAs(fileName, 1);
                      statusBar->setText(_("Status: File saved as ASCII STL"));
                  }
             }
         }else if(filter == "STL_binary (*.stl)"){
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()){
-                     objectList[i]->saveAs(file, 2);
+                     objectList[i]->saveAs(fileName, 2);
                      statusBar->setText(_("Status: File saved as binary STL"));
                  }
             }
@@ -375,12 +365,12 @@ void admeshController::saveObject(MeshObject* object)
         QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
         if(!fileName.isEmpty()){
             fileName=fileName.section(".",0,0);
-            char *file = QStringToChar(fileName+".stl");
+            fileName+=".stl";
             if(filter == "STL_ascii (*.stl)"){
-               object->saveAs(file, 1);
+               object->saveAs(fileName, 1);
                statusBar->setText(_("Status: File saved as ASCII STl"));
             }else if(filter == "STL_binary (*.stl)"){
-               object->saveAs(file, 2);
+               object->saveAs(fileName, 2);
                statusBar->setText(_("Status: File saved as ASCII STl"));
             }
         }
@@ -433,43 +423,41 @@ void admeshController::exportSTL()
     }
     QString filter="OBJ (*.obj)";
     QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Export as"), "/", _("OBJ (*.obj);;OFF (*.off);;DXF (*.dxf);;VRML (*.vrml)"), &filter);
-    char *file = NULL;
     if(!fileName.isEmpty()){
         fileName=fileName.section(".",0,0);
         if(filter == "OBJ (*.obj)"){
-            file = QStringToChar(fileName+".obj");
+            fileName+=".obj";
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()) {
-                     objectList[i]->exportSTL(file, 1);
+                     objectList[i]->exportSTL(fileName, 1);
                      if(selectedCount()>0)statusBar->setText(_("Status: File exported to OBJ format"));
                  }
             }
         }else if(filter == "OFF (*.off)"){
-            file = QStringToChar(fileName+".off");
+            fileName+=".off";
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()) {
-                     objectList[i]->exportSTL(file, 2);
+                     objectList[i]->exportSTL(fileName, 2);
                      if(selectedCount()>0)statusBar->setText(_("Status: File exported to OFF format"));
                  }
             }
         }else if(filter == "DXF (*.dxf)"){
-            file = QStringToChar(fileName+".dxf");
+            fileName+=".dxf";
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()) {
-                     objectList[i]->exportSTL(file, 3);
+                     objectList[i]->exportSTL(fileName, 3);
                      if(selectedCount()>0)statusBar->setText(_("Status: File exported to DXF format"));
                  }
             }
         }else if(filter == "VRML (*.vrml)"){
-            file = QStringToChar(fileName+".vrml");
+            fileName+=".vrml";
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()) {
-                     objectList[i]->exportSTL(file, 4);
+                     objectList[i]->exportSTL(fileName, 4);
                      if(selectedCount()>0)statusBar->setText(_("Status: File exported to VRML format"));
                  }
             }
         }
-    delete []file;
     }
 }
 

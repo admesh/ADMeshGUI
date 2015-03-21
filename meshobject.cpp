@@ -4,13 +4,20 @@
 
 using namespace std;
 
+char* QStringToChar(QString str)
+{
+    string s = str.toStdString();
+    char *cstr = new char[s.length() + 1];
+    strcpy(cstr, s.c_str());
+    return cstr;
+}
+
 MeshObject::MeshObject()
 {
     stl = new stl_file;
     stl_initialize(stl);
     active = true;
-    saved = true;
-    file = NULL;
+    saved = true;    
     resetFilename();
     references = 0;
 }
@@ -18,8 +25,7 @@ MeshObject::MeshObject()
 MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
 {
     references = 0;
-    file = new char[strlen(m.file) + 1];
-    strcpy(file, m.file);
+    file = m.file;
     saved = false;
     active = m.active;
     stl = new stl_file;
@@ -42,16 +48,17 @@ MeshObject::~MeshObject(){
     stl_close(stl);
     delete(stl);
     glDeleteBuffers(1, &vbo);
-    delete []file;
 }
 
-bool MeshObject::loadGeometry(char* fileName)
+bool MeshObject::loadGeometry(QString fileName)
 {
-    stl_open(stl, fileName);
+    char* filename = QStringToChar(fileName);
+    stl_open(stl, filename);
     if(stl_get_error(stl)){
        stl_clear_error(stl);
        return false;
     }
+    delete []filename;
     stl_repair(stl,0,1,0,0,0,0,0,0,0,0,0,0,0,0);
     stl_calculate_volume(stl);
     initializeGLFunctions();
@@ -64,16 +71,13 @@ bool MeshObject::loadGeometry(char* fileName)
 
 void MeshObject::resetFilename()
 {
-    if(file)delete []file;
-    file = new char[9];
-    strcpy(file, "untitled");
+    file = "untitled";
 }
 
 bool MeshObject::hasValidName()
 {
-    if(!file)return false;
-    else if(strlen(file)<5)return false;
-    else if(strcmp ("untitled",file)==0)return false;
+    if(file.size() < 5)return false;
+    else if(file == "untitled")return false;
     else return true;
 }
 
@@ -87,32 +91,36 @@ bool MeshObject::isSaved()
     return saved;
 }
 
-void MeshObject::saveAs(char* filename, int type)
+void MeshObject::saveAs(QString fileName, int type)
 {
+    char* filename = QStringToChar(fileName);
     if(type == 1){
         stl_write_ascii(stl, filename, "ADMeshSTLmodel");
     }else if(type == 2){
         stl_write_binary(stl, filename, "ADMeshSTLmodel");
     }
-    delete []file;
-    file = filename;
+    delete []filename;
+    file = fileName;
     saved = true;
 }
 
 void MeshObject::save()
 {
+    char* filename = QStringToChar(file);
     if(stl->stats.type == binary){
-        stl_write_binary(stl, file, "ADMeshSTLmodel");
+        stl_write_binary(stl, filename, "ADMeshSTLmodel");
     }else if(stl->stats.type == ascii){
-        stl_write_ascii(stl, file, "ADMeshSTLmodel");
+        stl_write_ascii(stl, filename, "ADMeshSTLmodel");
     }
+    delete []filename;
     saved = true;
 }
 
-void MeshObject::exportSTL(char* filename, int type)
+void MeshObject::exportSTL(QString fileName, int type)
 {
     stl_check_facets_exact(stl);
     stl_generate_shared_vertices(stl);
+    char* filename = QStringToChar(fileName);
     char label[] = "ADMeshDXFexport";
     if(type == 1){
         stl_write_obj(stl, filename);
@@ -123,6 +131,7 @@ void MeshObject::exportSTL(char* filename, int type)
     }else if(type == 4){
         stl_write_vrml(stl, filename);
     }
+    delete []filename;
 }
 
 QVector3D MeshObject::getMin()
@@ -156,7 +165,7 @@ float* MeshObject::getInfo()
     return arr;
 }
 
-char* MeshObject::getName()
+QString MeshObject::getName()
 {
     return file;
 }
@@ -319,5 +328,4 @@ void MeshObject::drawGeometry(QGLShaderProgram *program)
 
     glDrawArrays(GL_TRIANGLES, 0, stl->stats.number_of_facets*3);
 }
-
 
