@@ -10,7 +10,6 @@ admeshController::admeshController(QObject *parent) :
 {
     count = 0;
     mode = 0;
-    m_scale = 1.0;
     versor[0] = 1.0;
     versor[1] = 1.0;
     versor[2] = 1.0;
@@ -446,38 +445,48 @@ QVector3D admeshController::getMinPosition()
     else return QVector3D(0.0,0.0,0.0);
 }
 
-void admeshController::setScale(double param)
-{
-    m_scale = (float)param;
-}
-
 void admeshController::setVersorX(double factor)
 {
-    versor[0]=factor;
+    if(useVersor){
+        versor[0]=factor;
+    }else{
+        versor[0]=versor[1]=versor[2]=factor;
+        scaleSignal(factor);
+    }
 }
 
 void admeshController::setVersorY(double factor)
 {
-    versor[1]=factor;
+    if(useVersor){
+        versor[1]=factor;
+    }else{
+        versor[0]=versor[1]=versor[2]=factor;
+        scaleSignal(factor);
+    }
 }
 
 void admeshController::setVersorZ(double factor)
 {
-    versor[2]=factor;
+    if(useVersor){
+        versor[2]=factor;
+    }else{
+        versor[0]=versor[1]=versor[2]=factor;
+        scaleSignal(factor);
+    }
 }
 
 void admeshController::setVersor()
 {
     useVersor = !useVersor;
+    if(!useVersor)scaleSignal(versor[0]); //set all fields to X value
 }
 
 void admeshController::scale()
 {
-    if(m_scale !=0.0 || versor[0] != 0.0 || versor[1] != 0.0 || versor[2] != 0.0){
+    if(versor[0] != 0.0 || versor[1] != 0.0 || versor[2] != 0.0){
         renewList();
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-            if(objectList[i]->isActive() && useVersor)objectList[i]->scale(versor);
-            else if(objectList[i]->isActive()) objectList[i]->scale(m_scale);
+            if(objectList[i]->isActive())objectList[i]->scale(versor);
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) scaled"));
         pushHistory();

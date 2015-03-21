@@ -73,6 +73,8 @@ signals:
      */
     void enableEdit(bool);
 
+    void scaleSignal(double);
+
 public slots:
     /*!
      * \brief Set rendering mode.
@@ -155,12 +157,6 @@ public slots:
      * \return vector of mininaml values.
      */
     QVector3D getMinPosition();
-
-    /*!
-     * \brief Set scale factor.
-     * \param factor Factor
-     */
-    void setScale(double factor);
 
     /*!
      * \brief Set scale versor X factor.
@@ -361,7 +357,6 @@ private:
     QLabel* statusBar;
     QList <MeshObject*>::size_type count;     ///< Count of all objects.
     int mode;               ///< Solid or wireframe or both mode
-    float m_scale;          ///< Scale factor
     float versor[3];        ///< Scale versor
     bool useVersor;         ///< Use versor or not
     float rot;              ///< Rotation angle

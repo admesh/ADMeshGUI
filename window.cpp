@@ -17,6 +17,9 @@ Window::Window(QWidget *parent) :
     connect(controller, SIGNAL(reDrawSignal()), ui->renderingWidget, SLOT(reDraw()));
     connect(controller, SIGNAL(reCalculatePosition()), ui->renderingWidget, SLOT(reCalculatePosition()));
     connect(controller, SIGNAL(enableEdit(bool)), ui->buttonWidget,SLOT(setEnabled(bool)));
+    connect(controller, SIGNAL(scaleSignal(double)), ui->versorXBox,SLOT(setValue(double)));
+    connect(controller, SIGNAL(scaleSignal(double)), ui->versorYBox,SLOT(setValue(double)));
+    connect(controller, SIGNAL(scaleSignal(double)), ui->versorZBox,SLOT(setValue(double)));
     addActions();
     addMenus();
 
@@ -24,7 +27,6 @@ Window::Window(QWidget *parent) :
     connect(ui->versorYBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorY(double)));
     connect(ui->versorZBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorZ(double)));
     connect(ui->useVersorBox, SIGNAL(stateChanged(int)), controller, SLOT(setVersor()));
-    connect(ui->ScaleBox, SIGNAL(valueChanged(double)), controller, SLOT(setScale(double)));
     connect(ui->scaleButton, SIGNAL(clicked()), controller, SLOT(scale()));
     connect(ui->mirrorxyButton, SIGNAL(clicked()), controller, SLOT(mirrorXY()));
     connect(ui->mirroryzButton, SIGNAL(clicked()), controller, SLOT(mirrorYZ()));

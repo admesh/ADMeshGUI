@@ -154,12 +154,6 @@ float* MeshObject::getInfo()
     return arr;
 }
 
-void MeshObject::scale(float factor)
-{
-    stl_scale(stl, factor);
-    this->updateGeometry();
-}
-
 void MeshObject::scale(float versor[3])
 {
     stl_scale_versor(stl, versor);

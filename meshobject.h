@@ -96,12 +96,6 @@ public:
     void exportSTL(char* filename, int type);
 
     /*!
-     * \brief Scale stl file.
-     * \param factor Scaling factor.
-     */
-    void scale(float factor);
-
-    /*!
      * \brief Scale stl file by versor.
      * \param versor Scaling versor.
      */

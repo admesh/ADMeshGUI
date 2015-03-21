@@ -58,60 +58,6 @@ border-right: none;
    <property name="spacing">
     <number>0</number>
    </property>
-   <item row="2" column="0">
-    <layout class="QGridLayout" name="gridLayout_2">
-     <property name="leftMargin">
-      <number>11</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>32</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="statusBar">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>35</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Status: Initialized</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
-       <property name="margin">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="menuLayout">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-    </layout>
-   </item>
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <property name="spacing">
@@ -250,6 +196,60 @@ border-right: none;
      </item>
     </layout>
    </item>
+   <item row="0" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="menuLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <property name="leftMargin">
+      <number>11</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>32</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="statusBar">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>35</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Status: Initialized</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item row="1" column="1" rowspan="3">
     <widget class="QScrollArea" name="scrollArea">
      <property name="sizePolicy">
@@ -310,7 +310,7 @@ border-right: none;
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>390</y>
+         <y>370</y>
          <width>181</width>
          <height>351</height>
         </rect>
@@ -476,7 +476,7 @@ border-right: none;
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>340</y>
+         <y>320</y>
          <width>181</width>
          <height>51</height>
         </rect>
@@ -504,7 +504,7 @@ border-right: none;
          <x>10</x>
          <y>0</y>
          <width>181</width>
-         <height>111</height>
+         <height>81</height>
         </rect>
        </property>
        <property name="title">
@@ -513,37 +513,17 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>20</y>
+          <x>1</x>
+          <y>21</y>
           <width>181</width>
-          <height>81</height>
+          <height>64</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout_7">
+        <layout class="QVBoxLayout" name="verticalLayout">
          <property name="spacing">
           <number>0</number>
          </property>
-         <item row="1" column="0" rowspan="3" colspan="2">
-          <widget class="QCheckBox" name="useVersorBox">
-           <property name="text">
-            <string>Use versor</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QDoubleSpinBox" name="ScaleBox">
-           <property name="minimum">
-            <double>-99.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>0.500000000000000</double>
-           </property>
-           <property name="value">
-            <double>1.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="2">
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <property name="spacing">
             <number>0</number>
@@ -580,18 +560,35 @@ border-right: none;
            </item>
           </layout>
          </item>
-         <item row="4" column="1">
-          <widget class="QPushButton" name="scaleButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Scale</string>
-           </property>
-          </widget>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QCheckBox" name="useVersorBox">
+             <property name="text">
+              <string>Use versor</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="scaleButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>70</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Scale</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -600,7 +597,7 @@ border-right: none;
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>100</y>
+         <y>80</y>
          <width>181</width>
          <height>51</height>
         </rect>
@@ -673,7 +670,7 @@ border-right: none;
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>150</y>
+         <y>130</y>
          <width>181</width>
          <height>51</height>
         </rect>
@@ -691,6 +688,37 @@ border-right: none;
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <widget class="QDoubleSpinBox" name="RotateBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="wrapping">
+            <bool>false</bool>
+           </property>
+           <property name="frame">
+            <bool>true</bool>
+           </property>
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::UpDownArrows</enum>
+           </property>
+           <property name="accelerated">
+            <bool>false</bool>
+           </property>
+           <property name="decimals">
+            <number>1</number>
+           </property>
+           <property name="minimum">
+            <double>-180.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>180.000000000000000</double>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <property name="spacing">
@@ -737,37 +765,6 @@ border-right: none;
            </item>
           </layout>
          </item>
-         <item row="0" column="0">
-          <widget class="QDoubleSpinBox" name="RotateBox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="wrapping">
-            <bool>false</bool>
-           </property>
-           <property name="frame">
-            <bool>true</bool>
-           </property>
-           <property name="buttonSymbols">
-            <enum>QAbstractSpinBox::UpDownArrows</enum>
-           </property>
-           <property name="accelerated">
-            <bool>false</bool>
-           </property>
-           <property name="decimals">
-            <number>1</number>
-           </property>
-           <property name="minimum">
-            <double>-180.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>180.000000000000000</double>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </widget>
@@ -775,7 +772,7 @@ border-right: none;
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>200</y>
+         <y>180</y>
          <width>191</width>
          <height>141</height>
         </rect>
@@ -786,24 +783,30 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>1</x>
-          <y>20</y>
+          <x>2</x>
+          <y>21</y>
           <width>181</width>
           <height>117</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
+         <property name="horizontalSpacing">
+          <number>0</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>6</number>
+         </property>
          <item row="0" column="0">
           <widget class="QLabel" name="label_5">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>5</width>
+             <width>12</width>
              <height>0</height>
             </size>
            </property>
@@ -853,13 +856,19 @@ border-right: none;
          <item row="1" column="0">
           <widget class="QLabel" name="label_4">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>12</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
-            <string>Y</string>
+            <string>Y:</string>
            </property>
           </widget>
          </item>
@@ -879,13 +888,19 @@ border-right: none;
          <item row="2" column="0">
           <widget class="QLabel" name="label_6">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>12</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
-            <string>Z</string>
+            <string>Z:</string>
            </property>
           </widget>
          </item>
