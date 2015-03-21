@@ -66,6 +66,8 @@ public:
      */
     float* getInfo();
 
+    char* getName();
+
     /*!
      * \brief Save mesh as STL.
      * \param filename Output STL filename.

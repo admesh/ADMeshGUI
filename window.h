@@ -63,6 +63,8 @@ protected:
      */
     void keyReleaseEvent(QKeyEvent *event);
 
+    void closeEvent(QCloseEvent *event);
+
     admeshController *controller;    ///< Main ADMeshController
 
 private:

@@ -256,6 +256,15 @@ void Window::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+void Window::closeEvent(QCloseEvent *event)
+{
+    if(controller->saveOnClose()){
+        event->accept();
+    }else{
+        event->ignore();
+    }
+
+}
 
 void Window::setSolid()
 {

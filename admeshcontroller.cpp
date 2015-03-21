@@ -35,7 +35,7 @@ admeshController::admeshController(QObject *parent) :
 }
 
 admeshController::~admeshController()
-{
+{    
 }
 
 void admeshController::setMode(int m)
@@ -365,28 +365,62 @@ void admeshController::saveAs()
     }
 }
 
-void admeshController::save()
+void admeshController::saveObject(MeshObject* object)
 {
-    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-        if(objectList[i]->isActive() && !objectList[i]->isSaved() && objectList[i]->hasValidName()) { // current mesh is saveable
-            objectList[i]->save();
-            statusBar->setText(_("Status: File saved"));
-        }else if(objectList[i]->isActive() && !objectList[i]->isSaved()){    // current mesh has no valid name stored (eg. merged one)
-            QString filter="STL_ascii (*.stl)";
-            QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
-            if(!fileName.isEmpty()){
-                fileName=fileName.section(".",0,0);
-                char *file = QStringToChar(fileName+".stl");
-                if(filter == "STL_ascii (*.stl)"){
-                   objectList[i]->saveAs(file, 1);
-                   statusBar->setText(_("Status: File saved as ASCII STl"));
-                }else if(filter == "STL_binary (*.stl)"){
-                   objectList[i]->saveAs(file, 2);
-                   statusBar->setText(_("Status: File saved as ASCII STl"));
-                }
+    if(!object->isSaved() && object->hasValidName()){ // current mesh is saveable
+        object->save();
+        statusBar->setText(_("Status: File saved"));
+    }else if(!object->isSaved()){ // current mesh has no valid name stored (eg. merged one)
+        QString filter="STL_ascii (*.stl)";
+        QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
+        if(!fileName.isEmpty()){
+            fileName=fileName.section(".",0,0);
+            char *file = QStringToChar(fileName+".stl");
+            if(filter == "STL_ascii (*.stl)"){
+               object->saveAs(file, 1);
+               statusBar->setText(_("Status: File saved as ASCII STl"));
+            }else if(filter == "STL_binary (*.stl)"){
+               object->saveAs(file, 2);
+               statusBar->setText(_("Status: File saved as ASCII STl"));
             }
         }
     }
+}
+
+void admeshController::save()
+{
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isActive()){
+             saveObject(objectList[i]);
+        }
+    }
+}
+
+bool admeshController::saveOnClose()
+{
+    QMessageBox msgBox((QWidget*)parent());
+    msgBox.setText(_("File has been modified."));
+    msgBox.setInformativeText(_("Do you want to save changes?"));
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(!objectList[i]->isSaved()){
+            QString msg;
+            QTextStream(&msg) << _("File ") << objectList[i]->getName() << _(" has been modified.");
+            msgBox.setText(msg);
+            int ret = msgBox.exec();
+            switch (ret) {
+               case QMessageBox::Save:
+                   saveObject(objectList[i]);
+                   break;
+               case QMessageBox::Cancel:
+                   return false;
+               default:
+                   break;
+             }
+        }
+    }
+    return true;
 }
 
 void admeshController::exportSTL()

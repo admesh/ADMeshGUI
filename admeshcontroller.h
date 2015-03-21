@@ -147,6 +147,10 @@ public slots:
      */
     void save();
 
+    void saveObject(MeshObject* object);
+
+    bool saveOnClose();
+
     /*!
      * \brief Export STL file as OFF, VRML, DXF or OBJ
      */

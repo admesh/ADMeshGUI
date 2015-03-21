@@ -11,16 +11,15 @@ MeshObject::MeshObject()
     active = true;
     saved = true;
     file = NULL;
+    resetFilename();
     references = 0;
 }
 
 MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
 {
     references = 0;
-    if(m.file){
-        file = new char[strlen(m.file) + 1];
-        strcpy(file, m.file);
-    }else file = NULL;
+    file = new char[strlen(m.file) + 1];
+    strcpy(file, m.file);
     saved = false;
     active = m.active;
     stl = new stl_file;
@@ -59,19 +58,22 @@ bool MeshObject::loadGeometry(char* fileName)
     glGenBuffers(1, &vbo);
     this->updateGeometry();
     file = fileName;
+    saved = true;
     return true;
 }
 
 void MeshObject::resetFilename()
 {
-    delete []file;
-    file = NULL;
+    if(file)delete []file;
+    file = new char[9];
+    strcpy(file, "untitled");
 }
 
 bool MeshObject::hasValidName()
 {
     if(!file)return false;
     else if(strlen(file)<5)return false;
+    else if(strcmp ("untitled",file)==0)return false;
     else return true;
 }
 
@@ -152,6 +154,11 @@ float* MeshObject::getInfo()
     arr[13] = (float)stl->stats.normals_fixed;
     arr[14] = stl->stats.volume;
     return arr;
+}
+
+char* MeshObject::getName()
+{
+    return file;
 }
 
 void MeshObject::scale(float versor[3])
