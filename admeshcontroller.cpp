@@ -153,7 +153,10 @@ int admeshController::selectedCount()
 
 void admeshController::setActiveByIndex(GLuint id)
 {
-    if(id<255 && count > 1) objectList[id]->toggleActive();
+    if(id<255 && count > 1) {
+        objectList[id]->toggleActive();
+        listView->selectionModel()->select( listModel->index(id), QItemSelectionModel::Toggle );
+    }
 }
 
 void admeshController::setAllActive()
@@ -161,6 +164,7 @@ void admeshController::setAllActive()
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         objectList[i]->setActive();
     }
+    listView->selectAll();
 }
 
 void admeshController::setAllInactive()
@@ -170,6 +174,7 @@ void admeshController::setAllInactive()
             objectList[i]->setInactive();
         }
     }
+    listView->clearSelection();
 }
 
 void admeshController::setAllInverseActive()
@@ -177,6 +182,7 @@ void admeshController::setAllInverseActive()
     if(count > 1){
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             objectList[i]->toggleActive();
+            listView->selectionModel()->select( listModel->index(i), QItemSelectionModel::Toggle );
         }
     }
 }
@@ -198,7 +204,7 @@ void admeshController::addUIItems(QLabel *l,QListView *v)
 void admeshController::handleSelectionChanged(QModelIndex index)
 {
     if(QApplication::mouseButtons() == Qt::LeftButton){
-        setActiveByIndex(index.row());
+        if(index.row() < count) objectList[index.row()]->toggleActive();
     }
 }
 
