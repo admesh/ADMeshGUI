@@ -48,6 +48,14 @@ void admeshController::pushHistory()
     history.add(objectList);
 }
 
+void admeshController::renewListView()
+{
+    listModel->removeRows(0,listModel->rowCount());
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        addItemToView(objectList[i]);
+    }
+}
+
 void admeshController::renewList()
 {
     QList <MeshObject*> tmp = objectList;
@@ -65,6 +73,7 @@ void admeshController::undo()
 {
     objectList = history.undo();
     count = objectList.size();
+    renewListView();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         objectList[i]->updateGeometry();
     }
@@ -74,6 +83,7 @@ void admeshController::redo()
 {
     objectList = history.redo();
     count = objectList.size();
+    renewListView();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         objectList[i]->updateGeometry();
     }
@@ -213,7 +223,7 @@ void admeshController::addItemToView(MeshObject* item){
     listModel->insertRow(listModel->rowCount());
     QModelIndex index = listModel->index(listModel->rowCount()-1);
     listModel->setData(index, fi.fileName());
-    listView->selectionModel()->select( index, QItemSelectionModel::Select );
+    if(item->isActive()) listView->selectionModel()->select( index, QItemSelectionModel::Select );
 }
 
 QString admeshController::getInfo()
@@ -349,6 +359,7 @@ void admeshController::closeSTL()
 
     if(count == 1) objectList[0]->setActive();
     else if(count == 0) enableEdit(false);
+    renewListView();
 }
 
 void admeshController::saveAs()
@@ -795,6 +806,7 @@ void admeshController::merge()
     mergedMesh->updateGeometry();
     objectList.push_back(mergedMesh);
     count++;
+    renewListView();
     statusBar->setText(_("Status: meshes merged"));
     pushHistory();
 }

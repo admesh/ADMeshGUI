@@ -383,6 +383,11 @@ private:
     void renewList();
 
     /*!
+     * \brief Update listView of items according to current item list.
+     */
+    void renewListView();
+
+    /*!
      * \brief Add name of given item at the end of ListView.
      *
      * \param item Item to be processed.
