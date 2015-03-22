@@ -26,7 +26,7 @@ MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
 {
     references = 0;
     file = m.file;
-    saved = false;
+    saved = m.saved;
     active = m.active;
     stl = new stl_file;
     stl_initialize(stl);
@@ -65,7 +65,6 @@ bool MeshObject::loadGeometry(QString fileName)
     glGenBuffers(1, &vbo);
     this->updateGeometry();
     file = fileName;
-    saved = true;
     return true;
 }
 
@@ -174,42 +173,49 @@ void MeshObject::scale(float versor[3])
 {
     stl_scale_versor(stl, versor);
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::mirrorXY()
 {
     stl_mirror_xy(stl);
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::mirrorYZ()
 {
     stl_mirror_yz(stl);
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::mirrorXZ()
 {
     stl_mirror_xz(stl);
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::rotateX(float angle)
 {
     stl_rotate_x(stl, angle);
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::rotateY(float angle)
 {
     stl_rotate_y(stl, angle);
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::rotateZ(float angle)
 {
     stl_rotate_z(stl, angle);
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::translate(bool relative, float x_trans, float y_trans, float z_trans)
@@ -220,6 +226,7 @@ void MeshObject::translate(bool relative, float x_trans, float y_trans, float z_
         stl_translate(stl, x_trans, y_trans, z_trans);
     }
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::repair(int fixall_flag, int exact_flag, int tolerance_flag, float tolerance, int increment_flag, float increment, int nearby_flag, int iterations, int remove_unconnected_flag, int fill_holes_flag, int normal_directions_flag, int normal_values_flag, int reverse_all_flag)
@@ -241,6 +248,7 @@ void MeshObject::repair(int fixall_flag, int exact_flag, int tolerance_flag, flo
                0);
     stl_calculate_volume(stl);
     this->updateGeometry();
+    saved = false;
 }
 
 void MeshObject::setActive()
@@ -310,8 +318,7 @@ void MeshObject::updateGeometry()
     }
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, N * 18 * sizeof(GLfloat), vertices, GL_DYNAMIC_DRAW);
-    delete [] vertices;
-    saved = false;
+    delete [] vertices;    
 }
 
 void MeshObject::drawGeometry(QGLShaderProgram *program)

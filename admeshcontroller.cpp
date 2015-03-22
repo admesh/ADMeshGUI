@@ -186,9 +186,28 @@ void admeshController::setDrawColor(QVector3D col, QVector3D badCol){
     badColor = badCol;
 }
 
-void admeshController::addStatusBar(QLabel *l)
+void admeshController::addUIItems(QLabel *l,QListView *v)
 {
     statusBar = l;
+    listView = v;
+    listModel = new QStringListModel();
+    listView->setModel(listModel);
+    connect(listView,SIGNAL(pressed(QModelIndex)),this,SLOT(handleSelectionChanged(QModelIndex)));
+}
+
+void admeshController::handleSelectionChanged(QModelIndex index)
+{
+    if(QApplication::mouseButtons() == Qt::LeftButton){
+        setActiveByIndex(index.row());
+    }
+}
+
+void admeshController::addItemToView(MeshObject* item){
+    QFileInfo fi=item->getName();
+    listModel->insertRow(listModel->rowCount());
+    QModelIndex index = listModel->index(listModel->rowCount()-1);
+    listModel->setData(index, fi.fileName());
+    listView->selectionModel()->select( index, QItemSelectionModel::Select );
 }
 
 QString admeshController::getInfo()
@@ -276,6 +295,7 @@ void admeshController::openSTL()
             renewList();
             objectList.push_back(tmp);
             objectList.back()->setActive();
+            addItemToView(objectList.back());
             pushHistory();
         }
         count++;
@@ -299,6 +319,7 @@ void admeshController::openSTLbyName(const char* filename)
     }else{
         objectList.push_back(tmp);
         objectList.back()->setActive();
+        addItemToView(objectList.back());
         history.add(objectList);
     }
     count++;

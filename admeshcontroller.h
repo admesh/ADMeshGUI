@@ -3,6 +3,8 @@
 
 #include <QGLShaderProgram>
 #include <QLabel>
+#include <QListView>
+#include <QStringListModel>
 #include <QObject>
 #include <vector>
 #include <QList>
@@ -51,7 +53,12 @@ public:
      */
     QString getInfo();
 
-    void addStatusBar(QLabel *l);
+    /*!
+     * \brief Add UI items pointers to be accessible from controller.
+     * \param l Status bar label
+     * \param v ListView for selection
+     */
+    void addUIItems(QLabel *l,QListView *v);
 
 signals:
     /*!
@@ -73,9 +80,21 @@ signals:
      */
     void enableEdit(bool);
 
+    /*!
+     * \brief Sends signal to set all scale spinboxes to same value.
+     */
     void scaleSignal(double);
 
 public slots:
+    /*!
+     * \brief Handle selection in ListView.
+     *
+     * Toggle active state of item under given index.
+     *
+     * \param modelindex index of item to change.
+     */
+    void handleSelectionChanged(QModelIndex modelindex);
+
     /*!
      * \brief Set rendering mode.
      *
@@ -147,8 +166,16 @@ public slots:
      */
     void save();
 
+    /*!
+     * \brief Save one MeshObject. Native save if filename is valid, otherwise save as.
+     *
+     * \param object Pointer to MeshObject to save
+     */
     void saveObject(MeshObject* object);
 
+    /*!
+     * \brief Ask for save of unsaved files upon application close.
+     */
     bool saveOnClose();
 
     /*!
@@ -354,11 +381,20 @@ private:
      * Reference for each inactive item is raised.
      */
     void renewList();
+
+    /*!
+     * \brief Add name of given item at the end of ListView.
+     *
+     * \param item Item to be processed.
+     */
+    void addItemToView(MeshObject* item);
     historyList history;    ///< History list
     QList <MeshObject*> objectList;  ///< List of currently drawn objects.
     QVector3D color;        ///< Default color
     QVector3D badColor;     ///< Backface color
-    QLabel* statusBar;
+    QLabel* statusBar;      ///< Status bar pointer.
+    QListView *listView;    ///< ListView pointer.
+    QStringListModel *listModel;    ///< Model to be displayed in ListView.
     QList <MeshObject*>::size_type count;     ///< Count of all objects.
     int mode;               ///< Solid or wireframe or both mode
     float versor[3];        ///< Scale versor

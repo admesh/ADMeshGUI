@@ -9,9 +9,10 @@ Window::Window(QWidget *parent) :
     ui->setupUi(this);
 
     ui->showButton->hide();
+    ui->showButtonLeft->hide();
 
     controller = new admeshController(this);
-    controller->addStatusBar(ui->statusBar);
+    controller->addUIItems(ui->statusBar, ui->listView);
     ui->renderingWidget->setController(controller);
     ui->buttonWidget->setEnabled(false);
     connect(controller, SIGNAL(reDrawSignal()), ui->renderingWidget, SLOT(reDraw()));
@@ -56,6 +57,7 @@ Window::Window(QWidget *parent) :
     connect(ui->reverseBox, SIGNAL(stateChanged(int)), controller, SLOT(setReverseAllFlag()));
     connect(ui->fixAllBox, SIGNAL(stateChanged(int)), controller, SLOT(setFixAllFlag()));
     connect(ui->repairButton, SIGNAL(clicked()), controller, SLOT(repair()));
+
 }
 
 Window::~Window()
