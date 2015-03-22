@@ -34,6 +34,7 @@ inline QString _( const char *msgid, int category )
 #define PERSPECTIVE 50.0f
 #define MIN_VIEW_DISTANCE 0.01f
 #define MAX_VIEW_DISTANCE 1000000.0f
+#define ITEMS_LIMIT 16581375 // 255 * 255 * 255
 
 #define GREEN QVector3D(0.0,1.0,0.0)
 #define RED QVector3D(1.0,0.0,0.0)

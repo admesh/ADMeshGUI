@@ -147,7 +147,11 @@ void admeshController::drawPicking(QGLShaderProgram *program)
 {
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-        program->setUniformValue("color", QVector3D((float)i/255,(float)i/255,(float)i/255));
+        int index = (int)i;
+        float b = (float)(index%255)/255;
+        float g = (float)((index/255)%255)/255;
+        float r = (float)((index/(255*255))%255)/255;
+        program->setUniformValue("color", QVector3D(r,g,b));
         objectList[i]->drawGeometry(program);
     }
 }
@@ -163,7 +167,7 @@ int admeshController::selectedCount()
 
 void admeshController::setActiveByIndex(GLuint id)
 {
-    if(id<255 && count > 1) {
+    if(id<ITEMS_LIMIT && count > 1) {
         objectList[id]->toggleActive();
         listView->selectionModel()->select( listModel->index(id), QItemSelectionModel::Toggle );
     }
@@ -183,8 +187,8 @@ void admeshController::setAllInactive()
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             objectList[i]->setInactive();
         }
-    }
-    listView->clearSelection();
+        listView->clearSelection();
+    }    
 }
 
 void admeshController::setAllInverseActive()
