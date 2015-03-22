@@ -202,7 +202,7 @@ void RenderingWidget::doPicking(){
     controller->drawPicking(&pick_program);
     QImage img = fbo.toImage();
     QRgb color = img.pixel(lastTransPos.x(),lastTransPos.y());
-    int id = qRed(color);
+    int id = qBlue(color) + qGreen(color)*255 + qRed(color)*255*255;
     if(shiftPressed){
         controller->setActiveByIndex(id);
     }else{
