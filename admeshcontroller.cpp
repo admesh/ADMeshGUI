@@ -759,14 +759,17 @@ void stl_merge(stl_file *stl, stl_file *stl_to_merge) {
     stl_reallocate(stl);
     for(int i=0; i<stl_to_merge->stats.number_of_facets;i++){
         stl->facet_start[num_facets_so_far+i] = stl_to_merge->facet_start[i];
+        stl_facet_stats(stl, stl->facet_start[num_facets_so_far+i], 0);
         stl->neighbors_start[num_facets_so_far+i] = stl_to_merge->neighbors_start[i];
     }
-    stl->stats.max.x = (stl->stats.max.x > stl_to_merge->stats.max.x) ? stl->stats.max.x : stl_to_merge->stats.max.x;
-    stl->stats.max.y = (stl->stats.max.y > stl_to_merge->stats.max.y) ? stl->stats.max.y : stl_to_merge->stats.max.y;
-    stl->stats.max.z = (stl->stats.max.z > stl_to_merge->stats.max.z) ? stl->stats.max.z : stl_to_merge->stats.max.z;
-    stl->stats.min.x = (stl->stats.min.x < stl_to_merge->stats.min.x) ? stl->stats.min.x : stl_to_merge->stats.min.x;
-    stl->stats.min.y = (stl->stats.min.y < stl_to_merge->stats.min.y) ? stl->stats.min.y : stl_to_merge->stats.min.y;
-    stl->stats.min.z = (stl->stats.min.z < stl_to_merge->stats.min.z) ? stl->stats.min.z : stl_to_merge->stats.min.z;
+    stl->stats.backwards_edges += stl_to_merge->stats.backwards_edges;
+    stl->stats.collisions += stl_to_merge->stats.collisions;
+    stl->stats.connected_edges += stl_to_merge->stats.connected_edges;
+    stl->stats.degenerate_facets += stl_to_merge->stats.degenerate_facets;
+    stl->stats.edges_fixed += stl_to_merge->stats.edges_fixed;
+    stl->stats.normals_fixed += stl_to_merge->stats.normals_fixed;
+    stl->stats.number_of_parts += stl_to_merge->stats.number_of_parts;
+    stl->stats.facets_reversed += stl_to_merge->stats.facets_reversed;
     stl->stats.size.x = stl->stats.max.x - stl->stats.min.x;
     stl->stats.size.y = stl->stats.max.y - stl->stats.min.y;
     stl->stats.size.z = stl->stats.max.z - stl->stats.min.z;
@@ -785,31 +788,26 @@ void admeshController::merge()
         QMessageBox::warning(NULL, _("Warning"), msg);
         return;
     }
-    MeshObject *mergedMesh;
-    int next = 0;
+    renewList();
+    QList<MeshObject*>::size_type merged = 0;
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive()){
-            mergedMesh = new MeshObject(*objectList[i]);
-            objectList.erase(objectList.begin() + i);
-            --count;
-            next = i;
-            --i;
+            merged = i;
             break;
         }
     }
-    for(QList<MeshObject*>::size_type i = next; i < count;i++){
+    for(QList<MeshObject*>::size_type i = merged+1; i < count;i++){
         if(objectList[i]->isActive()){
-            stl_merge(mergedMesh->getStlPointer(), objectList[i]->getStlPointer());
+            stl_merge(objectList[merged]->getStlPointer(), objectList[i]->getStlPointer());
+            delete objectList[i];
             objectList.erase(objectList.begin() + i);
             --count;
             --i;
         }
     }
-    stl_calculate_volume(mergedMesh->getStlPointer());
-    mergedMesh->resetFilename();
-    mergedMesh->updateGeometry();
-    objectList.push_back(mergedMesh);
-    count++;
+    stl_calculate_volume(objectList[merged]->getStlPointer());
+    objectList[merged]->resetFilename();
+    objectList[merged]->updateGeometry();
     renewListView();
     statusBar->setText(_("Status: meshes merged"));
     pushHistory();
