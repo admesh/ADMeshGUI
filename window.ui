@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1081</width>
-    <height>758</height>
+    <width>1083</width>
+    <height>763</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -90,6 +90,9 @@ border-right: none;
        <height>16777215</height>
       </size>
      </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -99,16 +102,28 @@ border-right: none;
         <x>0</x>
         <y>0</y>
         <width>208</width>
-        <height>717</height>
+        <height>722</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>700</height>
+       </size>
       </property>
       <widget class="QListView" name="listView">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>60</y>
          <width>181</width>
-         <height>192</height>
+         <height>281</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -136,8 +151,21 @@ border-right: none;
         </size>
        </property>
       </widget>
-      <zorder>listView</zorder>
-      <zorder>listView</zorder>
+      <widget class="QWidget" name="verticalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>181</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="toolBarLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
+      </widget>
      </widget>
     </widget>
    </item>
@@ -389,7 +417,7 @@ border-right: none;
       </size>
      </property>
      <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+      <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAsNeeded</enum>
@@ -406,7 +434,7 @@ border-right: none;
         <x>0</x>
         <y>0</y>
         <width>210</width>
-        <height>720</height>
+        <height>722</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -628,87 +656,91 @@ border-right: none;
        <property name="title">
         <string>Scale</string>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QCheckBox" name="useVersorBox">
         <property name="geometry">
          <rect>
-          <x>1</x>
-          <y>21</y>
-          <width>181</width>
-          <height>64</height>
+          <x>3</x>
+          <y>57</y>
+          <width>102</width>
+          <height>22</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QDoubleSpinBox" name="versorXBox">
-             <property name="singleStep">
-              <double>0.500000000000000</double>
-             </property>
-             <property name="value">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="versorYBox">
-             <property name="singleStep">
-              <double>0.500000000000000</double>
-             </property>
-             <property name="value">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="versorZBox">
-             <property name="singleStep">
-              <double>0.500000000000000</double>
-             </property>
-             <property name="value">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
-            <widget class="QCheckBox" name="useVersorBox">
-             <property name="text">
-              <string>Use versor</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="scaleButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>70</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Scale</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
+        <property name="text">
+         <string>Use versor</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="scaleButton">
+        <property name="geometry">
+         <rect>
+          <x>111</x>
+          <y>55</y>
+          <width>70</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>70</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Scale</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="versorYBox">
+        <property name="geometry">
+         <rect>
+          <x>62</x>
+          <y>25</y>
+          <width>59</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="versorZBox">
+        <property name="geometry">
+         <rect>
+          <x>121</x>
+          <y>25</y>
+          <width>59</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="versorXBox">
+        <property name="geometry">
+         <rect>
+          <x>3</x>
+          <y>25</y>
+          <width>59</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
        </widget>
       </widget>
       <widget class="QGroupBox" name="mirrorBox">
@@ -723,65 +755,68 @@ border-right: none;
        <property name="title">
         <string>Mirror</string>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QPushButton" name="mirrorxyButton">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>20</y>
-          <width>181</width>
-          <height>29</height>
+          <x>121</x>
+          <y>21</y>
+          <width>59</width>
+          <height>27</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QPushButton" name="mirrorxzButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>XZ</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="mirroryzButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>YZ</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="mirrorxyButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>XY</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>XY</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="mirrorxzButton">
+        <property name="geometry">
+         <rect>
+          <x>1</x>
+          <y>21</y>
+          <width>60</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>XZ</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="mirroryzButton">
+        <property name="geometry">
+         <rect>
+          <x>61</x>
+          <y>21</y>
+          <width>60</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>YZ</string>
+        </property>
        </widget>
       </widget>
       <widget class="QGroupBox" name="rotateBox">
@@ -796,92 +831,94 @@ border-right: none;
        <property name="title">
         <string>Rotate</string>
        </property>
+       <widget class="QDoubleSpinBox" name="RotateBox">
+        <property name="geometry">
+         <rect>
+          <x>1</x>
+          <y>23</y>
+          <width>69</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="wrapping">
+         <bool>false</bool>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>false</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="minimum">
+         <double>-180.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>180.000000000000000</double>
+        </property>
+       </widget>
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>0</x>
+          <x>70</x>
           <y>20</y>
-          <width>181</width>
-          <height>31</height>
+          <width>111</width>
+          <height>29</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="0">
-          <widget class="QDoubleSpinBox" name="RotateBox">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="rotateXButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="wrapping">
-            <bool>false</bool>
-           </property>
-           <property name="frame">
-            <bool>true</bool>
-           </property>
-           <property name="buttonSymbols">
-            <enum>QAbstractSpinBox::UpDownArrows</enum>
-           </property>
-           <property name="accelerated">
-            <bool>false</bool>
-           </property>
-           <property name="decimals">
-            <number>1</number>
-           </property>
-           <property name="minimum">
-            <double>-180.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>180.000000000000000</double>
+           <property name="text">
+            <string>X</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <property name="spacing">
-            <number>0</number>
+         <item>
+          <widget class="QPushButton" name="rotateYButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <item>
-            <widget class="QPushButton" name="rotateXButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>X</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="rotateYButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Y</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="rotateZButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Z</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+           <property name="text">
+            <string>Y</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="rotateZButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Z</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -901,18 +938,15 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>2</x>
-          <y>21</y>
-          <width>181</width>
+          <x>3</x>
+          <y>22</y>
+          <width>177</width>
           <height>117</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout_4">
+        <layout class="QGridLayout" name="gridLayout_3">
          <property name="horizontalSpacing">
           <number>0</number>
-         </property>
-         <property name="verticalSpacing">
-          <number>6</number>
          </property>
          <item row="0" column="0">
           <widget class="QLabel" name="label_5">

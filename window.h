@@ -71,6 +71,7 @@ private:
     Ui::Window *ui;                 ///< Holds user interface.
     void addActions();              ///< Creates menu actions.
     void addMenus();                ///< Creates menu.
+    void addToolbars();             ///< Creates toolbar.
     QMenu *fileMenu;                ///< File menu.
     QMenu *editMenu;                ///< Editation menu.
     QMenu *viewMenu;                ///< View menu.
@@ -96,6 +97,11 @@ private:
     QAction *selectInverseAct;      ///< Select inverse.
     QAction *undoAct;               ///< Undo.
     QAction *redoAct;               ///< Redo.
+    QToolButton* openButton;
+    QToolButton* saveButton;
+    QToolButton* undoButton;
+    QToolButton* redoButton;
+    QToolButton* closeButton;
 };
 
 #endif // WINDOW_H

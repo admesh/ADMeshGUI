@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/close.png</file>
+        <file>Resources/hide.png</file>
+        <file>Resources/redo.png</file>
+        <file>Resources/save.png</file>
+        <file>Resources/undo.png</file>
+        <file>Resources/open.png</file>
+    </qresource>
+</RCC>

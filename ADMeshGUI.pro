@@ -37,7 +37,8 @@ DISTFILES += \
     vshader.glsl
 
 RESOURCES += \
-    shaders.qrc
+    shaders.qrc \
+    Resources.qrc
 
 OTHER_FILES += \
     picking_vshader.glsl \

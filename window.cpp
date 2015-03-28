@@ -23,6 +23,7 @@ Window::Window(QWidget *parent) :
     connect(controller, SIGNAL(scaleSignal(double)), ui->versorZBox,SLOT(setValue(double)));
     addActions();
     addMenus();
+    addToolbars();
 
     connect(ui->versorXBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorX(double)));
     connect(ui->versorYBox, SIGNAL(valueChanged(double)), controller, SLOT(setVersorY(double)));
@@ -197,7 +198,6 @@ void Window::addMenus(){
     menu_bar->setNativeMenuBar (false);
     ui->menuLayout->addWidget(menu_bar);
     menu_bar->setContentsMargins(0,0,0,0);
-
     fileMenu = menu_bar->addMenu(_("&File"));
     fileMenu->addAction(openAct);
     fileMenu->addAction(saveAct);
@@ -228,6 +228,44 @@ void Window::addMenus(){
     viewMenu->addAction(rightAct);
     viewMenu->addAction(topAct);
     viewMenu->addAction(bottomAct);
+}
+
+void Window::addToolbars()
+{
+    QToolBar *toolBar = new QToolBar(0);
+    toolBar->show();
+    toolBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    ui->toolBarLayout->addWidget(toolBar);
+
+    openButton = new QToolButton();
+    openButton->setDefaultAction(openAct);
+    openButton->setIcon(QIcon("://Resources/open.png"));
+    openButton->setFixedSize(35, 30);
+    toolBar->addWidget(openButton);
+
+    saveButton = new QToolButton();
+    saveButton->setDefaultAction(saveAct);
+    saveButton->setIcon(QIcon("://Resources/save.png"));
+    saveButton->setFixedSize(35, 30);
+    toolBar->addWidget(saveButton);
+
+    undoButton = new QToolButton();
+    undoButton->setDefaultAction(undoAct);
+    undoButton->setIcon(QIcon("://Resources/undo.png"));
+    undoButton->setFixedSize(35, 30);
+    toolBar->addWidget(undoButton);
+
+    redoButton = new QToolButton();
+    redoButton->setDefaultAction(redoAct);
+    redoButton->setIcon(QIcon("://Resources/redo.png"));
+    redoButton->setFixedSize(35, 30);
+    toolBar->addWidget(redoButton);
+
+    closeButton = new QToolButton();
+    closeButton->setDefaultAction(closeAct);
+    closeButton->setIcon(QIcon("://Resources/close.png"));
+    closeButton->setFixedSize(35, 30);
+    toolBar->addWidget(closeButton);
 }
 
 void Window::openByFilename(const char* filename){

@@ -24,7 +24,7 @@ inline QString _( const char *msgid, int category )
 
 
 #define DEFAULT_RES_X 960
-#define DEFAULT_RES_Y 720
+#define DEFAULT_RES_Y 725
 
 #define AXIS_SIZE 500000.0f
 #define GRID_SIZE 10.0f
