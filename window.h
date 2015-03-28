@@ -97,11 +97,11 @@ private:
     QAction *selectInverseAct;      ///< Select inverse.
     QAction *undoAct;               ///< Undo.
     QAction *redoAct;               ///< Redo.
-    QToolButton* openButton;
-    QToolButton* saveButton;
-    QToolButton* undoButton;
-    QToolButton* redoButton;
-    QToolButton* closeButton;
+    QToolButton* openButton;        ///< Open file button.
+    QToolButton* saveButton;        ///< Save file button.
+    QToolButton* undoButton;        ///< Undo button.
+    QToolButton* redoButton;        ///< Redo button.
+    QToolButton* closeButton;       ///< Close file button.
 };
 
 #endif // WINDOW_H

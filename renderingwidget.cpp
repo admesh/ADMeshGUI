@@ -201,7 +201,7 @@ void RenderingWidget::doPicking(){
     pick_program.setUniformValue("mvp_matrix", projection * view * model);
     controller->drawPicking(&pick_program);
     QImage img = fbo.toImage();
-    QRgb color = img.pixel(lastTransPos.x(),lastTransPos.y());
+    QRgb color = img.pixel(lastSelectionPos.x(),lastSelectionPos.y());
     int id = qBlue(color) + qGreen(color)*255 + qRed(color)*255*255;
     if(shiftPressed){
         controller->setActiveByIndex(id);
@@ -313,9 +313,10 @@ void RenderingWidget::mousePressEvent(QMouseEvent *event)
 {
     if(event->buttons() & Qt::LeftButton) lastPos = event->pos();
     if(event->buttons() & Qt::RightButton) {
-        lastTransPos = event->pos();
+        lastSelectionPos = event->pos();
         selection = true;
     }
+    if(event->buttons() & Qt::MiddleButton) lastTransPos = event->pos();
 }
 
 void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
@@ -332,7 +333,7 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
         normalizeAngles();
         lastPos = event->pos();
     }
-    if(event->buttons() & Qt::RightButton)
+    if(event->buttons() & Qt::MiddleButton)
     {
         int dx = (event->x() - lastTransPos.x());
         int dy = (event->y() - lastTransPos.y());

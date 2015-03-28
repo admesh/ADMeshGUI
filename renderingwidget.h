@@ -279,7 +279,8 @@ private:
     bool shiftPressed;              ///< Shift key pressed.
 
     QPoint lastPos;                 ///< Last clicked position (LMB).
-    QPoint lastTransPos;            ///< Last clicked position (RMB)
+    QPoint lastTransPos;            ///< Last clicked position (MMB).
+    QPoint lastSelectionPos;        ///< Last clicked position (RMB).
 
     GLfloat xTrans;                 ///< X direction translation factor.
     GLfloat yTrans;                 ///< Y direction translation factor.
