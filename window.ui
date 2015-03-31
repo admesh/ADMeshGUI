@@ -491,6 +491,9 @@ border-right: none;
            <property name="text">
             <string>Fix all</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item row="1" column="2">
@@ -505,6 +508,9 @@ border-right: none;
          </item>
          <item row="8" column="0" colspan="3">
           <widget class="QCheckBox" name="normalDirBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Normal directions</string>
            </property>
@@ -519,6 +525,9 @@ border-right: none;
          </item>
          <item row="10" column="0" colspan="2">
           <widget class="QCheckBox" name="reverseBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Reverse all</string>
            </property>
@@ -526,6 +535,9 @@ border-right: none;
          </item>
          <item row="9" column="0" colspan="3">
           <widget class="QCheckBox" name="normalValBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Normal values</string>
            </property>
@@ -543,6 +555,9 @@ border-right: none;
          </item>
          <item row="0" column="0" colspan="2">
           <widget class="QCheckBox" name="exactBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Exact</string>
            </property>
@@ -564,6 +579,9 @@ border-right: none;
          </item>
          <item row="7" column="0" colspan="2">
           <widget class="QCheckBox" name="fillholesBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Fill holes</string>
            </property>
@@ -571,6 +589,9 @@ border-right: none;
          </item>
          <item row="6" column="0" colspan="3">
           <widget class="QCheckBox" name="unconnectedBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Remove unconnected</string>
            </property>

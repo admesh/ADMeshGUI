@@ -4,9 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
+QT       += core gui opengl widgets
 
-greaterThan(QT_MAJOR_VERSION, 5): QT += widgets
+lessThan(QT_MAJOR_VERSION, 5) {
+   error(ADMeshGUI requires Qt 5.4 to run. Older version detected.)
+}
+
+equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 4) {
+   error(ADMeshGUI requires Qt 5.4 to run. Older version detected.)
+}
 
 TARGET = ADMeshGUI
 TEMPLATE = app
@@ -30,7 +36,7 @@ HEADERS  += window.h \
 
 FORMS    += window.ui
 
-LIBS += -ladmesh -L -lglut -lGLU
+LIBS += -ladmesh -L -lglut
 
 DISTFILES += \
     fshader.glsl \

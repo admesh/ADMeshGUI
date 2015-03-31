@@ -19,7 +19,7 @@ admeshController::admeshController(QObject *parent) :
     y_translate = 0.0;
     z_translate = 0.0;
     rel_translate = true;
-    fixall_flag = false;
+    fixall_flag = true;
     exact_flag = false;
     tolerance_flag = false;
     tolerance = 0.0;
