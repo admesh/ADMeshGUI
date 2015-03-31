@@ -10,6 +10,7 @@ Window::Window(QWidget *parent) :
 
     ui->showButton->hide();
     ui->showButtonLeft->hide();
+    ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     controller = new admeshController(this);
     controller->addUIItems(ui->statusBar, ui->listView);

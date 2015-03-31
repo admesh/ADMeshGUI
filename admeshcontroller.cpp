@@ -383,6 +383,7 @@ void admeshController::saveAs()
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()) {
                      objectList[i]->saveAs(fileName, 1);
+                     renewListView();
                      statusBar->setText(_("Status: File saved as ASCII STL"));
                  }
             }
@@ -390,6 +391,7 @@ void admeshController::saveAs()
             for(QList<MeshObject*>::size_type i = 0; i < count;i++){
                  if(objectList[i]->isActive()){
                      objectList[i]->saveAs(fileName, 2);
+                     renewListView();
                      statusBar->setText(_("Status: File saved as binary STL"));
                  }
             }
@@ -410,10 +412,10 @@ void admeshController::saveObject(MeshObject* object)
             fileName+=".stl";
             if(filter == "STL_ascii (*.stl)"){
                object->saveAs(fileName, 1);
-               statusBar->setText(_("Status: File saved as ASCII STl"));
+               statusBar->setText(_("Status: File saved as ASCII STL"));
             }else if(filter == "STL_binary (*.stl)"){
                object->saveAs(fileName, 2);
-               statusBar->setText(_("Status: File saved as ASCII STl"));
+               statusBar->setText(_("Status: File saved as binary STL"));
             }
         }
     }
