@@ -93,6 +93,11 @@ void Window::addActions(){
     closeAct->setStatusTip(_("Close selected files"));
     connect(closeAct, SIGNAL(triggered()), controller, SLOT(closeSTL()));
 
+    quitAct = new QAction(_("&Quit"), this);
+    quitAct->setShortcuts(QKeySequence::Quit);
+    quitAct->setStatusTip(_("Quit application"));
+    connect(quitAct, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
+
 
     axesAct = new QAction(_("&Axes"), this);
     axesAct->setStatusTip(_("Show or hide axes"));
@@ -206,6 +211,7 @@ void Window::addMenus(){
     fileMenu->addAction(exportAct);
     fileMenu->addSeparator();
     fileMenu->addAction(closeAct);
+    fileMenu->addAction(quitAct);
     editMenu = menu_bar->addMenu(_("&Edit"));
     editMenu->addAction(undoAct);
     editMenu->addAction(redoAct);
