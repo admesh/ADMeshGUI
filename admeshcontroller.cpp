@@ -45,7 +45,13 @@ void admeshController::setMode(int m)
 
 void admeshController::pushHistory()
 {
-    history.add(objectList);
+    unsigned long size = 0;
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(!objectList[i]->hasReferences()){    //inactive object is reused via same pointer
+            size += objectList[i]->getSize();
+        }
+    }
+    history.add(objectList, size);
 }
 
 void admeshController::renewListView()
@@ -337,10 +343,11 @@ void admeshController::openSTLbyName(const char* filename)
         QMessageBox::critical(NULL, _("Error"), msg);        
         return;
     }else{
+        renewList();
         objectList.push_back(tmp);
         objectList.back()->setActive();
         addItemToView(objectList.back());
-        history.add(objectList);
+        pushHistory();
     }
     count++;
     if(selectedCount()>0)statusBar->setText(_("Status: File(s) opened"));

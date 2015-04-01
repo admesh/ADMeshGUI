@@ -213,13 +213,18 @@ public:
      */
     stl_file* getStlPointer();
 
+    unsigned long getSize();
+
 private:
+    void countSize();
+
     stl_file* stl;  ///< Stored STL file
     GLuint vbo;     ///< Vertex buffer object used to store STL file for drawing
     bool active;    ///< Set active/inactive
     bool saved;     ///< Is saved/unsaved
     QString file;     ///< File name
     unsigned int references;    ///< Count if references - how many history items use this object.
+    unsigned long size;
 };
 
 #endif // MESHOBJECT_H

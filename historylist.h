@@ -28,7 +28,7 @@ public:
      * \brief Add item into history
      * \param item Objects in current state to add to history.
      */
-    void add(QList <MeshObject*> item);
+    void add(QList <MeshObject*> item, unsigned long size);
 
     /*!
      * \brief Delete history item given by index
@@ -72,6 +72,7 @@ private:
     QList <QList <MeshObject*> > history;                     ///< Editation history list
     QList <QList <MeshObject*> >::size_type current_index;    ///< Current index position
     QList <QList <MeshObject*> >::size_type max_index;        ///< Maximum index position
+    unsigned long long historySize;
 };
 
 #endif // HISTORYLIST_H

@@ -5,6 +5,7 @@ historyList::historyList()
     current_index = 0;
     max_index = 0;
     history.push_back(QList<MeshObject*>());
+    historySize = 0;
 }
 
 historyList::~historyList()
@@ -23,11 +24,13 @@ historyList::~historyList()
     }
 }
 
-void historyList::add(QList <MeshObject*> item)
+void historyList::add(QList <MeshObject*> item, unsigned long size)
 {
     if(current_index != max_index){ // not on the end of history
         cutRedos();
-    }
+    }    
+    cutOldest();
+    historySize += size;
     history.push_back(item);
     current_index++;
     max_index++;
@@ -60,6 +63,11 @@ void historyList::deleteRow(QList <QList <MeshObject*> >::size_type index)
         if(history[index][i]->hasReferences()){
             history[index][i]->removeReference();
         }else{
+            if(history[index][i]->getSize() > historySize){
+                historySize = 0;
+            }else{
+                historySize -= history[index][i]->getSize();
+            }
             delete history[index][i];
             history[index][i]=NULL;
         }
@@ -68,7 +76,13 @@ void historyList::deleteRow(QList <QList <MeshObject*> >::size_type index)
 
 void historyList::cutOldest()
 {
-
+    QList <QList <MeshObject*> >::size_type index = 1;
+    while(historySize > HISTORY_LIMIT && current_index > 1){
+        deleteRow(index);
+        --current_index;
+        --max_index;
+        history.erase(history.begin() + index);
+    }
 }
 
 void historyList::cutRedos()

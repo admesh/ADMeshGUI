@@ -20,6 +20,7 @@ MeshObject::MeshObject()
     saved = true;    
     resetFilename();
     references = 0;
+    size = 0;
 }
 
 MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
@@ -287,10 +288,24 @@ void MeshObject::removeReference()
     references--;
 }
 
+void MeshObject::countSize()
+{
+    size = 2*stl->stats.number_of_facets*SIZEOF_STL_FACET; //for facets and neighbours
+    size += sizeof(stl->stats);
+    size += sizeof(stl_file);
+    size += sizeof(*this);
+}
+
+unsigned long MeshObject::getSize()
+{
+    return size;
+}
+
 void MeshObject::updateGeometry()
 {
     int N = stl->stats.number_of_facets;
 
+    countSize();
     GLfloat *vertices;
     vertices=new GLfloat[N*18];
     for(int i=0;i<N;i++){
