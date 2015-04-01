@@ -1,7 +1,9 @@
-attribute mediump vec4 a_position;
-attribute mediump vec3 a_normal;
-uniform mediump mat4 mvp_matrix;
-varying mediump vec3 v_normal;
+#version 130
+
+in vec4 a_position;
+in vec3 a_normal;
+uniform mat4 mvp_matrix;
+varying vec3 v_normal;
 
 void main()
 {

@@ -1,7 +1,9 @@
+#version 130
+
 uniform sampler2D texture;
 uniform vec3 color;
 uniform vec3 badColor;
-varying mediump vec3 v_normal;
+in vec3 v_normal;
 
 void main()
 {
