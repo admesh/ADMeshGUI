@@ -83,6 +83,7 @@ void admeshController::undo()
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         objectList[i]->updateGeometry();
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: Returned 1 step back in history."));
 }
 
 void admeshController::redo()
@@ -93,6 +94,7 @@ void admeshController::redo()
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         objectList[i]->updateGeometry();
     }
+    if(selectedCount()>0)statusBar->setText(_("Status: Returned 1 step forward in history."));
 }
 
 void admeshController::drawAll(QGLShaderProgram *program)
