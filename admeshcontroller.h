@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QListView>
 #include <QStringListModel>
+#include <QStandardItemModel>
 #include <QObject>
 #include <vector>
 #include <QList>
@@ -411,8 +412,10 @@ private:
     QVector3D badColor;     ///< Backface color
     QLabel* statusBar;      ///< Status bar pointer.
     QListView *listView;    ///< ListView pointer.
-    QStringListModel *listModel;    ///< Model to be displayed in ListView.
+    QStandardItemModel *listModel;    ///< Model to be displayed in ListView.
     QList <MeshObject*>::size_type count;     ///< Count of all objects.
+    QIcon hiddenIcon;         ///< Hidden icon
+    QIcon visibleIcon;      ///< Visible icon
     int mode;               ///< Solid or wireframe or both mode
     float versor[3];        ///< Scale versor
     bool useVersor;         ///< Use versor or not

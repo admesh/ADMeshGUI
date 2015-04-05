@@ -32,6 +32,10 @@ admeshController::admeshController(QObject *parent) :
     normal_directions_flag = false;
     normal_values_flag = false;
     reverse_all_flag = false;
+    QPixmap pixmap(32,32);
+    pixmap.fill(QColor(Qt::transparent));
+    visibleIcon = QIcon(pixmap);
+    hiddenIcon = QIcon("://Resources/hide.png");
 }
 
 admeshController::~admeshController()
@@ -185,7 +189,8 @@ void admeshController::setActiveByIndex(GLuint id)
 {
     if(id<ITEMS_LIMIT && count > 1) {
         objectList[id]->toggleSelected();
-        listView->selectionModel()->select( listModel->index(id), QItemSelectionModel::Toggle );
+        QStandardItem *item = listModel->item(id);
+        listView->selectionModel()->select( listModel->indexFromItem(item), QItemSelectionModel::Toggle );
     }
 }
 
@@ -212,7 +217,8 @@ void admeshController::setAllInverseActive()
     if(count > 1){
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             objectList[i]->toggleSelected();
-            listView->selectionModel()->select( listModel->index(i), QItemSelectionModel::Toggle );
+            QStandardItem *item = listModel->item(i);
+            listView->selectionModel()->select( listModel->indexFromItem(item), QItemSelectionModel::Toggle );
         }
     }
 }
@@ -223,6 +229,8 @@ void admeshController::hide()
         if(objectList[i]->isSelected()){
             objectList[i]->setHidden();
             objectList[i]->toggleSelected();
+            QStandardItem *Item = listModel->item(i);
+            Item->setData(hiddenIcon, Qt::DecorationRole);
         }
     }
     listView->clearSelection();
@@ -233,6 +241,8 @@ void admeshController::unhide()
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isSelected()){
             objectList[i]->setVisible();
+            QStandardItem *Item = listModel->item(i);
+            Item->setData(visibleIcon, Qt::DecorationRole);
         }
     }
 }
@@ -253,7 +263,7 @@ void admeshController::addUIItems(QLabel *l,QListView *v)
 {
     statusBar = l;
     listView = v;
-    listModel = new QStringListModel();
+    listModel = new QStandardItemModel();
     listView->setModel(listModel);
     connect(listView,SIGNAL(pressed(QModelIndex)),this,SLOT(handleSelectionChanged(QModelIndex)));
 }
@@ -267,9 +277,11 @@ void admeshController::handleSelectionChanged(QModelIndex index)
 
 void admeshController::addItemToView(MeshObject* item){
     QFileInfo fi=item->getName();
-    listModel->insertRow(listModel->rowCount());
-    QModelIndex index = listModel->index(listModel->rowCount()-1);
-    listModel->setData(index, fi.fileName());
+    QStandardItem *Item = new QStandardItem(fi.fileName());
+    if(item->isHidden())Item->setData(hiddenIcon, Qt::DecorationRole);
+    else Item->setData(visibleIcon, Qt::DecorationRole);
+    listModel->appendRow(Item);
+    QModelIndex index = listModel->indexFromItem(Item);
     if(item->isActive()) listView->selectionModel()->select( index, QItemSelectionModel::Select );
 }
 
@@ -398,7 +410,7 @@ void admeshController::closeSTL()
     renewList();
     pushHistory();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-        if(objectList[i]->isActive()){
+        if(objectList[i]->isSelected()){
             objectList.erase(objectList.begin() + i);
             --count;
             --i;
