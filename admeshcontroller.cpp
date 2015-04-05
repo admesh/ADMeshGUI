@@ -442,7 +442,11 @@ bool admeshController::saveOnClose()
     QMessageBox msgBox((QWidget*)parent());
     msgBox.setText(_("File has been modified."));
     msgBox.setInformativeText(_("Do you want to save changes?"));
-    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel | QMessageBox::NoToAll);
+    msgBox.setButtonText(QMessageBox::Save, _("Save"));
+    msgBox.setButtonText(QMessageBox::Discard, _("Discard"));
+    msgBox.setButtonText(QMessageBox::Cancel, _("Cancel"));
+    msgBox.setButtonText(QMessageBox::NoToAll, _("Discard all"));
     msgBox.setDefaultButton(QMessageBox::Save);
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(!objectList[i]->isSaved()){
@@ -451,6 +455,8 @@ bool admeshController::saveOnClose()
             msgBox.setText(msg);
             int ret = msgBox.exec();
             switch (ret) {
+               case QMessageBox::NoToAll:
+                   return true;
                case QMessageBox::Save:
                    saveObject(objectList[i]);
                    break;
@@ -819,5 +825,29 @@ void admeshController::merge()
     objectList[merged]->updateGeometry();
     renewListView();
     statusBar->setText(_("Status: meshes merged"));
+    pushHistory();
+}
+
+void admeshController::split(){
+    vector<stl_file*> result;
+    int added = 0;
+    renewList();
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isActive()){
+            result = stl_split(objectList[i]->getStlPointer());
+            for(vector<stl_file*>::size_type j = 0; j < result.size(); j++){
+                MeshObject* item = new MeshObject(result[j]);
+                objectList.push_back(item);
+                added++;
+            }
+            delete objectList[i];
+            objectList.erase(objectList.begin() + i);
+            --count;
+            --i;
+        }
+    }
+    count += added;
+    renewListView();
+    statusBar->setText(_("Status: mesh(es) split"));
     pushHistory();
 }

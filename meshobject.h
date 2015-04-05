@@ -16,9 +16,16 @@ class MeshObject : protected QGLFunctions
 {
 public:
     /*!
-     * \brief Constructor. Initializes stl structure.
+     * \brief Constructor. Initializes new stl structure.
      */
     MeshObject();
+
+    /*!
+     * \brief Constructor. Initializes with given stl structure.
+     *
+     * \param item Given stl_file item.
+     */
+    MeshObject(stl_file* item);
 
     /*!
      * \brief Copy constructor. Creates deep copy of MeshObject.

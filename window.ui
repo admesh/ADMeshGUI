@@ -656,12 +656,25 @@ border-right: none;
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>99</width>
+          <width>91</width>
           <height>27</height>
          </rect>
         </property>
         <property name="text">
          <string>Merge</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="splitButton">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>20</y>
+          <width>91</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Split</string>
         </property>
        </widget>
       </widget>
@@ -898,7 +911,7 @@ border-right: none;
           <height>29</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -949,7 +962,7 @@ border-right: none;
         <rect>
          <x>10</x>
          <y>180</y>
-         <width>191</width>
+         <width>181</width>
          <height>141</height>
         </rect>
        </property>
@@ -959,14 +972,14 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>3</x>
-          <y>22</y>
+          <x>4</x>
+          <y>23</y>
           <width>177</width>
-          <height>117</height>
+          <height>119</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
-         <property name="horizontalSpacing">
+         <property name="spacing">
           <number>0</number>
          </property>
          <item row="0" column="0">
@@ -1010,19 +1023,6 @@ border-right: none;
            </property>
            <property name="maximum">
             <double>1000.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2" rowspan="3">
-          <widget class="QPushButton" name="translateButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Translate</string>
            </property>
           </widget>
          </item>
@@ -1124,6 +1124,19 @@ border-right: none;
            </property>
            <property name="tristate">
             <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" rowspan="3">
+          <widget class="QPushButton" name="translateButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Translate</string>
            </property>
           </widget>
          </item>

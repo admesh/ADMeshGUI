@@ -23,6 +23,20 @@ MeshObject::MeshObject()
     size = 0;
 }
 
+MeshObject::MeshObject(stl_file* item)
+{
+    stl = item;
+    active = true;
+    saved = false;
+    references = 0;
+    size = 0;
+    file = QString("split");
+    stl_calculate_volume(stl);
+    initializeGLFunctions();
+    glGenBuffers(1, &vbo);
+    this->updateGeometry();
+}
+
 MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
 {
     references = 0;
@@ -78,6 +92,7 @@ bool MeshObject::hasValidName()
 {
     if(file.size() < 5)return false;
     else if(file == "untitled")return false;
+    else if(file == "split")return false;
     else return true;
 }
 

@@ -44,6 +44,7 @@ Window::Window(QWidget *parent) :
     connect(ui->translateRelBox, SIGNAL(stateChanged(int)), controller, SLOT(setRelativeTranslate()));
     connect(ui->translateButton, SIGNAL(clicked()), controller, SLOT(translate()));
     connect(ui->mergeButton, SIGNAL(clicked()), controller, SLOT(merge()));
+    connect(ui->splitButton, SIGNAL(clicked()), controller, SLOT(split()));
 
     connect(ui->exactBox, SIGNAL(stateChanged(int)), controller, SLOT(setExactFlag()));
     connect(ui->toleranceBox, SIGNAL(stateChanged(int)), controller, SLOT(setToleranceFlag()));

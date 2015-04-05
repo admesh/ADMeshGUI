@@ -2,6 +2,7 @@
 #define DATA_H
 
 #include <admesh/stl.h>
+#include <stlsplit.h>
 #include <QVector3D>
 #include <libintl.h>
 #include <locale.h>

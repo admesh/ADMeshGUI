@@ -36,7 +36,7 @@ HEADERS  += window.h \
 
 FORMS    += window.ui
 
-LIBS += -ladmesh -L -lglut
+LIBS += -ladmesh -L -lglut -lstlsplit
 
 DISTFILES += \
     fshader.glsl \

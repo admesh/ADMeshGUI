@@ -360,6 +360,11 @@ public slots:
     void merge();
 
     /*!
+     * \brief Split all active models by shells if possible.
+     */
+    void split();
+
+    /*!
      * \brief Undo last operation.
      */
     void undo();
@@ -393,6 +398,7 @@ private:
      * \param item Item to be processed.
      */
     void addItemToView(MeshObject* item);
+
     historyList history;    ///< History list
     QList <MeshObject*> objectList;  ///< List of currently drawn objects.
     QVector3D color;        ///< Default color
