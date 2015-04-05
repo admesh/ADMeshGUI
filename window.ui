@@ -166,6 +166,32 @@ border-right: none;
         </property>
        </layout>
       </widget>
+      <widget class="QPushButton" name="hideItemsButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>350</y>
+         <width>91</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Hide</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="unhideItemsButton">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>350</y>
+         <width>91</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Unhide</string>
+       </property>
+      </widget>
      </widget>
     </widget>
    </item>

@@ -105,9 +105,11 @@ void admeshController::drawAll(QGLShaderProgram *program)
             if(objectList[i]->isActive()){
                 program->setUniformValue("color", GREEN);
                 program->setUniformValue("badColor", RED);
-            }else{
+            }else if(!objectList[i]->isHidden()){
                 program->setUniformValue("color", GREY);
                 program->setUniformValue("badColor", GREY);
+            }else{
+                continue;
             }
             objectList[i]->drawGeometry(program);
         }
@@ -117,9 +119,11 @@ void admeshController::drawAll(QGLShaderProgram *program)
             if(objectList[i]->isActive()){
                 program->setUniformValue("color", BLACK);
                 program->setUniformValue("badColor", BLACK);
-            }else{
+            }else if(!objectList[i]->isHidden()){
                 program->setUniformValue("color", GREY);
                 program->setUniformValue("badColor", GREY);
+            }else{
+                continue;
             }
             objectList[i]->drawGeometry(program);
         }
@@ -129,9 +133,11 @@ void admeshController::drawAll(QGLShaderProgram *program)
             if(objectList[i]->isActive()){
                 program->setUniformValue("color", BLACK);
                 program->setUniformValue("badColor", BLACK);
-            }else{
+            }else if(!objectList[i]->isHidden()){
                 program->setUniformValue("color", GREY);
                 program->setUniformValue("badColor", GREY);
+            }else{
+                continue;
             }
             objectList[i]->drawGeometry(program);
         }
@@ -142,9 +148,11 @@ void admeshController::drawAll(QGLShaderProgram *program)
             if(objectList[i]->isActive()){
                 program->setUniformValue("color", GREEN);
                 program->setUniformValue("badColor", RED);
-            }else{
+            }else if(!objectList[i]->isHidden()){
                 program->setUniformValue("color", GREY);
                 program->setUniformValue("badColor", GREY);
+            }else{
+                continue;
             }
             objectList[i]->drawGeometry(program);
         }
@@ -176,7 +184,7 @@ int admeshController::selectedCount()
 void admeshController::setActiveByIndex(GLuint id)
 {
     if(id<ITEMS_LIMIT && count > 1) {
-        objectList[id]->toggleActive();
+        objectList[id]->toggleSelected();
         listView->selectionModel()->select( listModel->index(id), QItemSelectionModel::Toggle );
     }
 }
@@ -184,7 +192,7 @@ void admeshController::setActiveByIndex(GLuint id)
 void admeshController::setAllActive()
 {
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-        objectList[i]->setActive();
+        objectList[i]->setSelected();
     }
     listView->selectAll();
 }
@@ -193,7 +201,7 @@ void admeshController::setAllInactive()
 {
     if(count > 1){
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-            objectList[i]->setInactive();
+            objectList[i]->setDeselected();
         }
         listView->clearSelection();
     }    
@@ -203,9 +211,36 @@ void admeshController::setAllInverseActive()
 {
     if(count > 1){
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-            objectList[i]->toggleActive();
+            objectList[i]->toggleSelected();
             listView->selectionModel()->select( listModel->index(i), QItemSelectionModel::Toggle );
         }
+    }
+}
+
+void admeshController::hide()
+{
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isSelected()){
+            objectList[i]->setHidden();
+            objectList[i]->toggleSelected();
+        }
+    }
+    listView->clearSelection();
+}
+
+void admeshController::unhide()
+{
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isSelected()){
+            objectList[i]->setVisible();
+        }
+    }
+}
+
+void admeshController::unhideAll()
+{
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        objectList[i]->setVisible();
     }
 }
 
@@ -226,7 +261,7 @@ void admeshController::addUIItems(QLabel *l,QListView *v)
 void admeshController::handleSelectionChanged(QModelIndex index)
 {
     if(QApplication::mouseButtons() == Qt::LeftButton){
-        if(index.row() < count) objectList[index.row()]->toggleActive();
+        if(index.row() < count) objectList[index.row()]->toggleSelected();
     }
 }
 
@@ -322,7 +357,7 @@ void admeshController::openSTL()
         }else{
             renewList();
             objectList.push_back(tmp);
-            objectList.back()->setActive();
+            objectList.back()->setSelected();
             addItemToView(objectList.back());
             pushHistory();
         }
@@ -347,7 +382,7 @@ void admeshController::openSTLbyName(const char* filename)
     }else{
         renewList();
         objectList.push_back(tmp);
-        objectList.back()->setActive();
+        objectList.back()->setSelected();
         addItemToView(objectList.back());
         pushHistory();
     }
@@ -370,7 +405,7 @@ void admeshController::closeSTL()
         }
     }
 
-    if(count == 1) objectList[0]->setActive();
+    if(count == 1) objectList[0]->setSelected();
     else if(count == 0) enableEdit(false);
     renewListView();
 }

@@ -16,7 +16,7 @@ MeshObject::MeshObject()
 {
     stl = new stl_file;
     stl_initialize(stl);
-    active = true;
+    selected = true;
     saved = true;    
     resetFilename();
     references = 0;
@@ -26,7 +26,7 @@ MeshObject::MeshObject()
 MeshObject::MeshObject(stl_file* item)
 {
     stl = item;
-    active = true;
+    selected = true;
     saved = false;
     references = 0;
     size = 0;
@@ -42,7 +42,7 @@ MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
     references = 0;
     file = m.file;
     saved = m.saved;
-    active = m.active;
+    selected = m.selected;
     stl = new stl_file;
     stl_initialize(stl);
     stl->fp = m.stl->fp;
@@ -267,24 +267,44 @@ void MeshObject::repair(int fixall_flag, int exact_flag, int tolerance_flag, flo
     saved = false;
 }
 
-void MeshObject::setActive()
+void MeshObject::setSelected()
 {
-    active = true;
+    selected = true;
 }
 
-void MeshObject::setInactive()
+void MeshObject::setDeselected()
 {
-    active = false;
+    selected = false;
 }
 
-void MeshObject::toggleActive()
+void MeshObject::toggleSelected()
 {
-    active = !active;
+    selected = !selected;
+}
+
+bool MeshObject::isSelected()
+{
+    return selected;
 }
 
 bool MeshObject::isActive()
 {
-    return active;
+    return(selected && !hidden);
+}
+
+void MeshObject::setHidden()
+{
+    hidden = true;
+}
+
+void MeshObject::setVisible()
+{
+    hidden = false;
+}
+
+bool MeshObject::isHidden()
+{
+    return hidden;
 }
 
 bool MeshObject::hasReferences()

@@ -141,6 +141,12 @@ public slots:
      */
     void setAllInverseActive();
 
+    void hide();
+
+    void unhide();
+
+    void unhideAll();
+
     /*!
      * \brief Open dialog window to open STL file
      */

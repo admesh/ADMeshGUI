@@ -46,6 +46,9 @@ Window::Window(QWidget *parent) :
     connect(ui->mergeButton, SIGNAL(clicked()), controller, SLOT(merge()));
     connect(ui->splitButton, SIGNAL(clicked()), controller, SLOT(split()));
 
+    connect(ui->hideItemsButton, SIGNAL(clicked()), controller, SLOT(hide()));
+    connect(ui->unhideItemsButton, SIGNAL(clicked()), controller, SLOT(unhide()));
+
     connect(ui->exactBox, SIGNAL(stateChanged(int)), controller, SLOT(setExactFlag()));
     connect(ui->toleranceBox, SIGNAL(stateChanged(int)), controller, SLOT(setToleranceFlag()));
     connect(ui->toleranceSpinBox, SIGNAL(valueChanged(double)), controller, SLOT(setTolerance(double)));

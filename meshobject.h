@@ -170,26 +170,50 @@ public:
     void repair(int fixall_flag, int exact_flag, int tolerance_flag, float tolerance, int increment_flag, float increment, int nearby_flag, int iterations, int remove_unconnected_flag, int fill_holes_flag, int normal_directions_flag, int normal_values_flag, int reverse_all_flag);
 
     /*!
-     * \brief Set active.
+     * \brief Set selected.
      */
-    void setActive();
+    void setSelected();
 
     /*!
-     * \brief Set inactive.
+     * \brief Set deselected.
      */
-    void setInactive();
+    void setDeselected();
 
     /*!
-     * \brief Toggle active.
+     * \brief Toggle selected.
      */
-    void toggleActive();
+    void toggleSelected();
+
+    /*!
+     * \brief Is selected?
+     *
+     * \return true upon selected
+     */
+    bool isSelected();
 
     /*!
      * \brief Is active?
      *
-     * \return true upon active
+     * \return true upon selected and visible
      */
     bool isActive();
+
+    /*!
+     * \brief Hide item
+     */
+    void setHidden();
+
+    /*!
+     * \brief Reveal hidden item
+     */
+    void setVisible();
+
+    /*!
+     * \brief Is hidden?
+     *
+     * \return true upon hidden
+     */
+    bool isHidden();
 
     /*!
      * \brief Destructor. Closes stl structure. Deletes vbo.
@@ -227,7 +251,8 @@ private:
 
     stl_file* stl;  ///< Stored STL file
     GLuint vbo;     ///< Vertex buffer object used to store STL file for drawing
-    bool active;    ///< Set active/inactive
+    bool selected;    ///< Set active/inactive
+    bool hidden;    ///< Is hidden/visible
     bool saved;     ///< Is saved/unsaved
     QString file;     ///< File name
     unsigned int references;    ///< Count if references - how many history items use this object.
