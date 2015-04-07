@@ -21,6 +21,7 @@ MeshObject::MeshObject()
     resetFilename();
     references = 0;
     size = 0;
+    hidden = false;
 }
 
 MeshObject::MeshObject(stl_file* item)
@@ -30,6 +31,7 @@ MeshObject::MeshObject(stl_file* item)
     saved = false;
     references = 0;
     size = 0;
+    hidden = false;
     file = QString("split");
     stl_calculate_volume(stl);
     initializeGLFunctions();
@@ -40,6 +42,7 @@ MeshObject::MeshObject(stl_file* item)
 MeshObject::MeshObject(const MeshObject& m) : QGLFunctions()
 {
     references = 0;
+    hidden = m.hidden;
     file = m.file;
     saved = m.saved;
     selected = m.selected;
