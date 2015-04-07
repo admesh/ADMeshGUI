@@ -9,9 +9,14 @@
 #include <QObject>
 #include <vector>
 #include <QList>
+#include <iostream>
+#include <cstdio>
+#include <ctime>
 #include "data.h"
 #include "meshobject.h"
 #include "historylist.h"
+
+#define DEBUG true
 
 using namespace std;
 
@@ -437,6 +442,7 @@ private:
     bool normal_directions_flag;
     bool normal_values_flag;
     bool reverse_all_flag;
+    clock_t start_time;
 };
 
 #endif // ADMESHCONTROLLER_H

@@ -612,43 +612,67 @@ void admeshController::setVersor()
 void admeshController::scale()
 {
     if(versor[0] != 0.0 || versor[1] != 0.0 || versor[2] != 0.0){
+        #ifdef DEBUG
+            start_time = clock();
+        #endif
         renewList();
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->scale(versor);
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) scaled"));
         pushHistory();
+        #ifdef DEBUG
+            cout << "Scale took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+        #endif
     }
 }
 
 void admeshController::mirrorXY()
 {
+    #ifdef DEBUG
+        start_time = clock();
+    #endif
     renewList();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorXY();
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XY plane"));
     pushHistory();
+    #ifdef DEBUG
+        cout << "Mirror XY took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+    #endif
 }
 
 void admeshController::mirrorYZ()
 {
+    #ifdef DEBUG
+        start_time = clock();
+    #endif
     renewList();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorYZ();
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along YZ plane"));
     pushHistory();
+    #ifdef DEBUG
+        cout << "Mirror YZ took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+    #endif
 }
 
 void admeshController::mirrorXZ()
 {
+    #ifdef DEBUG
+        start_time = clock();
+    #endif
     renewList();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorXZ();
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XZ plane"));
     pushHistory();
+    #ifdef DEBUG
+        cout << "Mirror XZ took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+    #endif
 }
 
 void admeshController::setRot(double angle)
@@ -659,36 +683,54 @@ void admeshController::setRot(double angle)
 void admeshController::rotateX()
 {
     if(rot != 0.0){
+        #ifdef DEBUG
+            start_time = clock();
+        #endif
         renewList();
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->rotateX(rot);
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along X axis"));
         pushHistory();
+        #ifdef DEBUG
+            cout << "Rotate X took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+        #endif
     }
 }
 
 void admeshController::rotateY()
 {
     if(rot != 0.0){
+        #ifdef DEBUG
+            start_time = clock();
+        #endif
         renewList();
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->rotateY(rot);
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Y axis"));
         pushHistory();
+        #ifdef DEBUG
+            cout << "Rotate Y took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+        #endif
     }
 }
 
 void admeshController::rotateZ()
 {
     if(rot != 0.0){
+        #ifdef DEBUG
+            start_time = clock();
+        #endif
         renewList();
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->rotateZ(rot);
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Z axis"));
         pushHistory();
+        #ifdef DEBUG
+            cout << "Rotate Z took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+        #endif
     }
 }
 
@@ -716,6 +758,9 @@ void admeshController::setRelativeTranslate()
 void admeshController::translate()
 {
     if(!rel_translate || x_translate != 0.0 || y_translate != 0.0 || z_translate != 0.0){
+        #ifdef DEBUG
+            start_time = clock();
+        #endif
         renewList();
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->translate(rel_translate, x_translate, y_translate, z_translate);
@@ -723,6 +768,9 @@ void admeshController::translate()
         if(selectedCount()>0 && rel_translate)statusBar->setText(_("Status: mesh(es) translated relatively to position"));
         else if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) translated to origin"));
         pushHistory();
+        #ifdef DEBUG
+            cout << "Translate took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+        #endif
     }
 }
 
@@ -794,6 +842,9 @@ void admeshController::setReverseAllFlag()
 
 void admeshController::repair()
 {
+    #ifdef DEBUG
+        start_time = clock();
+    #endif
     renewList();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->repair(fixall_flag,
@@ -812,6 +863,9 @@ void admeshController::repair()
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) repaired"));
     pushHistory();
+    #ifdef DEBUG
+        cout << "Repair took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+    #endif
 }
 
 void stl_merge(stl_file *stl, stl_file *stl_to_merge) {
@@ -852,6 +906,9 @@ void admeshController::merge()
         QMessageBox::warning(NULL, _("Warning"), msg);
         return;
     }
+    #ifdef DEBUG
+        start_time = clock();
+    #endif
     renewList();
     QList<MeshObject*>::size_type merged = 0;
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
@@ -875,6 +932,9 @@ void admeshController::merge()
     renewListView();
     statusBar->setText(_("Status: meshes merged"));
     pushHistory();
+    #ifdef DEBUG
+        cout << "Merge took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
+    #endif
 }
 
 void admeshController::split(){
