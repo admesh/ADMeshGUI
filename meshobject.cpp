@@ -162,6 +162,22 @@ QVector3D MeshObject::getMin()
     return min;
 }
 
+float MeshObject::getDiameter()
+{
+    float *arr = new float[6];
+    float val = 0.0;
+    arr[0] = qAbs(stl->stats.min.x);
+    arr[1] = qAbs(stl->stats.min.y);
+    arr[2] = qAbs(stl->stats.min.z);
+    arr[3] = qAbs(stl->stats.max.x);
+    arr[4] = qAbs(stl->stats.max.y);
+    arr[5] = qAbs(stl->stats.max.z);
+    for(int i=0;i<6;i++){
+        if (arr[i] > val) val = arr[i];
+    }
+    return val;
+}
+
 float* MeshObject::getInfo()
 {
     float *arr = new float[15];

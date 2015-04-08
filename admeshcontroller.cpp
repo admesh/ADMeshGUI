@@ -160,6 +160,7 @@ void admeshController::drawAll(QGLShaderProgram *program)
             }
             objectList[i]->drawGeometry(program);
         }
+        glDisable( GL_POLYGON_OFFSET_FILL );
     }
 }
 
@@ -567,10 +568,10 @@ void admeshController::exportSTL()
     }
 }
 
-QVector3D admeshController::getMinPosition()
+float admeshController::getMaxDiameter()
 {
-    if(objectList.back()) return objectList.back()->getMin();
-    else return QVector3D(0.0,0.0,0.0);
+    if(objectList.back()) return objectList.back()->getDiameter();
+    else return 0.0;
 }
 
 void admeshController::setVersorX(double factor)

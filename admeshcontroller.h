@@ -196,10 +196,11 @@ public slots:
     void exportSTL();
 
     /*!
-     * \brief Get vector [min x, min y, max z] of active file for camera purposes.
-     * \return vector of mininaml values.
+     * \brief Get maximal diameter of last object in list. Called by RenderingWidget once new file is loaded.
+     *
+     * \return diameter
      */
-    QVector3D getMinPosition();
+    float getMaxDiameter();
 
     /*!
      * \brief Set scale versor X factor.

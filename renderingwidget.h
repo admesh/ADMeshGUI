@@ -238,6 +238,11 @@ private:
     void recalculateGridStep();
 
     /*!
+     * \brief Determine projection near plane based on distance from objects.
+     */
+    void recalculateProjectionNear();
+
+    /*!
      * \brief Do color based object picking.
      *
      * Uses offscreen color + depth framebuffer for drawing. Based on color of pixel clicked.
@@ -258,6 +263,8 @@ private:
 
     GLuint axes_vbo;                ///< Vertex buffer object for axes.
     GLuint grid_vbo;                ///< Vertex buffer object for grid.
+
+    GLfloat minDiam;                ///< Maximum axes diameter of objects in scene.
 
     GLfloat angleX;                 ///< X axis angle.
     GLfloat angleY;                 ///< Y axis angle.

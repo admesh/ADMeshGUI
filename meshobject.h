@@ -68,6 +68,13 @@ public:
     QVector3D getMin();
 
     /*!
+     * \brief Get maximal diameter of last object in list. Maximal absolute value from all axes.
+     *
+     * \return diameter
+     */
+    float getDiameter();
+
+    /*!
      * \brief Get info about mesh.
      * \return array containing info.
      */

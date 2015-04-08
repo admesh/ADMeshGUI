@@ -20,6 +20,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     smallAxesBox = QVector4D(5, 5, 105, 105);
     gridStep = 1;
     shiftPressed = false;
+    minDiam = 1.0f;
 }
 
 
@@ -165,6 +166,8 @@ void RenderingWidget::paintGL()
     program.setUniformValue("mvp_matrix", projection * view * model);   //Draw main window contents
     if(Axes) drawAxes();
     if(Grid) drawGrid();
+
+    program.setUniformValue("mvp_matrix", projection * view * model);
     controller->drawAll(&program);
 
     glViewport(smallAxesBox.x(), smallAxesBox.y(), smallAxesBox.z(), smallAxesBox.w()); // xStart, yStart, xWidth, yWidth
@@ -180,6 +183,17 @@ void RenderingWidget::paintGL()
     if(Info) drawInfo(&painter);
     drawLabels(&painter);
     painter.end();
+}
+
+void RenderingWidget::recalculateProjectionNear()
+{
+    if(2*minDiam < zoom){
+        projection.setToIdentity();
+        projection.perspective(PERSPECTIVE, (GLfloat)width()/(GLfloat)height(), 1.0, MAX_VIEW_DISTANCE);
+    }else{
+        projection.setToIdentity();
+        projection.perspective(PERSPECTIVE, (GLfloat)width()/(GLfloat)height(), MIN_VIEW_DISTANCE, MAX_VIEW_DISTANCE);
+    }
 }
 
 void RenderingWidget::resizeGL(int width, int height)
@@ -305,8 +319,11 @@ void RenderingWidget::wheelEvent(QWheelEvent* event)
     }else{
         tmp *= 0.8;
     }
-    if(tmp > MIN_ZOOM && tmp < MAX_ZOOM) zoom = tmp;
-    recalculateGridStep();
+    if(tmp > MIN_ZOOM && tmp < MAX_ZOOM){
+        zoom = tmp;
+        recalculateGridStep();
+        recalculateProjectionNear();
+    }
 }
 
 void RenderingWidget::mousePressEvent(QMouseEvent *event)
@@ -464,14 +481,16 @@ void RenderingWidget::reDraw()
 
 void RenderingWidget::reCalculatePosition()
 {
-    QVector3D vec = controller->getMinPosition();
+    float val = controller->getMaxDiameter();
     xPos = 1.0f;
     yPos = 0.5f;
     zPos = 1.0f;
     angleX = 0.0f;
     angleY = 70.0f;
-    if(!vec.isNull()) zoom = qMin(float(2.5*sqrt(pow(vec.x(),2)+pow(vec.y(),2)+pow(vec.z(),2))),MAX_ZOOM);
+    if(val > 0.0) zoom = qMin(float(2.5*val),MAX_ZOOM);
     else zoom = 100;
+    if (val>minDiam) minDiam = val;
+    recalculateProjectionNear();
     recalculateGridStep();
 }
 
