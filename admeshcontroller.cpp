@@ -358,7 +358,7 @@ QString admeshController::getInfo()
 
 void admeshController::openSTL()
 {
-    QString fileName = QFileDialog::getOpenFileName((QWidget*)parent(), _("Open STL"), "/", _("STL (*.stl)"));
+    QString fileName = QFileDialog::getOpenFileName((QWidget*)parent(), _("Open STL"), "/", _("STL (*.stl *.STL)"));
     if(!fileName.isEmpty()){
         MeshObject* tmp = new MeshObject;
         if(!tmp->loadGeometry(fileName)){
