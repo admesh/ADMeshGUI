@@ -9,6 +9,9 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     setlocale(LC_NUMERIC,"C");
 
+    QCoreApplication::setOrganizationName("ADMesh");
+    QCoreApplication::setApplicationName("ADMeshGUI");
+
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
     format.setSamples(4);

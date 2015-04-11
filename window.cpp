@@ -64,6 +64,7 @@ Window::Window(QWidget *parent) :
     connect(ui->fixAllBox, SIGNAL(stateChanged(int)), controller, SLOT(setFixAllFlag()));
     connect(ui->repairButton, SIGNAL(clicked()), controller, SLOT(repair()));
 
+    readSettings();
 }
 
 Window::~Window()
@@ -311,6 +312,7 @@ void Window::keyReleaseEvent(QKeyEvent *event)
 void Window::closeEvent(QCloseEvent *event)
 {
     if(controller->saveOnClose()){
+        writeSettings();
         event->accept();
     }else{
         event->ignore();
@@ -340,4 +342,37 @@ void Window::setSolidWithEdges()
     solidAct->setChecked(false);
     wireframeAct->setChecked(false);
     solidwithedgesAct->setChecked(true);
+}
+
+void Window::writeSettings()
+{
+    QSettings settings;
+    if(this->isMaximized())settings.setValue("maximized",true);
+    else settings.setValue("maximized",false);
+    settings.setValue("width", ui->renderingWidget->width());
+    settings.setValue("height", ui->renderingWidget->height());
+    settings.setValue("mode", 2);
+    controller->writeSettings();
+    ui->renderingWidget->writeSettings();
+}
+
+void Window::readSettings()
+{
+    QSettings settings;
+    if(settings.value("maximized",false).toBool())this->showMaximized();
+    int mode = settings.value("rendermode",0).toInt();
+    switch(mode){
+        case 0:
+            setSolid();
+            break;
+        case 1:
+            setWireframe();
+            break;
+        case 2:
+            setSolidWithEdges();
+            break;
+    }
+    if(!settings.value("axes", true).toBool()) axesAct->trigger();
+    if(settings.value("grid", true).toBool()) gridAct->trigger();
+    if(!settings.value("info", true).toBool()) infoAct->trigger();
 }

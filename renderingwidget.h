@@ -45,6 +45,11 @@ public:
      */
     ~ RenderingWidget();
 
+    /*!
+     * \brief Write settings to config.
+     */
+    void writeSettings();
+
 protected:
     /*!
      * \brief Initializes OpenGL. Makes all default calls.

@@ -35,6 +35,8 @@ admeshController::admeshController(QObject *parent) :
     pixmap.fill(QColor(Qt::transparent));
     visibleIcon = QIcon(pixmap);
     hiddenIcon = QIcon("://Resources/hide.svg");
+    QSettings settings;
+    history.setLimitSize(settings.value("sizeLimit", HISTORY_LIMIT).toULongLong());
 }
 
 admeshController::~admeshController()
@@ -553,6 +555,11 @@ void admeshController::exportSTL()
             statusBar->setText(_("Status: File exported to VRML format"));
         }
     }
+}
+
+void admeshController::writeSettings()
+{    QSettings settings;
+    settings.setValue("rendermode", mode);
 }
 
 float admeshController::getMaxDiameter()

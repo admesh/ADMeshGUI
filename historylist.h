@@ -25,6 +25,13 @@ public:
     ~historyList();
 
     /*!
+     * \brief Set limit size of buffer.
+     *
+     * \param limit Limit size of buffer in bytes.
+     */
+    void setLimitSize(unsigned long long limit);
+
+    /*!
      * \brief Add item into history
      * \param item Objects in current state to add to history.
      */
@@ -73,6 +80,7 @@ private:
     QList <QList <MeshObject*> >::size_type current_index;    ///< Current index position
     QList <QList <MeshObject*> >::size_type max_index;        ///< Maximum index position
     unsigned long long historySize;
+    unsigned long long sizeLimit;
 };
 
 #endif // HISTORYLIST_H

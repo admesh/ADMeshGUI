@@ -6,6 +6,7 @@ historyList::historyList()
     max_index = 0;
     history.push_back(QList<MeshObject*>());
     historySize = 0;
+    sizeLimit = 0;
 }
 
 historyList::~historyList()
@@ -22,6 +23,11 @@ historyList::~historyList()
         history.pop_back();
         --max_index;
     }
+}
+
+void historyList::setLimitSize(unsigned long long limit)
+{
+    sizeLimit = limit;
 }
 
 void historyList::add(QList <MeshObject*> item, unsigned long size)
@@ -77,7 +83,7 @@ void historyList::deleteRow(QList <QList <MeshObject*> >::size_type index)
 void historyList::cutOldest()
 {
     QList <QList <MeshObject*> >::size_type index = 1;
-    while(historySize > HISTORY_LIMIT && current_index > 1){
+    while(historySize > sizeLimit && current_index > 1){
         deleteRow(index);
         --current_index;
         --max_index;

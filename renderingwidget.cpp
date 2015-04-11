@@ -30,6 +30,13 @@ RenderingWidget::~RenderingWidget()
     glDeleteBuffers(1, &grid_vbo);
 }
 
+void RenderingWidget::writeSettings()
+{
+    QSettings settings;
+    settings.setValue("axes", Axes);
+    settings.setValue("grid", Grid);
+    settings.setValue("info", Info);
+}
 
 void RenderingWidget::setController(admeshController* cnt)
 {
@@ -43,7 +50,8 @@ QSize RenderingWidget::minimumSizeHint() const
 
 QSize RenderingWidget::sizeHint() const
 {
-    return QSize(DEFAULT_RES_X, DEFAULT_RES_Y);
+    QSettings settings;
+    return QSize(settings.value("width",DEFAULT_RES_X).toInt(), settings.value("height",DEFAULT_RES_Y).toInt());
 }
 
 void RenderingWidget::setFrontView()

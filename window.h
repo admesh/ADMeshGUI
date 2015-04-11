@@ -68,6 +68,14 @@ protected:
     admeshController *controller;    ///< Main ADMeshController
 
 private:
+    /*!
+     * \brief Write settings to config.
+     */
+    void writeSettings();
+    /*!
+     * \brief Read settings from config.
+     */
+    void readSettings();
     Ui::Window *ui;                 ///< Holds user interface.
     void addActions();              ///< Creates menu actions.
     void addMenus();                ///< Creates menu.

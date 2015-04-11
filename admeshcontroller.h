@@ -64,6 +64,11 @@ public:
      */
     void addUIItems(QLabel *l,QListView *v);
 
+    /*!
+     * \brief Write settings to config.
+     */
+    void writeSettings();
+
 signals:
     /*!
      * \brief Sends signal to rendering widget to redraw
