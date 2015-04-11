@@ -18,7 +18,7 @@ MeshObject::MeshObject()
     stl_initialize(stl);
     selected = true;
     saved = true;    
-    resetFilename();
+    file = "new";
     references = 0;
     size = 0;
     hidden = false;
@@ -86,7 +86,7 @@ bool MeshObject::loadGeometry(QString fileName)
     return true;
 }
 
-void MeshObject::resetFilename()
+void MeshObject::mergedFilename()
 {
     file = "untitled";
 }

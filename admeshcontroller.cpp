@@ -359,7 +359,7 @@ QString admeshController::getInfo()
 
 void admeshController::openSTL()
 {
-    QString fileName = QFileDialog::getOpenFileName((QWidget*)parent(), _("Open STL"), "/", _("STL (*.stl *.STL)"));
+    QString fileName = QFileDialog::getOpenFileName((QWidget*)parent(), _("Open STL"), QStandardPaths::standardLocations(QStandardPaths::HomeLocation).at(0), _("STL (*.stl *.STL)"));
     if(!fileName.isEmpty()){
         MeshObject* tmp = new MeshObject;
         if(!tmp->loadGeometry(fileName)){
@@ -431,27 +431,25 @@ void admeshController::saveAs()
         QMessageBox::warning(NULL, _("Warning"), msg);
         return;
     }
+    MeshObject *fileToSave = NULL;
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+         if(objectList[i]->isActive()) {
+             fileToSave = objectList[i];
+         }
+    }
     QString filter="STL_ascii (*.stl)";
-    QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
+    QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), fileToSave->getName(), _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
     if(!fileName.isEmpty()){
         fileName=fileName.section(".",0,0);
         fileName+=".stl";
         if(filter == "STL_ascii (*.stl)"){
-            for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-                 if(objectList[i]->isActive()) {
-                     objectList[i]->saveAs(fileName, 1);
-                     renewListView();
-                     statusBar->setText(_("Status: File saved as ASCII STL"));
-                 }
-            }
+            fileToSave->saveAs(fileName, 1);
+            renewListView();
+            statusBar->setText(_("Status: File saved as ASCII STL"));
         }else if(filter == "STL_binary (*.stl)"){
-            for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-                 if(objectList[i]->isActive()){
-                     objectList[i]->saveAs(fileName, 2);
-                     renewListView();
-                     statusBar->setText(_("Status: File saved as binary STL"));
-                 }
-            }
+            fileToSave->saveAs(fileName, 2);
+            renewListView();
+            statusBar->setText(_("Status: File saved as binary STL"));
         }
     }
 }
@@ -463,7 +461,7 @@ void admeshController::saveObject(MeshObject* object)
         statusBar->setText(_("Status: File saved"));
     }else if(!object->isSaved()){ // current mesh has no valid name stored (eg. merged one)
         QString filter="STL_ascii (*.stl)";
-        QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), "/", _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
+        QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Save as"), object->getName(), _("STL_ascii (*.stl);;STL_binary (*.stl)"), &filter);
         if(!fileName.isEmpty()){
             fileName=fileName.section(".",0,0);
             fileName+=".stl";
@@ -928,7 +926,7 @@ void admeshController::merge()
         }
     }
     stl_calculate_volume(objectList[merged]->getStlPointer());
-    objectList[merged]->resetFilename();
+    objectList[merged]->mergedFilename();
     objectList[merged]->updateGeometry();
     renewListView();
     statusBar->setText(_("Status: meshes merged"));

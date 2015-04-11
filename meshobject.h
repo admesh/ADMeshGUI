@@ -46,7 +46,7 @@ public:
     /*!
      * \brief Set filename to NULL.
      */
-    void resetFilename();
+    void mergedFilename();
 
     /*!
      * \brief Update geometry (update VBO)
