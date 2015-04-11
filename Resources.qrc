@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>Resources/close.png</file>
-        <file>Resources/hide.png</file>
-        <file>Resources/redo.png</file>
-        <file>Resources/save.png</file>
-        <file>Resources/undo.png</file>
-        <file>Resources/open.png</file>
-        <file>Resources/main.png</file>
+        <file>Resources/close.svg</file>
+        <file>Resources/hide.svg</file>
+        <file>Resources/redo.svg</file>
+        <file>Resources/undo.svg</file>
+        <file>Resources/main.svg</file>
+        <file>Resources/open.svg</file>
+        <file>Resources/save.svg</file>
     </qresource>
 </RCC>

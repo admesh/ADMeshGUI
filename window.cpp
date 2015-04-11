@@ -251,31 +251,31 @@ void Window::addToolbars()
 
     openButton = new QToolButton();
     openButton->setDefaultAction(openAct);
-    openButton->setIcon(QIcon("://Resources/open.png"));
+    openButton->setIcon(QIcon("://Resources/open.svg"));
     openButton->setFixedSize(35, 30);
     toolBar->addWidget(openButton);
 
     saveButton = new QToolButton();
     saveButton->setDefaultAction(saveAct);
-    saveButton->setIcon(QIcon("://Resources/save.png"));
+    saveButton->setIcon(QIcon("://Resources/save.svg"));
     saveButton->setFixedSize(35, 30);
     toolBar->addWidget(saveButton);
 
     undoButton = new QToolButton();
     undoButton->setDefaultAction(undoAct);
-    undoButton->setIcon(QIcon("://Resources/undo.png"));
+    undoButton->setIcon(QIcon("://Resources/undo.svg"));
     undoButton->setFixedSize(35, 30);
     toolBar->addWidget(undoButton);
 
     redoButton = new QToolButton();
     redoButton->setDefaultAction(redoAct);
-    redoButton->setIcon(QIcon("://Resources/redo.png"));
+    redoButton->setIcon(QIcon("://Resources/redo.svg"));
     redoButton->setFixedSize(35, 30);
     toolBar->addWidget(redoButton);
 
     closeButton = new QToolButton();
     closeButton->setDefaultAction(closeAct);
-    closeButton->setIcon(QIcon("://Resources/close.png"));
+    closeButton->setIcon(QIcon("://Resources/close.svg"));
     closeButton->setFixedSize(35, 30);
     toolBar->addWidget(closeButton);
 }

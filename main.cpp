@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QSurfaceFormat::setDefaultFormat(format);
 
     Window window;
-    window.setWindowIcon(QIcon("://Resources/main.png"));
+    window.setWindowIcon(QIcon("://Resources/main.svg"));
     window.resize(window.sizeHint());
     int desktopArea = QApplication::desktop()->width() *
                      QApplication::desktop()->height();

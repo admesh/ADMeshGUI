@@ -35,7 +35,7 @@ admeshController::admeshController(QObject *parent) :
     QPixmap pixmap(32,32);
     pixmap.fill(QColor(Qt::transparent));
     visibleIcon = QIcon(pixmap);
-    hiddenIcon = QIcon("://Resources/hide.png");
+    hiddenIcon = QIcon("://Resources/hide.svg");
 }
 
 admeshController::~admeshController()
