@@ -600,7 +600,7 @@ void admeshController::setVersor()
 void admeshController::scale()
 {
     if(versor[0] != 0.0 || versor[1] != 0.0 || versor[2] != 0.0){
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             start_time = clock();
         #endif
         renewList();
@@ -609,7 +609,7 @@ void admeshController::scale()
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) scaled"));
         pushHistory();
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             cout << "Scale took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
@@ -617,7 +617,7 @@ void admeshController::scale()
 
 void admeshController::mirrorXY()
 {
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         start_time = clock();
     #endif
     renewList();
@@ -626,14 +626,14 @@ void admeshController::mirrorXY()
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XY plane"));
     pushHistory();
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         cout << "Mirror XY took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
 }
 
 void admeshController::mirrorYZ()
 {
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         start_time = clock();
     #endif
     renewList();
@@ -642,14 +642,14 @@ void admeshController::mirrorYZ()
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along YZ plane"));
     pushHistory();
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         cout << "Mirror YZ took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
 }
 
 void admeshController::mirrorXZ()
 {
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         start_time = clock();
     #endif
     renewList();
@@ -658,7 +658,7 @@ void admeshController::mirrorXZ()
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XZ plane"));
     pushHistory();
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         cout << "Mirror XZ took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
 }
@@ -671,7 +671,7 @@ void admeshController::setRot(double angle)
 void admeshController::rotateX()
 {
     if(rot != 0.0){
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             start_time = clock();
         #endif
         renewList();
@@ -680,7 +680,7 @@ void admeshController::rotateX()
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along X axis"));
         pushHistory();
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             cout << "Rotate X took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
@@ -689,7 +689,7 @@ void admeshController::rotateX()
 void admeshController::rotateY()
 {
     if(rot != 0.0){
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             start_time = clock();
         #endif
         renewList();
@@ -698,7 +698,7 @@ void admeshController::rotateY()
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Y axis"));
         pushHistory();
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             cout << "Rotate Y took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
@@ -707,7 +707,7 @@ void admeshController::rotateY()
 void admeshController::rotateZ()
 {
     if(rot != 0.0){
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             start_time = clock();
         #endif
         renewList();
@@ -716,7 +716,7 @@ void admeshController::rotateZ()
         }
         if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Z axis"));
         pushHistory();
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             cout << "Rotate Z took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
@@ -746,7 +746,7 @@ void admeshController::setRelativeTranslate()
 void admeshController::translate()
 {
     if(!rel_translate || x_translate != 0.0 || y_translate != 0.0 || z_translate != 0.0){
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             start_time = clock();
         #endif
         renewList();
@@ -756,7 +756,7 @@ void admeshController::translate()
         if(selectedCount()>0 && rel_translate)statusBar->setText(_("Status: mesh(es) translated relatively to position"));
         else if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) translated to origin"));
         pushHistory();
-        #ifdef DEBUG
+        #ifdef QT_DEBUG
             cout << "Translate took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
@@ -834,7 +834,7 @@ void admeshController::setNormalValFlag()
 
 void admeshController::repair()
 {
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         start_time = clock();
     #endif
     renewList();
@@ -855,7 +855,7 @@ void admeshController::repair()
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) repaired"));
     pushHistory();
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         cout << "Repair took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
 }
@@ -898,7 +898,7 @@ void admeshController::merge()
         QMessageBox::warning(NULL, _("Warning"), msg);
         return;
     }
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         start_time = clock();
     #endif
     renewList();
@@ -924,7 +924,7 @@ void admeshController::merge()
     renewListView();
     statusBar->setText(_("Status: meshes merged"));
     pushHistory();
-    #ifdef DEBUG
+    #ifdef QT_DEBUG
         cout << "Merge took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
 }

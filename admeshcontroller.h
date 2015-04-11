@@ -16,8 +16,6 @@
 #include "meshobject.h"
 #include "historylist.h"
 
-#define DEBUG true
-
 using namespace std;
 
 /*!
