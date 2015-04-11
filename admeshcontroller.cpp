@@ -31,7 +31,6 @@ admeshController::admeshController(QObject *parent) :
     fill_holes_flag = false;
     normal_directions_flag = false;
     normal_values_flag = false;
-    reverse_all_flag = false;
     QPixmap pixmap(32,32);
     pixmap.fill(QColor(Qt::transparent));
     visibleIcon = QIcon(pixmap);
@@ -763,6 +762,15 @@ void admeshController::translate()
     }
 }
 
+void admeshController::reverseAll()
+{
+    renewList();
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isActive())objectList[i]->reverseAll();
+    }
+    if(selectedCount()>0)statusBar->setText(_("Status: Orientation of facets has been reversed."));
+    pushHistory();
+}
 
 void admeshController::setFixAllFlag()
 {
@@ -824,11 +832,6 @@ void admeshController::setNormalValFlag()
     normal_values_flag = !normal_values_flag;
 }
 
-void admeshController::setReverseAllFlag()
-{
-    reverse_all_flag = !reverse_all_flag;
-}
-
 void admeshController::repair()
 {
     #ifdef DEBUG
@@ -848,7 +851,7 @@ void admeshController::repair()
                               fill_holes_flag,
                               normal_directions_flag,
                               normal_values_flag,
-                              reverse_all_flag);
+                              false);
     }
     if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) repaired"));
     pushHistory();

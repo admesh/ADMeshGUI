@@ -60,7 +60,7 @@ Window::Window(QWidget *parent) :
     connect(ui->fillholesBox, SIGNAL(stateChanged(int)), controller, SLOT(setFillHolesFlag()));
     connect(ui->normalDirBox, SIGNAL(stateChanged(int)), controller, SLOT(setNormalDirFlag()));
     connect(ui->normalValBox, SIGNAL(stateChanged(int)), controller, SLOT(setNormalValFlag()));
-    connect(ui->reverseBox, SIGNAL(stateChanged(int)), controller, SLOT(setReverseAllFlag()));
+    connect(ui->reverseButton, SIGNAL(clicked()), controller, SLOT(reverseAll()));
     connect(ui->fixAllBox, SIGNAL(stateChanged(int)), controller, SLOT(setFixAllFlag()));
     connect(ui->repairButton, SIGNAL(clicked()), controller, SLOT(repair()));
 

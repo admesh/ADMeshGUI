@@ -264,6 +264,13 @@ void MeshObject::translate(bool relative, float x_trans, float y_trans, float z_
     saved = false;
 }
 
+void MeshObject::reverseAll()
+{
+    stl_reverse_all_facets(stl);
+    this->updateGeometry();
+    saved = false;
+}
+
 void MeshObject::repair(int fixall_flag, int exact_flag, int tolerance_flag, float tolerance, int increment_flag, float increment, int nearby_flag, int iterations, int remove_unconnected_flag, int fill_holes_flag, int normal_directions_flag, int normal_values_flag, int reverse_all_flag)
 {
     stl_repair(stl,

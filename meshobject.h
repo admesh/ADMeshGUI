@@ -160,6 +160,11 @@ public:
     void translate(bool relative, float x_trans, float y_trans, float z_trans);
 
     /*!
+     * \brief Reverse all facets orientation.
+     */
+    void reverseAll();
+
+    /*!
      * \brief Repair stl file. Repair differs with parameters.
      * \param fixall_flag Fix all errors in STL file.
      * \param tolerance_flag Used tolerance for checking faces.

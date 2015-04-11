@@ -499,87 +499,30 @@ border-right: none;
        <property name="checkable">
         <bool>false</bool>
        </property>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>180</width>
-          <height>321</height>
+          <width>181</width>
+          <height>331</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout_6">
+        <layout class="QGridLayout" name="gridLayout_4">
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
          <property name="spacing">
           <number>0</number>
          </property>
-         <item row="11" column="0" colspan="2">
-          <widget class="QCheckBox" name="fixAllBox">
-           <property name="text">
-            <string>Fix all</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QDoubleSpinBox" name="toleranceSpinBox">
-           <property name="singleStep">
-            <double>0.100000000000000</double>
-           </property>
-           <property name="value">
-            <double>0.100000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0" colspan="3">
-          <widget class="QCheckBox" name="normalDirBox">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Normal directions</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0" colspan="2">
-          <widget class="QCheckBox" name="nearbyBox">
-           <property name="text">
-            <string>Nearby</string>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="0" colspan="2">
-          <widget class="QCheckBox" name="reverseBox">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="reverseButton">
            <property name="text">
             <string>Reverse all</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="0" colspan="3">
-          <widget class="QCheckBox" name="normalValBox">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Normal values</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QDoubleSpinBox" name="incrementSpinBox">
-           <property name="singleStep">
-            <double>0.100000000000000</double>
-           </property>
-           <property name="value">
-            <double>0.100000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="2">
+         <item row="1" column="0">
           <widget class="QCheckBox" name="exactBox">
            <property name="enabled">
             <bool>false</bool>
@@ -589,54 +532,61 @@ border-right: none;
            </property>
           </widget>
          </item>
-         <item row="1" column="0" colspan="2">
+         <item row="2" column="0">
           <widget class="QCheckBox" name="toleranceBox">
            <property name="text">
             <string>Tolerance</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="0" colspan="2">
+         <item row="2" column="1">
+          <widget class="QDoubleSpinBox" name="toleranceSpinBox">
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>0.100000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
           <widget class="QCheckBox" name="incrementBox">
            <property name="text">
             <string>Increment</string>
            </property>
           </widget>
          </item>
-         <item row="7" column="0" colspan="2">
-          <widget class="QCheckBox" name="fillholesBox">
-           <property name="enabled">
-            <bool>false</bool>
+         <item row="3" column="1">
+          <widget class="QDoubleSpinBox" name="incrementSpinBox">
+           <property name="singleStep">
+            <double>0.100000000000000</double>
            </property>
-           <property name="text">
-            <string>Fill holes</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0" colspan="3">
-          <widget class="QCheckBox" name="unconnectedBox">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Remove unconnected</string>
+           <property name="value">
+            <double>0.100000000000000</double>
            </property>
           </widget>
          </item>
-         <item row="12" column="0" colspan="3">
-          <widget class="QPushButton" name="repairButton">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>40</height>
-            </size>
-           </property>
+         <item row="4" column="0">
+          <widget class="QCheckBox" name="nearbyBox">
            <property name="text">
-            <string>REPAIR</string>
+            <string>Nearby</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="2">
+         <item row="5" column="0">
+          <widget class="QLabel" name="IterationsLabel">
+           <property name="text">
+            <string>Iterations: </string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
           <widget class="QSpinBox" name="iterationsSpinBox">
            <property name="minimum">
             <number>1</number>
@@ -649,16 +599,66 @@ border-right: none;
            </property>
           </widget>
          </item>
-         <item row="4" column="0" colspan="2">
-          <widget class="QLabel" name="IterationsLabel">
+         <item row="6" column="0" colspan="2">
+          <widget class="QCheckBox" name="unconnectedBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
-            <string>Iterations: </string>
+            <string>Remove unconnected</string>
            </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QCheckBox" name="fillholesBox">
+           <property name="enabled">
+            <bool>false</bool>
            </property>
-           <property name="margin">
-            <number>0</number>
+           <property name="text">
+            <string>Fill holes</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0" colspan="2">
+          <widget class="QCheckBox" name="normalDirBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Normal directions</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0" colspan="2">
+          <widget class="QCheckBox" name="normalValBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Normal values</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0">
+          <widget class="QCheckBox" name="fixAllBox">
+           <property name="text">
+            <string>Fix all</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="0" colspan="2">
+          <widget class="QPushButton" name="repairButton">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>REPAIR</string>
            </property>
           </widget>
          </item>
@@ -995,7 +995,7 @@ border-right: none;
        <property name="title">
         <string>Translate</string>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>4</x>
@@ -1323,22 +1323,6 @@ border-right: none;
     <hint type="destinationlabel">
      <x>1021</x>
      <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>fixAllBox</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>reverseBox</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>930</x>
-     <y>646</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>921</x>
-     <y>621</y>
     </hint>
    </hints>
   </connection>

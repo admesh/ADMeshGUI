@@ -295,6 +295,11 @@ public slots:
     void translate();
 
     /*!
+     * \brief Reverse all facets orientation of selected models.
+     */
+    void reverseAll();
+
+    /*!
      * \brief Set fix all flag.
      */
     void setFixAllFlag();
@@ -356,11 +361,6 @@ public slots:
      * \brief Set repair normal values flag.
      */
     void setNormalValFlag();
-
-    /*!
-     * \brief Set reverse a normals flag.
-     */
-    void setReverseAllFlag();
 
     /*!
      * \brief Repair selected model according to selected flags.
@@ -442,7 +442,6 @@ private:
     bool fill_holes_flag;
     bool normal_directions_flag;
     bool normal_values_flag;
-    bool reverse_all_flag;
     clock_t start_time;
 };
 
