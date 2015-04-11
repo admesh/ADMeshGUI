@@ -73,7 +73,7 @@ Window::~Window()
 }
 
 void Window::addActions(){
-    openAct = new QAction(_("&Open"), this);
+    openAct = new QAction(_("&Open..."), this);
     openAct->setShortcuts(QKeySequence::Open);
     openAct->setStatusTip(_("Open STL file"));
     connect(openAct, SIGNAL(triggered()), controller, SLOT(openSTL()));
@@ -83,12 +83,13 @@ void Window::addActions(){
     saveAct->setStatusTip(_("Save in default STL format"));
     connect(saveAct, SIGNAL(triggered()), controller, SLOT(save()));
 
-    saveAsAct = new QAction(_("&Save as"), this);
+    saveAsAct = new QAction(_("&Save as..."), this);
     saveAsAct->setShortcuts(QKeySequence::SaveAs);
     saveAsAct->setStatusTip(_("Save as ASCII or binary STL file"));
     connect(saveAsAct, SIGNAL(triggered()), controller, SLOT(saveAs()));
 
-    exportAct = new QAction(_("&Export"), this);
+    exportAct = new QAction(_("&Export..."), this);
+    exportAct->setShortcut(EXPORT_SHORTCUT);
     exportAct->setStatusTip(_("Export as OBJ, OFF, DXF or VRML"));
     connect(exportAct, SIGNAL(triggered()), controller, SLOT(exportSTL()));
 

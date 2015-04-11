@@ -526,42 +526,32 @@ void admeshController::exportSTL()
         QMessageBox::warning(NULL, _("Warning"), msg);
         return;
     }
+    MeshObject *fileToExport = NULL;
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+         if(objectList[i]->isActive()) {
+             fileToExport = objectList[i];
+         }
+    }
     QString filter="OBJ (*.obj)";
-    QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Export as"), "/", _("OBJ (*.obj);;OFF (*.off);;DXF (*.dxf);;VRML (*.vrml)"), &filter);
+    QString fileName=QFileDialog::getSaveFileName((QWidget*)parent(), _("Export as"), fileToExport->getName().section(".",0,0), _("OBJ (*.obj);;OFF (*.off);;DXF (*.dxf);;VRML (*.vrml)"), &filter);
     if(!fileName.isEmpty()){
         fileName=fileName.section(".",0,0);
         if(filter == "OBJ (*.obj)"){
             fileName+=".obj";
-            for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-                 if(objectList[i]->isActive()) {
-                     objectList[i]->exportSTL(fileName, 1);
-                     if(selectedCount()>0)statusBar->setText(_("Status: File exported to OBJ format"));
-                 }
-            }
+            fileToExport->exportSTL(fileName, 1);
+            statusBar->setText(_("Status: File exported to OBJ format"));
         }else if(filter == "OFF (*.off)"){
             fileName+=".off";
-            for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-                 if(objectList[i]->isActive()) {
-                     objectList[i]->exportSTL(fileName, 2);
-                     if(selectedCount()>0)statusBar->setText(_("Status: File exported to OFF format"));
-                 }
-            }
+            fileToExport->exportSTL(fileName, 2);
+            statusBar->setText(_("Status: File exported to OFF format"));
         }else if(filter == "DXF (*.dxf)"){
             fileName+=".dxf";
-            for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-                 if(objectList[i]->isActive()) {
-                     objectList[i]->exportSTL(fileName, 3);
-                     if(selectedCount()>0)statusBar->setText(_("Status: File exported to DXF format"));
-                 }
-            }
+            fileToExport->exportSTL(fileName, 3);
+            statusBar->setText(_("Status: File exported to DXF format"));
         }else if(filter == "VRML (*.vrml)"){
             fileName+=".vrml";
-            for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-                 if(objectList[i]->isActive()) {
-                     objectList[i]->exportSTL(fileName, 4);
-                     if(selectedCount()>0)statusBar->setText(_("Status: File exported to VRML format"));
-                 }
-            }
+            fileToExport->exportSTL(fileName, 4);
+            statusBar->setText(_("Status: File exported to VRML format"));
         }
     }
 }
