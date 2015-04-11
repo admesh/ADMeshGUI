@@ -252,13 +252,13 @@ QVector2D RenderingWidget::getScreenCoords(QVector3D worldCoords){
 void RenderingWidget::drawLabels(QPainter *painter)
 {
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-    QVector2D screenCoords = getScreenCoords(QVector3D(0.7, 0.5 , -0.55));  // X axis
+    QVector2D screenCoords = getScreenCoords(QVector3D(0.7, -0.5 , -0.55));  // X axis
     painter->setPen(Qt::red);
     painter->drawText(screenCoords.x(),height()-screenCoords.y(),"x");
-    screenCoords = getScreenCoords(QVector3D(-0.5, -0.7, -0.55));           // Y axis
+    screenCoords = getScreenCoords(QVector3D(-0.5, 0.7, -0.55));           // Y axis
     painter->setPen(Qt::green);
     painter->drawText(screenCoords.x(),height()-screenCoords.y(),"y");
-    screenCoords = getScreenCoords(QVector3D(-0.5, 0.5, 0.7));              // Z axis
+    screenCoords = getScreenCoords(QVector3D(-0.55, -0.5, 0.7));              // Z axis
     painter->setPen(Qt::blue);
     painter->drawText(screenCoords.x(),height()-screenCoords.y(),"z");
 }
@@ -387,18 +387,19 @@ void RenderingWidget::initAxes(){
         1.0, 1.0, 1.0,
         0.0, 0.0, -AXIS_SIZE,
         1.0, 1.0, 1.0,           //Small corner axes
-       0.5, 0.5 , -0.5, //x
+       0.5, -0.5 , -0.5, //x
        1.0, 1.0, 1.0,
-       -0.5, 0.5, -0.5,
+       -0.5, -0.5, -0.5,
        1.0, 1.0, 1.0,
        -0.5, -0.5, -0.5, //y
        1.0, 1.0, 1.0,
        -0.5, 0.5, -0.5,
        1.0, 1.0, 1.0,
-       -0.5, 0.5, 0.5, //z
+       -0.5, -0.5, 0.5, //z
        1.0, 1.0, 1.0,
-       -0.5, 0.5, -0.5,
+       -0.5, -0.5, -0.5,
        1.0, 1.0, 1.0,
+
     };
     glBindBuffer(GL_ARRAY_BUFFER, axes_vbo);
     glBufferData(GL_ARRAY_BUFFER, 108 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
