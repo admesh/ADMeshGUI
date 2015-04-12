@@ -21,6 +21,8 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     gridStep = 1;
     shiftPressed = false;
     minDiam = 1.0f;
+    background_col = Qt::black;
+    text_col = Qt::white;
 }
 
 
@@ -52,6 +54,16 @@ QSize RenderingWidget::sizeHint() const
 {
     QSettings settings;
     return QSize(settings.value("width",DEFAULT_RES_X).toInt(), settings.value("height",DEFAULT_RES_Y).toInt());
+}
+
+void RenderingWidget::setBackground(QColor b)
+{
+    background_col = b;
+}
+
+void RenderingWidget::setTextCol(QColor text)
+{
+    text_col = text;
 }
 
 void RenderingWidget::setFrontView()
@@ -116,8 +128,8 @@ void RenderingWidget::initializeGL()
     glGenBuffers(1, &grid_vbo);
     selection = false;
     initAxes();
-    initGrid();
-    glClearColor(1.0,1.0,1.0,1.0);
+    initGrid();    
+    glClearColor(background_col.redF(),background_col.greenF(),background_col.blueF(),1.0);
     glEnable(GL_DEPTH_TEST);
     pickFboFormat.setAttachment(QOpenGLFramebufferObject::Depth);
     pickFboFormat.setTextureTarget(GL_TEXTURE_2D);
@@ -163,7 +175,7 @@ void RenderingWidget::paintGL()
         selection = false;
     }
 
-    glClearColor(1.0,1.0,1.0,1.0);      //Set OpenGl states
+    glClearColor(background_col.redF(),background_col.greenF(),background_col.blueF(),1.0);      //Set OpenGl states
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -219,6 +231,7 @@ void RenderingWidget::doPicking(){
     fbo.bind();
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(1.0,1.0,1.0,1.0);
     pick_program.bind();
     pick_program.setUniformValue("mvp_matrix", projection * view * model);
     controller->drawPicking(&pick_program);
@@ -245,7 +258,7 @@ void RenderingWidget::drawInfo(QPainter *painter)
     int border = qMax(6, metrics.leading());
     QRect rect = metrics.boundingRect(0, 0, width()/4 - 2*border, int(height()/2), Qt::AlignLeft | Qt::TextWordWrap, text);
     painter->setRenderHint(QPainter::TextAntialiasing);
-    painter->setPen(Qt::black);
+    painter->setPen(text_col);
     painter->fillRect(QRect(0, 0, qMin(width()/2,250), qMin(height(),370)), QColor(1, 1, 1, 1));
     painter->drawText(rect.width()/10, border, rect.width(), rect.height(), Qt::AlignLeft | Qt::TextWordWrap, text);
 }

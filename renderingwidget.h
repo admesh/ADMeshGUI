@@ -50,6 +50,20 @@ public:
      */
     void writeSettings();
 
+    /*!
+     * \brief Set background color.
+     *
+     * \param background Background color to set.
+     */
+    void setBackground(QColor background);
+
+    /*!
+     * \brief Set text color.
+     *
+     * \param text Text color to set.
+     */
+    void setTextCol(QColor text);
+
 protected:
     /*!
      * \brief Initializes OpenGL. Makes all default calls.
@@ -268,6 +282,9 @@ private:
 
     GLuint axes_vbo;                ///< Vertex buffer object for axes.
     GLuint grid_vbo;                ///< Vertex buffer object for grid.
+
+    QColor background_col;          ///< Background color.
+    QColor text_col;                ///< Text color.
 
     GLfloat minDiam;                ///< Maximum axes diameter of objects in scene.
 

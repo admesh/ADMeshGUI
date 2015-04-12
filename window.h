@@ -52,6 +52,16 @@ public slots:
      */
     void setSolidWithEdges();
 
+    /*!
+     * \brief Toggle color scheme. Light and dark scheme supported.
+     */
+    void toggleColorScheme();
+
+    /*!
+     * \brief Set selected color scheme.
+     */
+    void setColorScheme();
+
 protected:
     /*!
      * \brief Reimplemented method. Handles key press.
@@ -76,6 +86,7 @@ private:
      * \brief Read settings from config.
      */
     void readSettings();
+    int scheme;                     ///< Color scheme selected;
     Ui::Window *ui;                 ///< Holds user interface.
     void addActions();              ///< Creates menu actions.
     void addMenus();                ///< Creates menu.
@@ -102,6 +113,7 @@ private:
     QAction *topAct;                ///< Set top view.
     QAction *bottomAct;             ///< Set bottom view.
     QAction *centerAct;             ///< Reset view to center.
+    QAction *themeAct;              ///< Set dark scheme.
     QAction *selectAllAct;          ///< Select all objects.
     QAction *selectInverseAct;      ///< Select inverse.
     QAction *undoAct;               ///< Undo.

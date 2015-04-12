@@ -21,13 +21,13 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#showButton, #hideButton,#showButtonLeft, #hideButtonLeft{
-background-color: rgb(255, 255, 255); 
 border-style: solid; 
-color: grey;
 padding: 6px; 
+outline: none;
+background-color: rgb(255, 255, 255); 
+color: grey;
 border-left: 1px solid rgb(239, 239, 239);
 border-right: 1px solid grey;
-outline: none;
 }
 
 #showButtonLeft, #hideButtonLeft{
@@ -933,7 +933,7 @@ border-right: none;
          <rect>
           <x>70</x>
           <y>20</y>
-          <width>111</width>
+          <width>257</width>
           <height>29</height>
          </rect>
         </property>
