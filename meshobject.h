@@ -49,6 +49,13 @@ public:
     void mergedFilename();
 
     /*!
+     * \brief Set filename to "filename_part_index".
+     *
+     * \param index Given index.
+     */
+    void setSplitName(int index);
+
+    /*!
      * \brief Update geometry (update VBO)
      *
      * Copies vertex and normal coordinates from stl_file structure into VBO.

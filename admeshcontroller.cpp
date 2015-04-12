@@ -945,6 +945,7 @@ void admeshController::split(){
             result = stl_split(objectList[i]->getStlPointer());
             for(vector<stl_file*>::size_type j = 0; j < result.size(); j++){
                 MeshObject* item = new MeshObject(result[j]);
+                item->setSplitName((int)j);
                 objectList.push_back(item);
                 added++;
             }

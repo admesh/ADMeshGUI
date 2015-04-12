@@ -86,6 +86,13 @@ bool MeshObject::loadGeometry(QString fileName)
     return true;
 }
 
+void MeshObject::setSplitName(int index)
+{
+    QString add = "_part_"+QString::number(index)+".stl";
+    file = file.section(".",0,0);
+    file += add;
+}
+
 void MeshObject::mergedFilename()
 {
     file = "untitled";
