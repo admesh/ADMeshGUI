@@ -412,6 +412,16 @@ void Window::writeSettings()
     settings.setValue("height", ui->renderingWidget->height());
     settings.setValue("mode", 2);
     settings.setValue("colorScheme", scheme);
+    if(ui->showButtonLeft->isVisible()){
+        settings.setValue("leftMenu", false);
+    }else{
+        settings.setValue("leftMenu", true);
+    }
+    if(ui->showButton->isVisible()){
+        settings.setValue("rightMenu", false);
+    }else{
+        settings.setValue("rightMenu", true);
+    }
     controller->writeSettings();
     ui->renderingWidget->writeSettings();
 }
@@ -434,6 +444,8 @@ void Window::readSettings()
             setSolidWithEdges();
             break;
     }
+    if(!settings.value("leftMenu", true).toBool()) ui->hideButtonLeft->click();
+    if(!settings.value("rightMenu", true).toBool()) ui->hideButton->click();
     if(!settings.value("axes", true).toBool()) axesAct->trigger();
     if(settings.value("grid", true).toBool()) gridAct->trigger();
     if(!settings.value("info", true).toBool()) infoAct->trigger();
