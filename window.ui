@@ -499,13 +499,13 @@ border-right: none;
        <property name="checkable">
         <bool>false</bool>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>20</y>
           <width>181</width>
-          <height>331</height>
+          <height>321</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
@@ -933,7 +933,7 @@ border-right: none;
          <rect>
           <x>70</x>
           <y>20</y>
-          <width>257</width>
+          <width>111</width>
           <height>29</height>
          </rect>
         </property>
@@ -995,13 +995,13 @@ border-right: none;
        <property name="title">
         <string>Translate</string>
        </property>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>4</x>
-          <y>23</y>
-          <width>177</width>
-          <height>119</height>
+          <x>1</x>
+          <y>21</y>
+          <width>181</width>
+          <height>117</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">

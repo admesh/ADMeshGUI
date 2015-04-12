@@ -47,7 +47,7 @@ Temporary Items
 *.pro.user
 
 # Project files to ignore
-ADMeshGUI
+admeshgui
 moc_*.cpp
 *.o
 Makefile

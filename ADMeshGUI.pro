@@ -14,7 +14,7 @@ equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 4) {
    error(ADMeshGUI requires Qt 5.4 to run. Older version detected.)
 }
 
-TARGET = ADMeshGUI
+TARGET = admeshgui
 TEMPLATE = app
 
 load(uic)
