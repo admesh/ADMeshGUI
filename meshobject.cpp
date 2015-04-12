@@ -95,7 +95,9 @@ void MeshObject::setSplitName(int index)
 
 void MeshObject::mergedFilename()
 {
-    file = "untitled";
+    QString add = "_merged.stl";
+    file = file.section(".",0,0);
+    file += add;
 }
 
 bool MeshObject::hasValidName()

@@ -44,12 +44,12 @@ public:
     bool loadGeometry(QString filename);
 
     /*!
-     * \brief Set filename to NULL.
+     * \brief Append "_merged" to filename.
      */
     void mergedFilename();
 
     /*!
-     * \brief Set filename to "filename_part_index".
+     * \brief Set filename to "filename_part_index.stl".
      *
      * \param index Given index.
      */
