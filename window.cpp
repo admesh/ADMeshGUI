@@ -252,7 +252,7 @@ void Window::addToolbars()
 
     openButton = new QToolButton();
     openButton->setDefaultAction(openAct);
-    openButton->setIcon(QIcon::fromTheme("document-new", QIcon("://Resources/open.svg")));
+    openButton->setIcon(QIcon::fromTheme("list-add", QIcon("://Resources/open.svg")));
     openButton->setFixedSize(35, 30);
     toolBar->addWidget(openButton);
 
@@ -276,7 +276,7 @@ void Window::addToolbars()
 
     closeButton = new QToolButton();
     closeButton->setDefaultAction(closeAct);
-    closeButton->setIcon(QIcon::fromTheme("edit-delete", QIcon("://Resources/close.svg")));
+    closeButton->setIcon(QIcon::fromTheme("window-close", QIcon("://Resources/close.svg")));
     closeButton->setFixedSize(35, 30);
     toolBar->addWidget(closeButton);
 }
