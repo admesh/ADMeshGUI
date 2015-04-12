@@ -24,7 +24,7 @@ MeshObject::MeshObject()
     hidden = false;
 }
 
-MeshObject::MeshObject(stl_file* item)
+MeshObject::MeshObject(stl_file* item, QString name)
 {
     stl = item;
     selected = true;
@@ -32,7 +32,7 @@ MeshObject::MeshObject(stl_file* item)
     references = 0;
     size = 0;
     hidden = false;
-    file = QString("split");
+    file = name;
     stl_calculate_volume(stl);
     initializeGLFunctions();
     glGenBuffers(1, &vbo);

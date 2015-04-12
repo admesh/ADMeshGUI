@@ -25,7 +25,7 @@ public:
      *
      * \param item Given stl_file item.
      */
-    MeshObject(stl_file* item);
+    MeshObject(stl_file* item, QString name);
 
     /*!
      * \brief Copy constructor. Creates deep copy of MeshObject.
