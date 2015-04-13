@@ -49,7 +49,9 @@ public:
      * \param argc color Default color
      * \param args badColor Backfaces color
      */
-    void setDrawColor(QVector3D color,QVector3D badColor);
+    void setDrawColor(QColor color,QColor badColor);
+
+    void setHistoryLimit(int lim);
 
     /*!
      * \brief Get info about all selected meshes.

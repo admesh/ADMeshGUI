@@ -29,7 +29,7 @@ public:
      *
      * \param limit Limit size of buffer in bytes.
      */
-    void setLimitSize(unsigned long long limit);
+    void setLimitSize(int limit);
 
     /*!
      * \brief Add item into history

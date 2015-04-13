@@ -52,5 +52,6 @@ moc_*.cpp
 *.o
 Makefile
 ui_window.h
+ui_propertiesdialog.h
 qrc_shaders.cpp
 qrc_Resources.cpp

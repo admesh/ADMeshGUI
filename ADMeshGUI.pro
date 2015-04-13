@@ -25,16 +25,19 @@ SOURCES += main.cpp\
     renderingwidget.cpp \
     admeshcontroller.cpp \
     meshobject.cpp \
-    historylist.cpp
+    historylist.cpp \
+    propertiesdialog.cpp
 
 HEADERS  += window.h \
     data.h \
     renderingwidget.h \
     admeshcontroller.h \
     meshobject.h \
-    historylist.h
+    historylist.h \
+    propertiesdialog.h
 
-FORMS    += window.ui
+FORMS    += window.ui \
+    propertiesdialog.ui
 
 LIBS += -ladmesh -L -lglut -lstlsplit
 

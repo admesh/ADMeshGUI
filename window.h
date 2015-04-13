@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QSlider>
 #include "admeshcontroller.h"
+#include "propertiesdialog.h"
 
 namespace Ui {
 class Window;
@@ -62,6 +63,10 @@ public slots:
      */
     void setColorScheme();
 
+    void toggleMouseInvert();
+
+    void initProperties();
+
 protected:
     /*!
      * \brief Reimplemented method. Handles key press.
@@ -118,6 +123,7 @@ private:
     QAction *selectInverseAct;      ///< Select inverse.
     QAction *undoAct;               ///< Undo.
     QAction *redoAct;               ///< Redo.
+    QAction *propertiesAct;         ///< Properties dialog.
     QToolButton* openButton;        ///< Open file button.
     QToolButton* saveButton;        ///< Save file button.
     QToolButton* undoButton;        ///< Undo button.

@@ -23,6 +23,7 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     minDiam = 1.0f;
     background_col = Qt::black;
     text_col = Qt::white;
+    mouseInverted = false;
 }
 
 
@@ -38,6 +39,11 @@ void RenderingWidget::writeSettings()
     settings.setValue("axes", Axes);
     settings.setValue("grid", Grid);
     settings.setValue("info", Info);
+}
+
+void RenderingWidget::invertMouse()
+{
+    mouseInverted = !mouseInverted;
 }
 
 void RenderingWidget::setController(admeshController* cnt)
@@ -279,7 +285,7 @@ void RenderingWidget::drawLabels(QPainter *painter)
     screenCoords = getScreenCoords(QVector3D(-0.5, 0.7, -0.55));           // Y axis
     painter->setPen(Qt::green);
     painter->drawText(screenCoords.x(),height()-screenCoords.y(),"y");
-    screenCoords = getScreenCoords(QVector3D(-0.55, -0.5, 0.7));              // Z axis
+    screenCoords = getScreenCoords(QVector3D(-0.5, -0.5, 0.7));              // Z axis
     painter->setPen(Qt::blue);
     painter->drawText(screenCoords.x(),height()-screenCoords.y(),"z");
 }
@@ -364,9 +370,15 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
         int dx = event->x() - lastPos.x();
         int dy = event->y() - lastPos.y();
 
-        angleY += dy;
-        if(angleY>180)angleX -= dx; //take care of opposite rotation upside down
-        else angleX +=dx;
+        if(!mouseInverted){
+            angleY += dy;
+            if(angleY>180)angleX -= dx; //take care of opposite rotation upside down
+            else angleX +=dx;
+        }else{
+            angleY -= dy;
+            if(angleY>180)angleX += dx; //take care of opposite rotation upside down
+            else angleX -=dx;
+        }
 
         normalizeAngles();
         lastPos = event->pos();

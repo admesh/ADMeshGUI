@@ -64,6 +64,8 @@ public:
      */
     void setTextCol(QColor text);
 
+    void invertMouse();
+
 protected:
     /*!
      * \brief Initializes OpenGL. Makes all default calls.
@@ -306,6 +308,8 @@ private:
     bool selection;                 ///< Object picking action.
 
     bool shiftPressed;              ///< Shift key pressed.
+
+    bool mouseInverted;
 
     QPoint lastPos;                 ///< Last clicked position (LMB).
     QPoint lastTransPos;            ///< Last clicked position (MMB).

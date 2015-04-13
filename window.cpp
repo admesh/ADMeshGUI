@@ -207,6 +207,11 @@ void Window::addActions(){
     redoAct->setShortcuts(QKeySequence::Redo);
     redoAct->setStatusTip(_("Redo last action"));
     connect(redoAct, SIGNAL(triggered()), controller, SLOT(redo()));
+
+    propertiesAct = new QAction(_("&Properties"), this);
+    propertiesAct->setShortcuts(QKeySequence::Redo);
+    propertiesAct->setStatusTip(_("Properties dialog"));
+    connect(propertiesAct, SIGNAL(triggered()), this, SLOT(initProperties()));
 }
 
 void Window::addMenus(){
@@ -230,6 +235,7 @@ void Window::addMenus(){
     editMenu->addSeparator();
     editMenu->addAction(selectAllAct);
     editMenu->addAction(selectInverseAct);
+    editMenu->addAction(propertiesAct);
     viewMenu = menu_bar->addMenu(_("&View"));
     viewMenu->addAction(infoAct);
     viewMenu->addAction(axesAct);
@@ -289,6 +295,14 @@ void Window::addToolbars()
     toolBar->addWidget(closeButton);
 }
 
+void Window::initProperties()
+{
+    PropertiesDialog prop(this);
+    prop.setController(controller);
+    prop.show();
+    prop.exec();
+}
+
 void Window::openByFilename(const char* filename){
     controller->openSTLbyName(filename);
 }
@@ -342,6 +356,11 @@ void Window::setColorScheme()
                                           "border-left: 1px solid grey;");
         themeAct->setChecked(true);
     }
+}
+
+void Window::toggleMouseInvert()
+{
+    ui->renderingWidget->invertMouse();
 }
 
 void Window::keyPressEvent(QKeyEvent *e)
@@ -449,4 +468,5 @@ void Window::readSettings()
     if(!settings.value("axes", true).toBool()) axesAct->trigger();
     if(settings.value("grid", true).toBool()) gridAct->trigger();
     if(!settings.value("info", true).toBool()) infoAct->trigger();
+    if(settings.value("invertMouse", false).toBool()) ui->renderingWidget->invertMouse();
 }

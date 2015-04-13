@@ -36,7 +36,8 @@ admeshController::admeshController(QObject *parent) :
     visibleIcon = QIcon(pixmap);
     hiddenIcon = QIcon("://Resources/hide.svg");
     QSettings settings;
-    history.setLimitSize(settings.value("sizeLimit", HISTORY_LIMIT).toULongLong());
+    history.setLimitSize(settings.value("sizeLimit", HISTORY_LIMIT).toInt());
+    setDrawColor(settings.value("color",QColor(Qt::green)).value<QColor>(), settings.value("badColor",QColor(Qt::red)).value<QColor>());
 }
 
 admeshController::~admeshController()
@@ -108,8 +109,8 @@ void admeshController::drawAll(QGLShaderProgram *program)
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive()){
-                program->setUniformValue("color", GREEN);
-                program->setUniformValue("badColor", RED);
+                program->setUniformValue("color", color);
+                program->setUniformValue("badColor", badColor);
             }else if(!objectList[i]->isHidden()){
                 program->setUniformValue("color", GREY);
                 program->setUniformValue("badColor", GREY);
@@ -151,8 +152,8 @@ void admeshController::drawAll(QGLShaderProgram *program)
         glPolygonOffset( 1, 1 );
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive()){
-                program->setUniformValue("color", GREEN);
-                program->setUniformValue("badColor", RED);
+                program->setUniformValue("color", color);
+                program->setUniformValue("badColor", badColor);
             }else if(!objectList[i]->isHidden()){
                 program->setUniformValue("color", GREY);
                 program->setUniformValue("badColor", GREY);
@@ -256,9 +257,14 @@ void admeshController::unhideAll()
     }
 }
 
-void admeshController::setDrawColor(QVector3D col, QVector3D badCol){
-    color = col;
-    badColor = badCol;
+void admeshController::setDrawColor(QColor col, QColor badCol){
+    color = QVector3D(col.redF(),col.greenF(),col.blueF());
+    badColor = QVector3D(badCol.redF(),badCol.greenF(),badCol.blueF());
+}
+
+void admeshController::setHistoryLimit(int lim)
+{
+    history.setLimitSize(lim);
 }
 
 void admeshController::addUIItems(QLabel *l,QListView *v)
