@@ -27,7 +27,7 @@ historyList::~historyList()
 
 void historyList::setLimitSize(int limit)
 {
-    sizeLimit = (unsigned long long)limit*1024;
+    sizeLimit = (unsigned long long)limit*1000000; //convert to MB
 }
 
 void historyList::add(QList <MeshObject*> item, unsigned long size)

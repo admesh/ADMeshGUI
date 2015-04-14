@@ -63,8 +63,14 @@ public slots:
      */
     void setColorScheme();
 
+    /*!
+     * \brief Toggle inverted mouse.
+     */
     void toggleMouseInvert();
 
+    /*!
+     * \brief Initialize and exec properties dialog.
+     */
     void initProperties();
 
 protected:
@@ -78,6 +84,9 @@ protected:
      */
     void keyReleaseEvent(QKeyEvent *event);
 
+    /*!
+     * \brief Reimplemented method. Handles closed window (application exit).
+     */
     void closeEvent(QCloseEvent *event);
 
     admeshController *controller;    ///< Main ADMeshController

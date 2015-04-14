@@ -58,6 +58,6 @@ inline QString _( const char *msgid, int category )
 #define TOP_SHORTCUT Qt::Key_8 + Qt::KeypadModifier
 #define BOTTOM_SHORTCUT Qt::Key_2 + Qt::KeypadModifier
 
-#define HISTORY_LIMIT 1000000
+#define HISTORY_LIMIT 100
 
 #endif // DATA_H

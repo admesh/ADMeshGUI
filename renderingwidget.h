@@ -64,6 +64,9 @@ public:
      */
     void setTextCol(QColor text);
 
+    /*!
+     * \brief Invert mouse.
+     */
     void invertMouse();
 
 protected:
@@ -309,7 +312,7 @@ private:
 
     bool shiftPressed;              ///< Shift key pressed.
 
-    bool mouseInverted;
+    bool mouseInverted;             ///< Mouse inverted yes/no.
 
     QPoint lastPos;                 ///< Last clicked position (LMB).
     QPoint lastTransPos;            ///< Last clicked position (MMB).

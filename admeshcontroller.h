@@ -51,6 +51,11 @@ public:
      */
     void setDrawColor(QColor color,QColor badColor);
 
+    /*!
+     * \brief Set history limit to history list used.
+     *
+     * \param lim Limit in MB.
+     */
     void setHistoryLimit(int lim);
 
     /*!
