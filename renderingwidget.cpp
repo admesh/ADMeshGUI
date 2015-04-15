@@ -389,8 +389,13 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
         int dx = (event->x() - lastTransPos.x());
         int dy = (event->y() - lastTransPos.y());
 
-        xTrans -= (GLfloat)dx/3;
-        yTrans += (GLfloat)dy/3;
+        if(!mouseInverted){
+            xTrans -= (GLfloat)dx/3;
+            yTrans += (GLfloat)dy/3;
+        }else{
+            xTrans += (GLfloat)dx/3;
+            yTrans -= (GLfloat)dy/3;
+        }
         lastTransPos = event->pos();
     }
 }
