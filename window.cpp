@@ -84,7 +84,7 @@ void Window::addActions(){
     saveAct->setStatusTip(_("Save in default STL format"));
     connect(saveAct, SIGNAL(triggered()), controller, SLOT(save()));
 
-    saveAsAct = new QAction(_("&Save as..."), this);
+    saveAsAct = new QAction(_("Save &as..."), this);
     saveAsAct->setShortcuts(QKeySequence::SaveAs);
     saveAsAct->setStatusTip(_("Save as ASCII or binary STL file"));
     connect(saveAsAct, SIGNAL(triggered()), controller, SLOT(saveAs()));
@@ -133,7 +133,7 @@ void Window::addActions(){
     wireframeAct->setShortcut(WIREFRAME_SHORTCUT);
     connect(wireframeAct, SIGNAL(triggered()), this, SLOT(setWireframe()));
 
-    solidwithedgesAct = new QAction(_("&Solid with edged Mode"), this);
+    solidwithedgesAct = new QAction(_("Solid with &edged Mode"), this);
     solidwithedgesAct->setStatusTip(_("Show solid mesh with edges"));
     solidwithedgesAct->setCheckable(true);
     solidwithedgesAct->setChecked(false);
@@ -172,22 +172,22 @@ void Window::addActions(){
     topAct->setShortcut(TOP_SHORTCUT);
     connect(topAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setTopView()));
 
-    bottomAct = new QAction(_("&Bottom view"), this);
+    bottomAct = new QAction(_("B&ottom view"), this);
     bottomAct->setStatusTip(_("Set bottom view"));
     bottomAct->setShortcut(BOTTOM_SHORTCUT);
     connect(bottomAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(setBottomView()));
 
-    centerAct = new QAction(_("&To center"), this);
+    centerAct = new QAction(_("To &center"), this);
     centerAct->setStatusTip(_("Reset camera translation to zero"));
     centerAct->setShortcut(RESET_SHORTCUT);
     connect(centerAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(centerPosition()));
 
-    selectAllAct = new QAction(_("&Select all"), this);
+    selectAllAct = new QAction(_("Select &all"), this);
     selectAllAct->setStatusTip(_("Make all objects in scene active"));
     selectAllAct->setShortcut(QKeySequence::SelectAll);
     connect(selectAllAct, SIGNAL(triggered()), controller, SLOT(setAllActive()));
 
-    selectInverseAct = new QAction(_("&Select inverse"), this);
+    selectInverseAct = new QAction(_("Select &inverse"), this);
     selectInverseAct->setStatusTip(_("Active objects are set inactive and vice versa"));
     selectInverseAct->setShortcut(QKeySequence::Italic);
     connect(selectInverseAct, SIGNAL(triggered()), controller, SLOT(setAllInverseActive()));
