@@ -176,11 +176,6 @@ void RenderingWidget::paintGL()
     painter.setRenderHint(QPainter::Antialiasing);
     painter.beginNativePainting();      //Start rendering 3D content
 
-    if(selection){
-        doPicking();
-        selection = false;
-    }
-
     glClearColor(background_col.redF(),background_col.greenF(),background_col.blueF(),1.0);      //Set OpenGl states
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -208,6 +203,12 @@ void RenderingWidget::paintGL()
     painter.setRenderHint(QPainter::TextAntialiasing);
     if(Info) drawInfo(&painter);
     drawLabels(&painter);
+
+    if(selection){                      //Handle picking
+        painter.beginNativePainting();
+        doPicking();
+        selection = false;
+    }
     painter.end();
 }
 
