@@ -64,15 +64,17 @@ void PropertiesDialog::toggleInvertMouse()
 }
 
 void PropertiesDialog::setColor()
-{
-    color = QColorDialog::getColor(color, this);
+{    
+    QColor tmp  = QColorDialog::getColor(color, this);
+    if(tmp.isValid()) color = tmp;
     colMap.fill(color);
     ui->colorLabel->setPixmap(colMap);
 }
 
 void PropertiesDialog::setBadColor()
 {
-    badColor = QColorDialog::getColor(badColor, this);
+    QColor tmp  = QColorDialog::getColor(badColor, this);
+    if(tmp.isValid()) badColor = tmp;
     badColMap.fill(badColor);
     ui->badColorLabel->setPixmap(badColMap);
 }
