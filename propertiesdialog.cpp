@@ -19,13 +19,15 @@ PropertiesDialog::PropertiesDialog(QWidget *parent) :
     ui->MemLimBox->setValue(i_memLimit);
     ui->MemLimBox->setSuffix(" MB");
 
-    colMap = QPixmap(32,32);
+    colMap = QPixmap(53,20);
     colMap.fill(i_color);
-    ui->colorLabel->setPixmap(colMap);
+    ui->colorButton->setIcon(QIcon(colMap));
+    ui->colorButton->setIconSize(colMap.rect().size());
 
-    badColMap = QPixmap(32,32);
+    badColMap = QPixmap(53,20);
     badColMap.fill(i_badColor);
-    ui->badColorLabel->setPixmap(badColMap);
+    ui->badColorButton->setIcon(QIcon(badColMap));
+    ui->badColorButton->setIconSize(badColMap.rect().size());
 
     connect(ui->ThemeBox, SIGNAL(stateChanged(int)), this, SLOT(toggleScheme()));
     connect(ui->InvertMouseBox, SIGNAL(stateChanged(int)), this, SLOT(toggleInvertMouse()));
@@ -68,7 +70,7 @@ void PropertiesDialog::setColor()
     QColor tmp  = QColorDialog::getColor(color, this);
     if(tmp.isValid()) color = tmp;
     colMap.fill(color);
-    ui->colorLabel->setPixmap(colMap);
+    ui->colorButton->setIcon(QIcon(colMap));
 }
 
 void PropertiesDialog::setBadColor()
@@ -76,7 +78,7 @@ void PropertiesDialog::setBadColor()
     QColor tmp  = QColorDialog::getColor(badColor, this);
     if(tmp.isValid()) badColor = tmp;
     badColMap.fill(badColor);
-    ui->badColorLabel->setPixmap(badColMap);
+    ui->badColorButton->setIcon(QIcon(badColMap));
 }
 
 void PropertiesDialog::finished(int val)
