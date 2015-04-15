@@ -127,7 +127,6 @@ private:
     QAction *topAct;                ///< Set top view.
     QAction *bottomAct;             ///< Set bottom view.
     QAction *centerAct;             ///< Reset view to center.
-    QAction *themeAct;              ///< Set dark scheme.
     QAction *selectAllAct;          ///< Select all objects.
     QAction *selectInverseAct;      ///< Select inverse.
     QAction *undoAct;               ///< Undo.

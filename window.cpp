@@ -182,12 +182,6 @@ void Window::addActions(){
     centerAct->setShortcut(RESET_SHORTCUT);
     connect(centerAct, SIGNAL(triggered()), ui->renderingWidget, SLOT(centerPosition()));
 
-    themeAct = new QAction(_("&Dark theme"), this);
-    themeAct->setStatusTip(_("Set dark theme for 3D view."));
-    themeAct->setCheckable(true);
-    themeAct->setChecked(true);
-    connect(themeAct, SIGNAL(triggered()), this, SLOT(toggleColorScheme()));
-
     selectAllAct = new QAction(_("&Select all"), this);
     selectAllAct->setStatusTip(_("Make all objects in scene active"));
     selectAllAct->setShortcut(QKeySequence::SelectAll);
@@ -208,8 +202,8 @@ void Window::addActions(){
     redoAct->setStatusTip(_("Redo last action"));
     connect(redoAct, SIGNAL(triggered()), controller, SLOT(redo()));
 
-    propertiesAct = new QAction(_("&Properties"), this);
-    propertiesAct->setShortcuts(QKeySequence::Redo);
+    propertiesAct = new QAction(_("&Properties..."), this);
+    propertiesAct->setShortcut(PROPERTIES_SHORTCUT);
     propertiesAct->setStatusTip(_("Properties dialog"));
     connect(propertiesAct, SIGNAL(triggered()), this, SLOT(initProperties()));
 }
@@ -235,6 +229,7 @@ void Window::addMenus(){
     editMenu->addSeparator();
     editMenu->addAction(selectAllAct);
     editMenu->addAction(selectInverseAct);
+    editMenu->addSeparator();
     editMenu->addAction(propertiesAct);
     viewMenu = menu_bar->addMenu(_("&View"));
     viewMenu->addAction(infoAct);
@@ -253,8 +248,6 @@ void Window::addMenus(){
     viewMenu->addAction(rightAct);
     viewMenu->addAction(topAct);
     viewMenu->addAction(bottomAct);
-    viewMenu->addSeparator();
-    viewMenu->addAction(themeAct);
 }
 
 void Window::addToolbars()
@@ -334,7 +327,6 @@ void Window::setColorScheme()
                                           "background-color: white;"
                                           "border-right: 1px solid rgb(239, 239, 239);"
                                           "border-left: 1px solid grey;");
-        themeAct->setChecked(false);
     }else if(scheme == 1){  // dark scheme
         ui->renderingWidget->setBackground(QColor(53, 50, 47));
         ui->renderingWidget->setTextCol(Qt::white);
@@ -354,7 +346,6 @@ void Window::setColorScheme()
                                           "background-color: rgb(53, 50, 47);"
                                           "border-right: 1px solid rgb(174, 173, 172);"
                                           "border-left: 1px solid grey;");
-        themeAct->setChecked(true);
     }
 }
 
