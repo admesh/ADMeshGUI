@@ -56,6 +56,14 @@ public slots:
      */
     void setBadColor();
     /*!
+     * \brief Set default color value.
+     */
+    void setDefaultColor();
+    /*!
+     * \brief Set default bad color value.
+     */
+    void setDefaultBadColor();
+    /*!
      * \brief Handle dialog finished.
      *
      * Upon succes (OK selected) change desired values to new values.

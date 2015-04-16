@@ -19,12 +19,12 @@ PropertiesDialog::PropertiesDialog(QWidget *parent) :
     ui->MemLimBox->setValue(i_memLimit);
     ui->MemLimBox->setSuffix(" MB");
 
-    colMap = QPixmap(53,20);
+    colMap = QPixmap(73,20);
     colMap.fill(i_color);
     ui->colorButton->setIcon(QIcon(colMap));
     ui->colorButton->setIconSize(colMap.rect().size());
 
-    badColMap = QPixmap(53,20);
+    badColMap = QPixmap(73,20);
     badColMap.fill(i_badColor);
     ui->badColorButton->setIcon(QIcon(badColMap));
     ui->badColorButton->setIconSize(badColMap.rect().size());
@@ -34,6 +34,8 @@ PropertiesDialog::PropertiesDialog(QWidget *parent) :
     connect(ui->MemLimBox, SIGNAL(valueChanged(int)), this, SLOT(setMemLimit(int)));
     connect(ui->colorButton, SIGNAL(clicked()), this, SLOT(setColor()));
     connect(ui->badColorButton, SIGNAL(clicked()), this, SLOT(setBadColor()));
+    connect(ui->defaultColButton, SIGNAL(clicked()), this, SLOT(setDefaultColor()));
+    connect(ui->defaultBadColButton, SIGNAL(clicked()), this, SLOT(setDefaultBadColor()));
 
     connect(this, SIGNAL(schemeSignal()), parent, SLOT(toggleColorScheme()));
     connect(this, SIGNAL(mouseInvertSignal()), parent, SLOT(toggleMouseInvert()));
@@ -77,6 +79,20 @@ void PropertiesDialog::setBadColor()
 {
     QColor tmp  = QColorDialog::getColor(badColor, this);
     if(tmp.isValid()) badColor = tmp;
+    badColMap.fill(badColor);
+    ui->badColorButton->setIcon(QIcon(badColMap));
+}
+
+void PropertiesDialog::setDefaultColor()
+{
+    color = Qt::green;
+    colMap.fill(color);
+    ui->colorButton->setIcon(QIcon(colMap));
+}
+
+void PropertiesDialog::setDefaultBadColor()
+{
+    badColor = Qt::red;
     badColMap.fill(badColor);
     ui->badColorButton->setIcon(QIcon(badColMap));
 }
