@@ -1,3 +1,5 @@
+// (c) 2015 David Vyvlečka, AGPLv3
+
 #ifndef MESHOBJECT_H
 #define MESHOBJECT_H
 

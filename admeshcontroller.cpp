@@ -1,4 +1,6 @@
-﻿#include "admeshcontroller.h"
+﻿// (c) 2015 David Vyvlečka, AGPLv3
+
+#include "admeshcontroller.h"
 #include <QFileDialog>
 #include <QtWidgets>
 #include <string>

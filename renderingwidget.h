@@ -1,3 +1,5 @@
+// (c) 2015 David Vyvlečka, AGPLv3
+
 #ifndef MYGLWIDGET_H
 #define MYGLWIDGET_H
 

@@ -1,3 +1,5 @@
+// (c) 2015 David Vyvlečka, AGPLv3
+
 #ifndef PROPERTIESDIALOG_H
 #define PROPERTIESDIALOG_H
 

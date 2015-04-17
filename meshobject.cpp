@@ -1,3 +1,5 @@
+// (c) 2015 David Vyvlečka, AGPLv3
+
 #include "meshobject.h"
 #include <string>
 #include <QVector3D>

@@ -1,3 +1,5 @@
+// (c) 2015 David Vyvlečka, AGPLv3
+
 #include "propertiesdialog.h"
 #include "ui_propertiesdialog.h"
 

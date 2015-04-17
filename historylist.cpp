@@ -1,3 +1,5 @@
+// (c) 2015 David Vyvlečka, AGPLv3
+
 #include "historylist.h"
 
 historyList::historyList()
