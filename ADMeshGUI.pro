@@ -53,6 +53,14 @@ OTHER_FILES += \
     picking_vshader.glsl \
     picking_fshader.glsl
 
-
+bin.files += admeshgui
+bin.path = /usr/bin
+mainico.files += Resources/admeshgui.svg
+mainico.path = /usr/share/icons/hicolor/scalable/apps
+suppico.files += Resources/admeshgui.png
+suppico.path = /usr/share/icons/hicolor/48x48/apps
+desktop.files += admeshgui.desktop
+desktop.path = /usr/share/application
+INSTALLS += bin desktop suppico mainico
 
 
