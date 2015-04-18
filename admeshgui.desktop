@@ -1,8 +1,11 @@
 [Desktop Entry]
 Type=Application
-Encoding=UTF-8
 Name=ADMeshGUI
-Comment=Universal tool for manipulation and repairs of STL files.
+GenericName=STL viewer and manipulation tool
+Comment=Tool for manipulation and repairs of STL files
 Exec=admeshgui %F
 Icon=admeshgui
 Terminal=false
+StartupNotify=true
+Categories=Graphics;3DGraphics;
+MimeType=text/plain;application/octet-stream;application/sla;
