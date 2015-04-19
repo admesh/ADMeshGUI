@@ -9,15 +9,11 @@ ADMeshGUI is licensed under the _GNU Affero General Public License, version 3_. 
 Building
 --------
 
-ADMeshGUI includes additional libraries given by:
-
-    -ladmesh -L -lglut -lstlsplit
-
 In order to run ADMeshGUI, [ADMesh library](https://github.com/admesh/admesh), [stlsplit library](https://github.com/hroncok/stlsplit), [Qt 5.4](http://www.qt.io/download/) (or higher) with qmake, OpenGL and g++ are necessary.
 
 On Linux, unzip downloaded package, navigate to target directory and type following into terminal :
 
-    qmake
+    qmake # or qmake-qt5 on some distros
     make
     sudo make install
 
