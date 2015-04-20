@@ -159,10 +159,19 @@ public slots:
      */
     void setAllInverseActive();
 
+    /*!
+     * \brief Hide all selected items.
+     */
     void hide();
 
+    /*!
+     * \brief Unhide all selected items.
+     */
     void unhide();
 
+    /*!
+     * \brief Unhide all items.
+     */
     void unhideAll();
 
     /*!
