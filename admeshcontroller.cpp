@@ -44,6 +44,9 @@ admeshController::admeshController(QObject *parent) :
 
 admeshController::~admeshController()
 {    
+    listModel->clear();
+    delete listModel;
+    listView->close();
 }
 
 void admeshController::setMode(int m)
@@ -273,7 +276,9 @@ void admeshController::addUIItems(QLabel *l,QListView *v)
 {
     statusBar = l;
     listView = v;
+    delete listView->model();
     listModel = new QStandardItemModel();
+
     listView->setModel(listModel);
     connect(listView,SIGNAL(pressed(QModelIndex)),this,SLOT(handleSelectionChanged(QModelIndex)));
 }

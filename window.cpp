@@ -72,7 +72,7 @@ Window::Window(QWidget *parent) :
 Window::~Window()
 {
     delete ui;
-    delete controller;
+    delete controller;    
 }
 
 void Window::addActions(){
