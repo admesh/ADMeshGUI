@@ -39,7 +39,7 @@ HEADERS  += window.h \
 FORMS    += window.ui \
     propertiesdialog.ui
 
-LIBS += -ladmesh -L -lglut -lstlsplit
+LIBS += -ladmesh -lstlsplit
 
 DISTFILES += \
     fshader.glsl \
