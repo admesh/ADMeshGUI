@@ -192,7 +192,7 @@ int admeshController::selectedCount()
 
 void admeshController::setActiveByIndex(GLuint id)
 {
-    if(id<ITEMS_LIMIT && count > 1) {
+    if((id<ITEMS_LIMIT && count > 1) || (id<ITEMS_LIMIT && count == 1 && !objectList[id]->isActive())) {
         objectList[id]->toggleSelected();
         QStandardItem *item = listModel->item(id);
         listView->selectionModel()->select( listModel->indexFromItem(item), QItemSelectionModel::Toggle );
