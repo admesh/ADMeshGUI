@@ -97,7 +97,7 @@ void Window::addActions(){
     connect(exportAct, SIGNAL(triggered()), controller, SLOT(exportSTL()));
 
     closeAct = new QAction(_("&Close"), this);
-    closeAct->setShortcuts(QKeySequence::Close);
+    closeAct->setShortcut(CLOSE_SHORTCUT);
     closeAct->setStatusTip(_("Close selected files"));
     connect(closeAct, SIGNAL(triggered()), controller, SLOT(closeSTL()));
 
