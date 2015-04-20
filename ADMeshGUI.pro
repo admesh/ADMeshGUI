@@ -40,6 +40,9 @@ FORMS    += window.ui \
     propertiesdialog.ui
 
 LIBS += -ladmesh -lstlsplit
+macx {
+    LIBS += -lintl
+}
 
 DISTFILES += \
     fshader.glsl \
