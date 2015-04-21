@@ -58,6 +58,11 @@ public:
     void setSplitName(int index);
 
     /*!
+     * \brief Set filename to "filename_duplicated.stl".
+     */
+    void setDuplicatedName();
+
+    /*!
      * \brief Update geometry (update VBO)
      *
      * Copies vertex and normal coordinates from stl_file structure into VBO.

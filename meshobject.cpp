@@ -95,6 +95,13 @@ void MeshObject::setSplitName(int index)
     file += add;
 }
 
+void MeshObject::setDuplicatedName()
+{
+    QString add = "_dulicated.stl";
+    file = file.section(".",0,0);
+    file += add;
+}
+
 void MeshObject::mergedFilename()
 {
     QString add = "_merged.stl";

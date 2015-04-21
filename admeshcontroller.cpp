@@ -973,3 +973,17 @@ void admeshController::split(){
     statusBar->setText(_("Status: mesh(es) split"));
     pushHistory();
 }
+
+void admeshController::duplicate()
+{
+    renewList();
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        MeshObject *duplicated = new MeshObject(*objectList[i]);
+        duplicated->setDuplicatedName();
+        objectList.push_back(duplicated);
+        count++;
+    }
+    renewListView();
+    statusBar->setText(_("Status: mesh(es) duplicated"));
+    pushHistory();
+}

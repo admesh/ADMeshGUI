@@ -16,7 +16,7 @@ Window::Window(QWidget *parent) :
 
     controller = new admeshController(this);
     controller->addUIItems(ui->statusBar, ui->listView);
-    ui->renderingWidget->setController(controller);
+    ui->renderingWidget->setController(controller);    
     ui->buttonWidget->setEnabled(false);
     connect(controller, SIGNAL(reDrawSignal()), ui->renderingWidget, SLOT(reDraw()));
     connect(controller, SIGNAL(reCalculatePosition()), ui->renderingWidget, SLOT(reCalculatePosition()));
@@ -47,6 +47,7 @@ Window::Window(QWidget *parent) :
     connect(ui->translateButton, SIGNAL(clicked()), controller, SLOT(translate()));
     connect(ui->mergeButton, SIGNAL(clicked()), controller, SLOT(merge()));
     connect(ui->splitButton, SIGNAL(clicked()), controller, SLOT(split()));
+    connect(ui->duplicateButton, SIGNAL(clicked()), controller, SLOT(duplicate()));
 
     connect(ui->hideItemsButton, SIGNAL(clicked()), controller, SLOT(hide()));
     connect(ui->unhideItemsButton, SIGNAL(clicked()), controller, SLOT(unhide()));

@@ -399,6 +399,11 @@ public slots:
     void split();
 
     /*!
+     * \brief Duplicate all active models.
+     */
+    void duplicate();
+
+    /*!
      * \brief Undo last operation.
      */
     void undo();
