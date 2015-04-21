@@ -368,17 +368,17 @@ void RenderingWidget::wheelEvent(QWheelEvent* event)
 
 void RenderingWidget::mousePressEvent(QMouseEvent *event)
 {
-    if(event->buttons() & Qt::LeftButton) lastPos = event->pos();
+    if(event->buttons() & Qt::LeftButton && !shiftPressed) lastPos = event->pos();
     if(event->buttons() & Qt::RightButton) {
         lastSelectionPos = event->pos();
         selection = true;
     }
-    if(event->buttons() & Qt::MiddleButton) lastTransPos = event->pos();
+    if((event->buttons() & Qt::MiddleButton) || (event->buttons() & Qt::LeftButton && shiftPressed)) lastTransPos = event->pos();
 }
 
 void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if(event->buttons() & Qt::LeftButton)
+    if(event->buttons() & Qt::LeftButton && !shiftPressed)
     {
         int dx = event->x() - lastPos.x();
         int dy = event->y() - lastPos.y();
@@ -396,7 +396,7 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
         normalizeAngles();
         lastPos = event->pos();
     }
-    if(event->buttons() & Qt::MiddleButton)
+    if((event->buttons() & Qt::MiddleButton) || (event->buttons() & Qt::LeftButton && shiftPressed))
     {
         int dx = (event->x() - lastTransPos.x());
         int dy = (event->y() - lastTransPos.y());
