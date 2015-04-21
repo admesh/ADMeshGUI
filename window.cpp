@@ -8,6 +8,7 @@ Window::Window(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Window)
 {
+    this->setAcceptDrops(true);
     ui->setupUi(this);
 
     ui->showButton->hide();
@@ -393,7 +394,22 @@ void Window::closeEvent(QCloseEvent *event)
     }else{
         event->ignore();
     }
+}
 
+void Window::dragEnterEvent(QDragEnterEvent *event)
+{
+    event->accept();
+}
+
+void Window::dropEvent(QDropEvent *event)
+{
+    foreach(QUrl url, event->mimeData()->urls()){
+        QFileInfo fi = QFileInfo(url.toString());
+        QString fileName = fi.absoluteFilePath();
+        fileName = fileName.section(":",-1);
+        controller->openSTLbyName(fileName.toStdString().c_str());
+    }
+    event->accept();
 }
 
 void Window::setSolid()

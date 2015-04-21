@@ -91,6 +91,10 @@ protected:
      */
     void closeEvent(QCloseEvent *event);
 
+    void dropEvent(QDropEvent *event);
+
+    void dragEnterEvent(QDragEnterEvent *event);
+
     admeshController *controller;    ///< Main ADMeshController
 
 private:
