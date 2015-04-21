@@ -213,7 +213,7 @@ void Window::addActions(){
 void Window::addMenus(){
     QMenuBar *menu_bar = new QMenuBar(0);
     menu_bar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    menu_bar->setNativeMenuBar (false);
+    menu_bar->setNativeMenuBar (true);
     ui->menuLayout->addWidget(menu_bar);
     menu_bar->setContentsMargins(0,0,0,0);
     fileMenu = new QMenu(_("&File"));
