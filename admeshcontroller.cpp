@@ -95,6 +95,7 @@ void admeshController::undo()
         objectList[i]->updateGeometry();
     }
     if(selectedCount()>0)statusBar->setText(_("Status: Returned 1 step back in history."));
+    reDrawSignal();
 }
 
 void admeshController::redo()
@@ -106,6 +107,7 @@ void admeshController::redo()
         objectList[i]->updateGeometry();
     }
     if(selectedCount()>0)statusBar->setText(_("Status: Returned 1 step forward in history."));
+    reDrawSignal();
 }
 
 void admeshController::drawAll(QGLShaderProgram *program)
@@ -200,6 +202,7 @@ void admeshController::setActiveByIndex(GLuint id)
         QStandardItem *item = listModel->item(id);
         listView->selectionModel()->select( listModel->indexFromItem(item), QItemSelectionModel::Toggle );
     }
+    reDrawSignal();
 }
 
 void admeshController::setAllActive()
@@ -208,6 +211,7 @@ void admeshController::setAllActive()
         objectList[i]->setSelected();
     }
     listView->selectAll();
+    reDrawSignal();
 }
 
 void admeshController::setAllInactive()
@@ -218,6 +222,7 @@ void admeshController::setAllInactive()
         }
         listView->clearSelection();
     }    
+    reDrawSignal();
 }
 
 void admeshController::setAllInverseActive()
@@ -229,6 +234,7 @@ void admeshController::setAllInverseActive()
             listView->selectionModel()->select( listModel->indexFromItem(item), QItemSelectionModel::Toggle );
         }
     }
+    reDrawSignal();
 }
 
 void admeshController::hide()
@@ -242,6 +248,7 @@ void admeshController::hide()
         }
     }
     listView->clearSelection();
+    reDrawSignal();
 }
 
 void admeshController::unhide()
@@ -253,6 +260,7 @@ void admeshController::unhide()
             Item->setData(visibleIcon, Qt::DecorationRole);
         }
     }
+    reDrawSignal();
 }
 
 void admeshController::unhideAll()
@@ -260,6 +268,7 @@ void admeshController::unhideAll()
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         objectList[i]->setVisible();
     }
+    reDrawSignal();
 }
 
 void admeshController::setDrawColor(QColor col, QColor badCol){
@@ -288,6 +297,7 @@ void admeshController::handleSelectionChanged(QModelIndex index)
     if(QApplication::mouseButtons() == Qt::LeftButton){
         if(index.row() < count) objectList[index.row()]->toggleSelected();
     }
+    reDrawSignal();
 }
 
 void admeshController::addItemToView(MeshObject* item){
@@ -435,6 +445,7 @@ void admeshController::closeSTL()
     if(count == 1) objectList[0]->setSelected();
     else if(count == 0) enableEdit(false);
     renewListView();
+    reDrawSignal();
 }
 
 void admeshController::saveAs()
@@ -633,6 +644,7 @@ void admeshController::scale()
             cout << "Scale took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
+    reDrawSignal();
 }
 
 void admeshController::mirrorXY()
@@ -649,6 +661,7 @@ void admeshController::mirrorXY()
     #ifdef QT_DEBUG
         cout << "Mirror XY took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
+    reDrawSignal();
 }
 
 void admeshController::mirrorYZ()
@@ -665,6 +678,7 @@ void admeshController::mirrorYZ()
     #ifdef QT_DEBUG
         cout << "Mirror YZ took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
+    reDrawSignal();
 }
 
 void admeshController::mirrorXZ()
@@ -681,6 +695,7 @@ void admeshController::mirrorXZ()
     #ifdef QT_DEBUG
         cout << "Mirror XZ took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
+    reDrawSignal();
 }
 
 void admeshController::setRot(double angle)
@@ -704,6 +719,7 @@ void admeshController::rotateX()
             cout << "Rotate X took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
+    reDrawSignal();
 }
 
 void admeshController::rotateY()
@@ -722,6 +738,7 @@ void admeshController::rotateY()
             cout << "Rotate Y took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
+    reDrawSignal();
 }
 
 void admeshController::rotateZ()
@@ -740,6 +757,7 @@ void admeshController::rotateZ()
             cout << "Rotate Z took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
+    reDrawSignal();
 }
 
 void admeshController::setXTranslate(double factor)
@@ -780,6 +798,7 @@ void admeshController::translate()
             cout << "Translate took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
         #endif
     }
+    reDrawSignal();
 }
 
 void admeshController::reverseAll()
@@ -790,6 +809,7 @@ void admeshController::reverseAll()
     }
     if(selectedCount()>0)statusBar->setText(_("Status: Orientation of facets has been reversed."));
     pushHistory();
+    reDrawSignal();
 }
 
 void admeshController::setFixAllFlag()
@@ -878,6 +898,7 @@ void admeshController::repair()
     #ifdef QT_DEBUG
         cout << "Repair took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
+    reDrawSignal();
 }
 
 void stl_merge(stl_file *stl, stl_file *stl_to_merge) {
@@ -947,6 +968,7 @@ void admeshController::merge()
     #ifdef QT_DEBUG
         cout << "Merge took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
     #endif
+    reDrawSignal();
 }
 
 void admeshController::split(){
@@ -972,6 +994,7 @@ void admeshController::split(){
     renewListView();
     statusBar->setText(_("Status: mesh(es) split"));
     pushHistory();
+    reDrawSignal();
 }
 
 void admeshController::duplicate()
@@ -986,4 +1009,5 @@ void admeshController::duplicate()
     renewListView();
     statusBar->setText(_("Status: mesh(es) duplicated"));
     pushHistory();
+    reDrawSignal();
 }

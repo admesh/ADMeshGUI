@@ -144,8 +144,7 @@ void RenderingWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     pickFboFormat.setAttachment(QOpenGLFramebufferObject::Depth);
     pickFboFormat.setTextureTarget(GL_TEXTURE_2D);
-    pickFboFormat.setInternalTextureFormat(GL_RGBA8);
-    timer.start(33, this);
+    pickFboFormat.setInternalTextureFormat(GL_RGBA8);    
     recalculateGridStep();
     reDraw();
 }
@@ -364,10 +363,18 @@ void RenderingWidget::wheelEvent(QWheelEvent* event)
         recalculateGridStep();
         recalculateProjectionNear();
     }
+    reDraw();
+}
+
+void RenderingWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    timer.stop();
+    event->accept();
 }
 
 void RenderingWidget::mousePressEvent(QMouseEvent *event)
 {
+    timer.start(33, this);
     if(event->buttons() & Qt::LeftButton && !shiftPressed) lastPos = event->pos();
     if(event->buttons() & Qt::RightButton) {
         lastSelectionPos = event->pos();
@@ -410,6 +417,7 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
         }
         lastTransPos = event->pos();
     }
+    //reDraw();
 }
 
 void RenderingWidget::initAxes(){
@@ -546,10 +554,12 @@ void RenderingWidget::reCalculatePosition()
     if (val>minDiam) minDiam = val;
     recalculateProjectionNear();
     recalculateGridStep();
+    reDraw();
 }
 
 void RenderingWidget::centerPosition()
 {
     xTrans = yTrans = 0;
+    reDraw();
 }
 

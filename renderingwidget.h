@@ -101,6 +101,9 @@ protected:
 
     /*!
      * \brief Reimplemented timer. Send update(); signal.
+     *
+     * Used only when mouse is moving otherwise update() is called only upon actions performed (lower CPU usage).
+     *
      * \param e Timer event sent.
      */
     void timerEvent(QTimerEvent *e);
@@ -126,6 +129,12 @@ protected:
      * \param event Press event sent.
      */
     void mousePressEvent(QMouseEvent *event);
+
+    /*!
+     * \brief Reimplemented method. Handles mouse button released.
+     * \param event Released event sent.
+     */
+    void mouseReleaseEvent(QMouseEvent *event);
 
     /*!
      * \brief Reimplemented method. Handles mouse move.

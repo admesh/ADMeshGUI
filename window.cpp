@@ -299,6 +299,7 @@ void Window::initProperties()
     prop.setController(controller);
     prop.show();
     prop.exec();
+    ui->renderingWidget->reDraw();
 }
 
 void Window::openByFilename(const char* filename){
@@ -352,6 +353,7 @@ void Window::setColorScheme()
                                           "border-right: 1px solid rgb(174, 173, 172);"
                                           "border-left: 1px solid grey;");
     }
+    ui->renderingWidget->reDraw();
 }
 
 void Window::toggleMouseInvert()
@@ -400,6 +402,7 @@ void Window::setSolid()
     solidAct->setChecked(true);
     wireframeAct->setChecked(false);
     solidwithedgesAct->setChecked(false);
+    ui->renderingWidget->reDraw();
 }
 
 void Window::setWireframe()
@@ -408,6 +411,7 @@ void Window::setWireframe()
     solidAct->setChecked(false);
     wireframeAct->setChecked(true);
     solidwithedgesAct->setChecked(false);
+    ui->renderingWidget->reDraw();
 }
 
 void Window::setSolidWithEdges()
@@ -416,6 +420,7 @@ void Window::setSolidWithEdges()
     solidAct->setChecked(false);
     wireframeAct->setChecked(false);
     solidwithedgesAct->setChecked(true);
+    ui->renderingWidget->reDraw();
 }
 
 void Window::writeSettings()
@@ -465,4 +470,5 @@ void Window::readSettings()
     if(settings.value("grid", true).toBool()) gridAct->trigger();
     if(!settings.value("info", true).toBool()) infoAct->trigger();
     if(settings.value("invertMouse", false).toBool()) ui->renderingWidget->invertMouse();
+    ui->renderingWidget->reDraw();
 }
