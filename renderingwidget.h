@@ -8,6 +8,7 @@
 #include <QMatrix4x4>
 #include <QVector2D>
 #include <QGLShaderProgram>
+#include <QOpenGLVertexArrayObject>
 #include <QOpenGLFramebufferObject>
 #include <QBasicTimer>
 #include <QBrush>
@@ -325,6 +326,8 @@ private:
     int gridStep;                   ///< Step between grid lines.
 
     admeshController *controller;   ///< Pointer to main controller.
+
+    QOpenGLVertexArrayObject vao;   ///< Vertex array object.
 };
 
 #endif // MYGLWIDGET_H

@@ -134,6 +134,7 @@ void RenderingWidget::initializeGL()
     initShaders();
     glGenBuffers(1, &axes_vbo);
     glGenBuffers(1, &grid_vbo);
+    vao.create();
     selection = false;
     initAxes();
     initGrid();    
@@ -182,11 +183,13 @@ void RenderingWidget::paintGL()
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    vao.bind();
     program.bind();                     //Use shader program
     glViewport(0, 0, width(), height());
     getCamPos();
 
     program.setUniformValue("mvp_matrix", projection * view * model);   //Draw main window contents
+
     if(Axes) drawAxes();
     if(Grid) drawGrid();
 
@@ -200,6 +203,7 @@ void RenderingWidget::paintGL()
 
     glDisable(GL_DEPTH_TEST);
     program.release();
+    vao.release();
     painter.endNativePainting();        //Start rendering 2D content
 
     painter.setRenderHint(QPainter::TextAntialiasing);
@@ -208,8 +212,10 @@ void RenderingWidget::paintGL()
 
     if(selection){                      //Handle picking
         painter.beginNativePainting();
+        vao.bind();
         doPicking();
         selection = false;
+        vao.release();
     }
     painter.end();
 }
@@ -470,6 +476,7 @@ void RenderingWidget::initGrid(){
 void RenderingWidget::drawAxes()
 {
     glBindBuffer(GL_ARRAY_BUFFER, axes_vbo);
+
     int vertexLocation = program.attributeLocation("a_position");
     program.enableAttributeArray(vertexLocation);
     glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, 0);
@@ -479,6 +486,7 @@ void RenderingWidget::drawAxes()
     glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (const void *)(sizeof(GLfloat)*3));
 
     program.setUniformValue("color", RED);
+
     glDrawArrays(GL_LINES, 0, 4);
     program.setUniformValue("color", GREEN);
     glDrawArrays(GL_LINES, 4, 4);
