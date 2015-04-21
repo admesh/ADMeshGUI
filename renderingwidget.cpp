@@ -275,7 +275,7 @@ void RenderingWidget::drawInfo(QPainter *painter)
     if(Grid) QTextStream(&text) <<_("Grid step: ") << gridStep << endl;
     QFontMetrics metrics = QFontMetrics(font());
     int border = qMax(6, metrics.leading());
-    QRect rect = metrics.boundingRect(0, 0, width()/4 - 2*border, int(height()/2), Qt::AlignLeft | Qt::TextWordWrap, text);
+    QRect rect = metrics.boundingRect(0, 0, qMin(width()/2,250) - 2*border, qMin(height(),370), Qt::AlignLeft | Qt::TextWordWrap, text);
     painter->setRenderHint(QPainter::TextAntialiasing);
     painter->setPen(text_col);
     painter->fillRect(QRect(0, 0, qMin(width()/2,250), qMin(height(),370)), QColor(1, 1, 1, 1));
