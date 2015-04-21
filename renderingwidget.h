@@ -277,6 +277,9 @@ private:
 
     QBasicTimer timer;              ///< Timer used to regular redrawing.
 
+    int w;                          ///< Widget width.
+    int h;                          ///< Widget height.
+
     QGLShaderProgram program;       ///< Common shader program.
     QGLShaderProgram pick_program;  ///< Picking shader program.
     QMatrix4x4 projection;          ///< Projection matrix.

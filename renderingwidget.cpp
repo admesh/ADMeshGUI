@@ -26,6 +26,8 @@ RenderingWidget::RenderingWidget(QWidget *parent)
     background_col = Qt::black;
     text_col = Qt::white;
     mouseInverted = false;
+    w = DEFAULT_RES_X;
+    h = DEFAULT_RES_Y;
 }
 
 
@@ -185,7 +187,7 @@ void RenderingWidget::paintGL()
 
     vao.bind();
     program.bind();                     //Use shader program
-    glViewport(0, 0, width(), height());
+    glViewport(0, 0, w, h);
     getCamPos();
 
     program.setUniformValue("mvp_matrix", projection * view * model);   //Draw main window contents
@@ -233,15 +235,17 @@ void RenderingWidget::recalculateProjectionNear()
 
 void RenderingWidget::resizeGL(int width, int height)
 {
-    glViewport(0, 0, width, height);
+    w = width * this->devicePixelRatio();
+    h = height * this->devicePixelRatio();
+    glViewport(0, 0, w, h);
     projection.setToIdentity();
-    projection.perspective(PERSPECTIVE, (GLfloat)width/(GLfloat)height, MIN_VIEW_DISTANCE, MAX_VIEW_DISTANCE);
+    projection.perspective(PERSPECTIVE, (GLfloat)w/(GLfloat)h, MIN_VIEW_DISTANCE, MAX_VIEW_DISTANCE);
     orthographic.setToIdentity();
     orthographic.ortho (-1.0f,1.0f,-1.0f,1.0f, -100, 100 );
 }
 
 void RenderingWidget::doPicking(){
-    glViewport(0, 0, width(), height());
+    glViewport(0, 0, w, h);
     QOpenGLFramebufferObject fbo(width(),height(), pickFboFormat);    
     fbo.bind();
     glEnable(GL_DEPTH_TEST);
