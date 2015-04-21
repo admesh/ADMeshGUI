@@ -107,7 +107,6 @@ void Window::addActions(){
     quitAct->setStatusTip(_("Quit application"));
     connect(quitAct, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
-
     axesAct = new QAction(_("&Axes"), this);
     axesAct->setStatusTip(_("Show or hide axes"));
     axesAct->setCheckable(true);
@@ -214,11 +213,10 @@ void Window::addActions(){
 void Window::addMenus(){
     QMenuBar *menu_bar = new QMenuBar(0);
     menu_bar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    menu_bar->show();
     menu_bar->setNativeMenuBar (false);
     ui->menuLayout->addWidget(menu_bar);
     menu_bar->setContentsMargins(0,0,0,0);
-    fileMenu = menu_bar->addMenu(_("&File"));
+    fileMenu = new QMenu(_("&File"));
     fileMenu->addAction(openAct);
     fileMenu->addAction(saveAct);
     fileMenu->addAction(saveAsAct);
@@ -226,7 +224,8 @@ void Window::addMenus(){
     fileMenu->addSeparator();
     fileMenu->addAction(closeAct);
     fileMenu->addAction(quitAct);
-    editMenu = menu_bar->addMenu(_("&Edit"));
+    menu_bar->addAction(fileMenu->menuAction());
+    editMenu = new QMenu(_("&Edit"));
     editMenu->addAction(undoAct);
     editMenu->addAction(redoAct);
     editMenu->addSeparator();
@@ -234,7 +233,8 @@ void Window::addMenus(){
     editMenu->addAction(selectInverseAct);
     editMenu->addSeparator();
     editMenu->addAction(propertiesAct);
-    viewMenu = menu_bar->addMenu(_("&View"));
+    menu_bar->addAction(editMenu->menuAction());
+    viewMenu = new QMenu(_("&View"));
     viewMenu->addAction(infoAct);
     viewMenu->addAction(axesAct);
     viewMenu->addAction(gridAct);
@@ -251,6 +251,8 @@ void Window::addMenus(){
     viewMenu->addAction(rightAct);
     viewMenu->addAction(topAct);
     viewMenu->addAction(bottomAct);
+    menu_bar->addAction(viewMenu->menuAction());
+    menu_bar->show();
 }
 
 void Window::addToolbars()
