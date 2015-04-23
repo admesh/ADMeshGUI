@@ -1000,12 +1000,14 @@ void admeshController::split(){
 void admeshController::duplicate()
 {
     renewList();
+    int added = 0;
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         MeshObject *duplicated = new MeshObject(*objectList[i]);
         duplicated->setDuplicatedName();
         objectList.push_back(duplicated);
-        count++;
+        added++;
     }
+    count += added;
     renewListView();
     statusBar->setText(_("Status: mesh(es) duplicated"));
     pushHistory();
