@@ -360,22 +360,22 @@ QString admeshController::getInfo()
         }
     }
     if(initialized){
-        QTextStream(&text) << _("Objects selected:      ") << objects << endl <<
-                              _("Min X:      ") << minx << endl <<
-                              _("Min Y:      ") << miny << endl <<
-                              _("Min Z:      ") << minz << endl <<
-                              _("Max X:      ") << maxx << endl <<
-                              _("Max Y:      ") << maxy << endl <<
-                              _("Max Z:      ") << maxz << endl <<
-                              _("Number of facets:      ") << num_facets << endl <<
-                              _("Degenerate facets:     ") << deg_facets << endl <<
-                              _("Edges fixed:           ") << edges_fixed << endl <<
-                              _("Facets removed:        ") << facets_removed << endl <<
-                              _("Facets added:          ") << facet_sadded << endl <<
-                              _("Facets reversed:       ") << facets_reversed << endl <<
-                              _("Backwards edges:       ") << backward << endl <<
-                              _("Normals fixed:         ") << normals_fixed << endl <<
-                              _("Total volume:                ") << volume << endl <<
+        QTextStream(&text) << _("Objects selected:") << " \t " << objects << endl <<
+                              _("Min X:") << " \t\t " << minx << endl <<
+                              _("Min Y:") << " \t\t " << miny << endl <<
+                              _("Min Z:") << " \t\t " << minz << endl <<
+                              _("Max X:") << " \t\t " << maxx << endl <<
+                              _("Max Y:") << " \t\t " << maxy << endl <<
+                              _("Max Z:") << " \t\t " << maxz << endl <<
+                              _("Num. of facets:") << " \t " << num_facets << endl <<
+                              _("Deg. facets:") << " \t " << deg_facets << endl <<
+                              _("Edges fixed:") << " \t " << edges_fixed << endl <<
+                              _("Facets removed:") << " \t " << facets_removed << endl <<
+                              _("Facets added:") << " \t " << facet_sadded << endl <<
+                              _("Facets reversed:") << " \t " << facets_reversed << endl <<
+                              _("Backwards edges:") << "\t " << backward << endl <<
+                              _("Normals fixed:") << " \t " << normals_fixed << endl <<
+                              _("Total volume:")  << " \t " << volume << endl <<
                               endl;
     }
     return text;
