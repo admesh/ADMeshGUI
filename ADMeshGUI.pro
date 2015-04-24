@@ -63,7 +63,7 @@ mainico.path = /usr/share/icons/hicolor/scalable/apps
 suppico.files += Resources/admeshgui.png
 suppico.path = /usr/share/icons/hicolor/48x48/apps
 desktop.files += admeshgui.desktop
-desktop.path = /usr/share/application
+desktop.path = /usr/share/applications
 INSTALLS += bin desktop suppico mainico
 
 
