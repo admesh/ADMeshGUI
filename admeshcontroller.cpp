@@ -383,23 +383,30 @@ QString admeshController::getInfo()
 
 void admeshController::openSTL()
 {
-    QString fileName = QFileDialog::getOpenFileName((QWidget*)parent(), _("Open STL"), QStandardPaths::standardLocations(QStandardPaths::HomeLocation).at(0), _("STL (*.stl *.STL)"));
-    if(!fileName.isEmpty()){
-        MeshObject* tmp = new MeshObject;
-        if(!tmp->loadGeometry(fileName)){
-            QString msg;
-            QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
-            QMessageBox::critical(NULL, _("Error"), msg);
-            return;
-        }else{
-            renewList();
-            objectList.push_back(tmp);
-            objectList.back()->setSelected();
-            addItemToView(objectList.back());
-            pushHistory();
+    QStringList fileNameList = QFileDialog::getOpenFileNames((QWidget*)parent(), _("Open STL"), QStandardPaths::standardLocations(QStandardPaths::HomeLocation).at(0), _("STL (*.stl *.STL)"));
+    int opened = 0;
+    renewList();
+    for(QStringList::Iterator it = fileNameList.begin(); it != fileNameList.end(); it++){
+        QString fileName = *it;
+        if(!fileName.isEmpty()){
+            MeshObject* tmp = new MeshObject;
+            if(!tmp->loadGeometry(fileName)){
+                QString msg;
+                QTextStream(&msg) << _("File ") << fileName << _(" could not be opened.\n");
+                QMessageBox::critical(NULL, _("Error"), msg);
+                continue;
+            }else{
+                objectList.push_back(tmp);
+                objectList.back()->setSelected();
+                addItemToView(objectList.back());
+                opened++;
+            }
+            count++;
         }
-        count++;
-        if(selectedCount()>0)statusBar->setText(_("Status: File opened"));
+    }
+    pushHistory();
+    if(opened>0){
+        statusBar->setText(_("Status: File(s) opened"));
         reCalculatePosition();
         reDrawSignal();
         enableEdit(true);
