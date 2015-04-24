@@ -245,11 +245,11 @@ void RenderingWidget::resizeGL(int width, int height)
 
 void RenderingWidget::doPicking(){
     glViewport(0, 0, w, h);
-    QOpenGLFramebufferObject fbo(width(),height(), pickFboFormat);    
+    QOpenGLFramebufferObject fbo(w,h, pickFboFormat);
     fbo.bind();
     glEnable(GL_DEPTH_TEST);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(1.0,1.0,1.0,1.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);    
     pick_program.bind();
     pick_program.setUniformValue("mvp_matrix", projection * view * model);
     controller->drawPicking(&pick_program);
