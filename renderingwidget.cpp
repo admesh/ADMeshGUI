@@ -189,6 +189,7 @@ void RenderingWidget::paintGL()
     glViewport(0, 0, w, h);
     getCamPos();
 
+    program.setUniformValue("differ_hue", false);
     program.setUniformValue("mvp_matrix", projection * view * model);   //Draw main window contents
 
     if(Axes) drawAxes();
@@ -532,7 +533,10 @@ void RenderingWidget::drawGrid()
     program.enableAttributeArray(vertexLocation);
     glVertexAttribPointer(vertexLocation, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*2, 0);
 
-    program.setUniformValue("color", BLACK);
+    QColor gridCol;
+    if(background_col == Qt::white) gridCol = Qt::gray;
+    else gridCol = Qt::white;
+    program.setUniformValue("color", QVector3D(gridCol.redF(),gridCol.greenF(),gridCol.blueF()));
     glDrawArrays(GL_LINES, 0, (GRID_SIZE)*8 +4);
 }
 

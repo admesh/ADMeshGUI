@@ -114,6 +114,7 @@ void admeshController::drawAll(QGLShaderProgram *program)
 {
     if(mode == 0){
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+        program->setUniformValue("differ_hue", true);
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive()){
                 program->setUniformValue("color", color);
@@ -126,6 +127,7 @@ void admeshController::drawAll(QGLShaderProgram *program)
             }
             objectList[i]->drawGeometry(program);
         }
+        program->setUniformValue("differ_hue", false);
     }else if(mode == 1){
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
@@ -157,6 +159,7 @@ void admeshController::drawAll(QGLShaderProgram *program)
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
         glEnable( GL_POLYGON_OFFSET_FILL );
         glPolygonOffset( 1, 1 );
+        program->setUniformValue("differ_hue", true);
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive()){
                 program->setUniformValue("color", color);
@@ -169,6 +172,7 @@ void admeshController::drawAll(QGLShaderProgram *program)
             }
             objectList[i]->drawGeometry(program);
         }
+        program->setUniformValue("differ_hue", false);
         glDisable( GL_POLYGON_OFFSET_FILL );
     }
 }
