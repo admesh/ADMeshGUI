@@ -406,7 +406,7 @@ void Window::dropEvent(QDropEvent *event)
     foreach(QUrl url, event->mimeData()->urls()){
         QFileInfo fi = QFileInfo(url.toString());
         QString fileName = fi.absoluteFilePath();
-        fileName = fileName.section(":",-1);
+        fileName = fileName.section("file:",-1);
         controller->openSTLbyName(fileName.toStdString().c_str());
     }
     event->accept();
