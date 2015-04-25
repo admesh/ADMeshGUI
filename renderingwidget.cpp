@@ -80,36 +80,42 @@ void RenderingWidget::setFrontView()
 {
     angleX = 0;
     angleY = 90;
+    reDraw();
 }
 
 void RenderingWidget::setBackView()
 {
     angleX = 180;
     angleY = 90;
+    reDraw();
 }
 
 void RenderingWidget::setLeftView()
 {
     angleX = 270;
     angleY = 90;
+    reDraw();
 }
 
 void RenderingWidget::setRightView()
 {
     angleX = 90;
     angleY = 90;
+    reDraw();
 }
 
 void RenderingWidget::setTopView()
 {
     angleX = 0;
     angleY = 0;
+    reDraw();
 }
 
 void RenderingWidget::setBottomView()
 {
     angleX = 0;
     angleY = 180;
+    reDraw();
 }
 
 void RenderingWidget::toggleGrid()
