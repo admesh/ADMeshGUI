@@ -316,7 +316,7 @@ void admeshController::addItemToView(MeshObject* item){
 
 QString admeshController::getInfo()
 {
-    QString text = "";
+    QString text = "<table>";
     float minx, miny, minz, maxx, maxy, maxz, num_facets, deg_facets, edges_fixed, facets_removed, facet_sadded, facets_reversed, backward, normals_fixed, volume;
     minx = miny = minz = maxx = maxy = maxz = num_facets = deg_facets = edges_fixed = facets_removed = facet_sadded = facets_reversed = backward = normals_fixed = volume = 0;
     int objects = 0;
@@ -364,23 +364,22 @@ QString admeshController::getInfo()
         }
     }
     if(initialized){
-        QTextStream(&text) << _("Objects selected:") << " \t " << objects << endl <<
-                              _("Min X:") << " \t\t " << minx << endl <<
-                              _("Min Y:") << " \t\t " << miny << endl <<
-                              _("Min Z:") << " \t\t " << minz << endl <<
-                              _("Max X:") << " \t\t " << maxx << endl <<
-                              _("Max Y:") << " \t\t " << maxy << endl <<
-                              _("Max Z:") << " \t\t " << maxz << endl <<
-                              _("Num. of facets:") << " \t " << num_facets << endl <<
-                              _("Deg. facets:") << " \t " << deg_facets << endl <<
-                              _("Edges fixed:") << " \t " << edges_fixed << endl <<
-                              _("Facets removed:") << " \t " << facets_removed << endl <<
-                              _("Facets added:") << " \t " << facet_sadded << endl <<
-                              _("Facets reversed:") << " \t " << facets_reversed << endl <<
-                              _("Backwards edges:") << "\t " << backward << endl <<
-                              _("Normals fixed:") << " \t " << normals_fixed << endl <<
-                              _("Total volume:")  << " \t " << volume << endl <<
-                              endl;
+        QTextStream(&text) << "<tr><td width=\"60%\" class=\"desc\">"<<_("Objects selected:")<<"</td><td width=\"40%\">"<<objects<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Min X:")<<"</td><td width=\"40%\">"<<minx<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Min Y:")<<"</td><td width=\"40%\">"<<miny<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Min Z:")<<"</td><td width=\"40%\">"<<minz<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Max X:")<<"</td><td width=\"40%\">"<<maxx<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Max Y:")<<"</td><td width=\"40%\">"<<maxy<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Max Z:")<<"</td><td width=\"40%\">"<<maxz<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Number of facets:")<<"</td><td width=\"40%\">"<<num_facets<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Degenerate facets:")<<"</td><td width=\"40%\">"<<deg_facets<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Edges fixed:")<<"</td><td width=\"40%\">"<<edges_fixed<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Facets removed:")<<"</td><td width=\"40%\">"<<facets_removed<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Facets added:")<<"</td><td width=\"40%\">"<<facet_sadded<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Facets reversed:")<<"</td><td width=\"40%\">"<<facets_reversed<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Backwards edges:")<<"</td><td width=\"40%\">"<<backward<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Normals fixed:") <<"</td><td width=\"40%\">"<<normals_fixed<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Total volume:") <<"</td><td width=\"40%\">"<<volume<<"</td></tr><tr></tr>";
     }
     return text;
 }

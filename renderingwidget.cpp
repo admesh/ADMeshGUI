@@ -270,16 +270,26 @@ void RenderingWidget::doPicking(){
 void RenderingWidget::drawInfo(QPainter *painter)
 {
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-    QString text = controller->getInfo();
-    QTextStream(&text) << _("Camera angleX:")  << " \t " << angleX << endl <<_("Camera angleY:") << " \t " << angleY << endl;
-    if(Grid) QTextStream(&text) <<_("Grid step:") << " \t " << gridStep << endl;
-    QFontMetrics metrics = QFontMetrics(font());
-    int border = qMax(6, metrics.leading());
-    QRect rect = metrics.boundingRect(0, 0, qMin((int)(width()*0.7),250) - 2*border, qMin(height(),370), Qt::AlignLeft | Qt::TextWordWrap | Qt::TextExpandTabs, text);
-    painter->setRenderHint(QPainter::TextAntialiasing);
-    painter->setPen(text_col);
-    painter->fillRect(QRect(0, 0, qMin((int)(width()*0.7),250), qMin(height(),370)), QColor(1, 1, 1, 1));
-    painter->drawText(rect.width()/10, border, rect.width(), rect.height(), Qt::AlignLeft | Qt::TextWordWrap | Qt::TextExpandTabs, text);
+
+    QString style;
+    style = "<style type=\"text/css\">";
+    if(text_col == Qt::white) style += "*{color:white;}";
+    else if(text_col == Qt::black) style += "*{color:black;}";
+    style += "</style>";
+
+    QString text = style + controller->getInfo();
+    QTextStream(&text) << "<tr><td width=\"60%\" class=\"desc\">"<<_("Camera angleX:") <<"</td><td width=\"40%\">"<<angleX<<"</td></tr>" <<
+                          "<tr><td width=\"60%\" class=\"desc\">"<<_("Camera angleY:") <<"</td><td width=\"40%\">"<<angleY<<"</td></tr>";
+    if(Grid) QTextStream(&text) << "<tr><td width=\"60%\" class=\"desc\">"<<_("Grid step:") <<"</td><td width=\"40%\">"<<gridStep<<"</td></tr></table>";
+    else QTextStream(&text) << "</table>";
+    QTextDocument* doc = new QTextDocument(this);
+    doc->setUndoRedoEnabled(false);
+    doc->setPageSize(QSizeF(qMin((int)(width()*0.7),300), height()));
+    doc->setHtml(text);
+    doc->setUseDesignMetrics(true);
+    doc->setDefaultTextOption(QTextOption(Qt::AlignLeft));
+    doc->drawContents(painter);
+    delete doc;
 }
 
 QVector2D RenderingWidget::getScreenCoords(QVector3D worldCoords){
