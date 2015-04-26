@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl widgets
+QT       += core gui opengl widgets svg
 
 lessThan(QT_MAJOR_VERSION, 5) {
    error(ADMeshGUI requires Qt 5.4 to run. Older version detected.)
