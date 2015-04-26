@@ -260,7 +260,7 @@ void Window::addToolbars()
 {
     QToolBar *toolBar = new QToolBar(0);
     toolBar->show();
-    toolBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    toolBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     ui->toolBarLayout->addWidget(toolBar);
 
     openButton = new QToolButton();
