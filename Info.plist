@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>CFBundleName</key>
+	<string>ADMeshGUI</string>
+	<key>CFBundleIconFile</key>
+	<string>@ICON@</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleExecutable</key>
+	<string>ADMeshGUI</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.admesh.ADMeshGUI</string>
+	<key>CFBundleVersion</key>
+	<string>@SHORT_VERSION@</string>
+	<key>CFBundleShortVersionString</key>
+	<string>@SHORT_VERSION@</string>
+	<key>LSEnvironment</key>
+	<dict>
+	  <key>GUI_LAUNCHED</key>
+	  <string></string>
+	</dict>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>stl</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>STL 3D file</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>		
+	</array>
+</dict>
+</plist>

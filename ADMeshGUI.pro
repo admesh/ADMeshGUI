@@ -42,6 +42,8 @@ FORMS    += window.ui \
 LIBS += -ladmesh -lstlsplit
 macx {
     LIBS += -lintl
+    ICON = Resources/admeshgui.icns
+    QMAKE_INFO_PLIST = Info.plist
 }
 
 DISTFILES += \
@@ -54,7 +56,8 @@ RESOURCES += \
 
 OTHER_FILES += \
     picking_vshader.glsl \
-    picking_fshader.glsl
+    picking_fshader.glsl \
+    Info.plist
 
 bin.files += admeshgui
 bin.path = /usr/bin

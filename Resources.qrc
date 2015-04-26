@@ -7,5 +7,6 @@
         <file>Resources/open.svg</file>
         <file>Resources/save.svg</file>
         <file>Resources/admeshgui.svg</file>
+        <file>Resources/admeshgui.icns</file>
     </qresource>
 </RCC>
