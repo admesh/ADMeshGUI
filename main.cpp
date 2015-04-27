@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
                      QApplication::desktop()->height();
     int widgetArea = window.width() * window.height();
 
-    window.setWindowTitle("ADMesh GUI");
+    window.setWindowTitle("ADMeshGUI");
 
     if (((float)widgetArea / (float)desktopArea) < 0.75f)
         window.show();
