@@ -39,7 +39,6 @@ admeshController::admeshController(QObject *parent) :
     hiddenIcon = QIcon("://Resources/hide.svg");
     QSettings settings;
     history.setLimitSize(settings.value("sizeLimit", HISTORY_LIMIT).toInt());
-    allowFunctions();
     setDrawColor(settings.value("color",QColor(Qt::green)).value<QColor>(), settings.value("badColor",QColor(Qt::red)).value<QColor>());
 }
 
@@ -63,6 +62,26 @@ void admeshController::allowFunctions()
     else allowRedo(false);
 }
 
+void admeshController::allowSelectionFunctions()
+{
+    if(selectedCount()==1){
+        allowSave(true);
+        allowSaveAs(true);
+        allowExport(true);
+        allowClose(true);
+    }else if(selectedCount()>1){
+        allowSave(true);
+        allowSaveAs(false);
+        allowExport(false);
+        allowClose(true);
+    }else{
+        allowSave(false);
+        allowSaveAs(false);
+        allowExport(false);
+        allowClose(false);
+    }
+}
+
 void admeshController::pushHistory()
 {
     unsigned long size = 0;
@@ -73,6 +92,7 @@ void admeshController::pushHistory()
     }
     history.add(objectList, size);
     allowFunctions();
+    allowSelectionFunctions();
 }
 
 void admeshController::renewListView()
@@ -107,6 +127,9 @@ void admeshController::undo()
     if(selectedCount()>0)statusBar->setText(_("Status: Returned 1 step back in history."));
     reDrawSignal();
     allowFunctions();
+    allowSelectionFunctions();
+    if(count == 0) enableEdit(false);
+    else enableEdit(true);
 }
 
 void admeshController::redo()
@@ -120,6 +143,7 @@ void admeshController::redo()
     if(selectedCount()>0)statusBar->setText(_("Status: Returned 1 step forward in history."));
     reDrawSignal();
     allowFunctions();
+    allowSelectionFunctions();
 }
 
 void admeshController::drawAll(QGLShaderProgram *program)
@@ -219,6 +243,7 @@ void admeshController::setActiveByIndex(GLuint id)
         listView->selectionModel()->select( listModel->indexFromItem(item), QItemSelectionModel::Toggle );
     }
     reDrawSignal();
+    allowSelectionFunctions();
 }
 
 void admeshController::setAllActive()
@@ -228,6 +253,7 @@ void admeshController::setAllActive()
     }
     listView->selectAll();
     reDrawSignal();
+    allowSelectionFunctions();
 }
 
 void admeshController::setAllInactive()
@@ -239,6 +265,7 @@ void admeshController::setAllInactive()
         listView->clearSelection();
     }    
     reDrawSignal();
+    allowSelectionFunctions();
 }
 
 void admeshController::setAllInverseActive()
@@ -251,6 +278,7 @@ void admeshController::setAllInverseActive()
         }
     }
     reDrawSignal();
+    allowSelectionFunctions();
 }
 
 void admeshController::hide()
@@ -314,6 +342,7 @@ void admeshController::handleSelectionChanged(QModelIndex index)
         if(index.row() < count) objectList[index.row()]->toggleSelected();
     }
     reDrawSignal();
+    allowSelectionFunctions();
 }
 
 void admeshController::addItemToView(MeshObject* item){
@@ -450,12 +479,12 @@ void admeshController::openSTLbyName(const char* filename)
     reCalculatePosition();
     reDrawSignal();
     enableEdit(true);
+    allowSelectionFunctions();
 }
 
 void admeshController::closeSTL()
 {
     renewList();
-    pushHistory();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isSelected()){
             objectList.erase(objectList.begin() + i);
@@ -463,7 +492,7 @@ void admeshController::closeSTL()
             --i;
         }
     }
-
+    pushHistory();
     if(count == 1) objectList[0]->setSelected();
     else if(count == 0) enableEdit(false);
     renewListView();

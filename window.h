@@ -87,6 +87,30 @@ public slots:
      */
     void allowRedo(bool val);
 
+    /*!
+     * \brief Enable/disable Save based on value.
+     * \param val given value
+     */
+    void allowSave(bool val);
+
+    /*!
+     * \brief Enable/disable Save as based on value.
+     * \param val given value
+     */
+    void allowSaveAs(bool val);
+
+    /*!
+     * \brief Enable/disable Export based on value.
+     * \param val given value
+     */
+    void allowExport(bool val);
+
+    /*!
+     * \brief Enable/disable Close based on value.
+     * \param val given value
+     */
+    void allowClose(bool val);
+
 protected:
     /*!
      * \brief Reimplemented method. Handles key press.

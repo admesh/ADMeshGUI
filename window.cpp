@@ -27,6 +27,10 @@ Window::Window(QWidget *parent) :
     connect(controller, SIGNAL(scaleSignal(double)), ui->versorZBox,SLOT(setValue(double)));
     connect(controller, SIGNAL(allowUndo(bool)), this, SLOT(allowUndo(bool)));
     connect(controller, SIGNAL(allowRedo(bool)), this, SLOT(allowRedo(bool)));
+    connect(controller, SIGNAL(allowSave(bool)), this, SLOT(allowSave(bool)));
+    connect(controller, SIGNAL(allowSaveAs(bool)), this, SLOT(allowSaveAs(bool)));
+    connect(controller, SIGNAL(allowExport(bool)), this, SLOT(allowExport(bool)));
+    connect(controller, SIGNAL(allowClose(bool)), this, SLOT(allowClose(bool)));
     addActions();
     addMenus();
     addToolbars();
@@ -87,21 +91,25 @@ void Window::addActions(){
 
     saveAct = new QAction(_("&Save"), this);
     saveAct->setShortcuts(QKeySequence::Save);
+    saveAct->setEnabled(false);
     saveAct->setStatusTip(_("Save in default STL format"));
     connect(saveAct, SIGNAL(triggered()), controller, SLOT(save()));
 
     saveAsAct = new QAction(_("Save &as..."), this);
     saveAsAct->setShortcuts(QKeySequence::SaveAs);
+    saveAsAct->setEnabled(false);
     saveAsAct->setStatusTip(_("Save as ASCII or binary STL file"));
     connect(saveAsAct, SIGNAL(triggered()), controller, SLOT(saveAs()));
 
     exportAct = new QAction(_("&Export..."), this);
     exportAct->setShortcut(EXPORT_SHORTCUT);
+    exportAct->setEnabled(false);
     exportAct->setStatusTip(_("Export as OBJ, OFF, DXF or VRML"));
     connect(exportAct, SIGNAL(triggered()), controller, SLOT(exportSTL()));
 
     closeAct = new QAction(_("&Close"), this);
     closeAct->setShortcut(CLOSE_SHORTCUT);
+    closeAct->setEnabled(false);
     closeAct->setStatusTip(_("Close selected files"));
     connect(closeAct, SIGNAL(triggered()), controller, SLOT(closeSTL()));
 
@@ -376,6 +384,27 @@ void Window::allowRedo(bool val)
 {
     redoAct->setEnabled(val);
     redoButton->setIcon(QIcon::fromTheme("edit-redo", QIcon("://Resources/redo.svg")));
+}
+
+void Window::allowSave(bool val)
+{
+    saveAct->setEnabled(val);
+    saveButton->setIcon(QIcon::fromTheme("document-save", QIcon("://Resources/save.svg")));
+}
+
+void Window::allowSaveAs(bool val){
+    saveAsAct->setEnabled(val);
+}
+
+void Window::allowExport(bool val)
+{
+    exportAct->setEnabled(val);
+}
+
+void Window::allowClose(bool val)
+{
+    closeAct->setEnabled(val);
+    closeButton->setIcon(QIcon::fromTheme("window-close", QIcon("://Resources/close.svg")));
 }
 
 void Window::keyPressEvent(QKeyEvent *e)

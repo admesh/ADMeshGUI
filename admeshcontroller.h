@@ -113,6 +113,26 @@ signals:
      */
     void allowRedo(bool);
 
+    /*!
+     * \brief Sends signal to enable or disable Save in menu and in toolbar.
+     */
+    void allowSave(bool);
+
+    /*!
+     * \brief Sends signal to enable or disable Save as in menu.
+     */
+    void allowSaveAs(bool);
+
+    /*!
+     * \brief Sends signal to enable or disable Export in menu.
+     */
+    void allowExport(bool);
+
+    /*!
+     * \brief Sends signal to enable or disable Close in menu and in toolbar.
+     */
+    void allowClose(bool);
+
 public slots:
     /*!
      * \brief Handle selection in ListView.
@@ -454,6 +474,13 @@ private:
      * E.g. allow undo/redo.
      */
     void allowFunctions();
+
+    /*!
+     * \brief Allow use of selected actions based on selection.
+     *
+     * E.g. allow save as/export.
+     */
+    void allowSelectionFunctions();
 
     historyList history;    ///< History list
     QList <MeshObject*> objectList;  ///< List of currently drawn objects.
