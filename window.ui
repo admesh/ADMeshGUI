@@ -413,7 +413,7 @@ border-right: none;
          <item row="0" column="1">
           <widget class="QPushButton" name="unhideItemsButton">
            <property name="text">
-            <string>Unhide</string>
+            <string>Show</string>
            </property>
           </widget>
          </item>
