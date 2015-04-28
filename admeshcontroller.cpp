@@ -1012,10 +1012,12 @@ void admeshController::duplicate()
     renewList();
     int added = 0;
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-        MeshObject *duplicated = new MeshObject(*objectList[i]);
-        duplicated->setDuplicatedName();
-        objectList.push_back(duplicated);
-        added++;
+        if(objectList[i]->isActive()){
+            MeshObject *duplicated = new MeshObject(*objectList[i]);
+            duplicated->setDuplicatedName();
+            objectList.push_back(duplicated);
+            added++;
+        }
     }
     count += added;
     renewListView();
