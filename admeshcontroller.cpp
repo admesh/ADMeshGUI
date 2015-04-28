@@ -450,7 +450,8 @@ void admeshController::openSTL()
     }
     pushHistory();
     if(opened>0){
-        statusBar->setText(_("Status: File(s) opened"));
+
+        statusBar->setText(QString(ngettext("Status: %1 file opened", "Status: %1 files opened", opened)).arg(opened));
         reCalculatePosition();
         reDrawSignal();
         enableEdit(true);
@@ -475,7 +476,7 @@ void admeshController::openSTLbyName(const char* filename)
         pushHistory();
     }
     count++;
-    if(selectedCount()>0)statusBar->setText(_("Status: File(s) opened"));
+    if(selectedCount()>0)statusBar->setText(QString(ngettext("Status: %1 file opened", "Status: %1 files opened", selectedCount())).arg(selectedCount()));
     reCalculatePosition();
     reDrawSignal();
     enableEdit(true);
@@ -689,7 +690,8 @@ void admeshController::scale()
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->scale(versor);
         }
-        if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) scaled"));
+        int scaled = selectedCount();
+        if(scaled>0)statusBar->setText(QString(ngettext("Status: %1 mesh scaled", "Status: %1 meshes scaled", scaled)).arg(scaled));
         pushHistory();
         #ifdef QT_DEBUG
             cout << "Scale took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -707,7 +709,8 @@ void admeshController::mirrorXY()
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorXY();
     }
-    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XY plane"));
+    int mirrored = selectedCount();
+    if(mirrored>0)statusBar->setText(QString(ngettext("Status: %1 mesh mirrored along XY plane", "Status: %1 meshes mirrored along XY plane", mirrored)).arg(mirrored));
     pushHistory();
     #ifdef QT_DEBUG
         cout << "Mirror XY took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -724,7 +727,8 @@ void admeshController::mirrorYZ()
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorYZ();
     }
-    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along YZ plane"));
+    int mirrored = selectedCount();
+    if(mirrored>0)statusBar->setText(QString(ngettext("Status: %1 mesh mirrored along YZ plane", "Status: %1 meshes mirrored along YZ plane", mirrored)).arg(mirrored));
     pushHistory();
     #ifdef QT_DEBUG
         cout << "Mirror YZ took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -741,7 +745,8 @@ void admeshController::mirrorXZ()
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive())objectList[i]->mirrorXZ();
     }
-    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) mirrored along XZ plane"));
+    int mirrored = selectedCount();
+    if(mirrored>0)statusBar->setText(QString(ngettext("Status: %1 mesh mirrored along XZ plane", "Status: %1 meshes mirrored along XZ plane", mirrored)).arg(mirrored));
     pushHistory();
     #ifdef QT_DEBUG
         cout << "Mirror XZ took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -764,7 +769,8 @@ void admeshController::rotateX()
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->rotateX(rot);
         }
-        if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along X axis"));
+        int rotated = selectedCount();
+        if(rotated>0)statusBar->setText(QString(ngettext("Status: %1 mesh rotated along X axis", "Status: %1 meshes rotated along X axis", rotated)).arg(rotated));
         pushHistory();
         #ifdef QT_DEBUG
             cout << "Rotate X took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -783,7 +789,8 @@ void admeshController::rotateY()
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->rotateY(rot);
         }
-        if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Y axis"));
+        int rotated = selectedCount();
+        if(rotated>0)statusBar->setText(QString(ngettext("Status: %1 mesh rotated along Y axis", "Status: %1 meshes rotated along Y axis", rotated)).arg(rotated));
         pushHistory();
         #ifdef QT_DEBUG
             cout << "Rotate Y took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -802,7 +809,8 @@ void admeshController::rotateZ()
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->rotateZ(rot);
         }
-        if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) rotated along Z axis"));
+        int rotated = selectedCount();
+        if(rotated>0)statusBar->setText(QString(ngettext("Status: %1 mesh rotated along Z axis", "Status: %1 meshes rotated along Z axis", rotated)).arg(rotated));
         pushHistory();
         #ifdef QT_DEBUG
             cout << "Rotate Z took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -842,8 +850,9 @@ void admeshController::translate()
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
             if(objectList[i]->isActive())objectList[i]->translate(rel_translate, x_translate, y_translate, z_translate);
         }
-        if(selectedCount()>0 && rel_translate)statusBar->setText(_("Status: mesh(es) translated relatively to position"));
-        else if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) translated to origin"));
+        int translated = selectedCount();
+        if(translated>0 && rel_translate)statusBar->setText(QString(ngettext("Status: %1 mesh translated relatively to position", "Status: %1 meshes translated relatively to position", translated)).arg(translated));
+        else if(translated>0)statusBar->setText(QString(ngettext("Status: %1 mesh translated to origin", "Status: %1 meshes translated to origin", translated)).arg(translated));
         pushHistory();
         #ifdef QT_DEBUG
             cout << "Translate took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -944,7 +953,8 @@ void admeshController::repair()
                               normal_values_flag,
                               false);
     }
-    if(selectedCount()>0)statusBar->setText(_("Status: mesh(es) repaired"));
+    int repaired = selectedCount();
+    if(repaired>0)statusBar->setText(QString(ngettext("Status: %1 mesh repaired", "Status: %1 meshes repaired", repaired)).arg(repaired));
     pushHistory();
     #ifdef QT_DEBUG
         cout << "Repair took " << (clock()-start_time)/(double)CLOCKS_PER_SEC << "s" << endl;
@@ -1026,6 +1036,7 @@ void admeshController::split(){
     vector<stl_file*> result;
     int added = 0;
     renewList();
+    int orig = selectedCount();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive()){
             result = stl_split(objectList[i]->getStlPointer());
@@ -1043,7 +1054,7 @@ void admeshController::split(){
     }
     count += added;
     renewListView();
-    statusBar->setText(_("Status: mesh(es) split"));
+    statusBar->setText(QString(ngettext("Status: %1 mesh split", "Status: %1 meshes split", orig)).arg(orig));
     pushHistory();
     reDrawSignal();
 }
@@ -1052,6 +1063,7 @@ void admeshController::duplicate()
 {
     renewList();
     int added = 0;
+    int orig = selectedCount();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive()){
             MeshObject *duplicated = new MeshObject(*objectList[i]);
@@ -1062,7 +1074,7 @@ void admeshController::duplicate()
     }
     count += added;
     renewListView();
-    statusBar->setText(_("Status: mesh(es) duplicated"));
+    statusBar->setText(QString(ngettext("Status: %1 mesh duplicated", "Status: %1 meshes duplicated", orig)).arg(orig));
     pushHistory();
     reDrawSignal();
 }
