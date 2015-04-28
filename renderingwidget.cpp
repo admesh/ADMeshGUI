@@ -408,13 +408,13 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
         int dy = event->y() - lastPos.y();
 
         if(!mouseInverted){
-            angleY += dy;
-            if(angleY>180)angleX -= dx; //take care of opposite rotation upside down
-            else angleX +=dx;
-        }else{
             angleY -= dy;
             if(angleY>180)angleX += dx; //take care of opposite rotation upside down
             else angleX -=dx;
+        }else{
+            angleY += dy;
+            if(angleY>180)angleX -= dx; //take care of opposite rotation upside down
+            else angleX +=dx;
         }
 
         normalizeAngles();
@@ -426,11 +426,11 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
         int dy = (event->y() - lastTransPos.y());
 
         if(!mouseInverted){
-            xTrans -= (GLfloat)dx/3;
-            yTrans += (GLfloat)dy/3;
-        }else{
             xTrans += (GLfloat)dx/3;
             yTrans -= (GLfloat)dy/3;
+        }else{
+            xTrans -= (GLfloat)dx/3;
+            yTrans += (GLfloat)dy/3;
         }
         lastTransPos = event->pos();
     }
