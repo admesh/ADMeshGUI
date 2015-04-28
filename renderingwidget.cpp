@@ -284,8 +284,8 @@ void RenderingWidget::drawInfo(QPainter *painter)
     style += "</style>";
 
     QString text = style + controller->getInfo();
-    QTextStream(&text) << "<tr><td width=\"60%\" class=\"desc\">"<<_("Camera angleX:") <<"</td><td width=\"40%\">"<<angleX<<"</td></tr>" <<
-                          "<tr><td width=\"60%\" class=\"desc\">"<<_("Camera angleY:") <<"</td><td width=\"40%\">"<<angleY<<"</td></tr>";
+    QTextStream(&text) << "<tr><td width=\"60%\" class=\"desc\">"<<_("Camera angle X:") <<"</td><td width=\"40%\">"<<angleX<<"</td></tr>" <<
+                          "<tr><td width=\"60%\" class=\"desc\">"<<_("Camera angle Y:") <<"</td><td width=\"40%\">"<<angleY<<"</td></tr>";
     if(Grid) QTextStream(&text) << "<tr><td width=\"60%\" class=\"desc\">"<<_("Grid step:") <<"</td><td width=\"40%\">"<<gridStep<<"</td></tr></table>";
     else QTextStream(&text) << "</table>";
     QTextDocument* doc = new QTextDocument(this);
