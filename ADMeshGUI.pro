@@ -42,6 +42,7 @@ FORMS    += window.ui \
 LIBS += -ladmesh -lstlsplit
 macx {
     LIBS += -lintl
+    TARGET = ADMeshGUI
     ICON = Resources/admeshgui.icns
     QMAKE_INFO_PLIST = Info.plist
 }
