@@ -75,6 +75,18 @@ public slots:
      */
     void initProperties();
 
+    /*!
+     * \brief Enable/disable Undo based on value.
+     * \param val given value
+     */
+    void allowUndo(bool val);
+
+    /*!
+     * \brief Enable/disable Redo based on value.
+     * \param val given value
+     */
+    void allowRedo(bool val);
+
 protected:
     /*!
      * \brief Reimplemented method. Handles key press.

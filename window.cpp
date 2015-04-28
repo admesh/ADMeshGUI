@@ -25,6 +25,8 @@ Window::Window(QWidget *parent) :
     connect(controller, SIGNAL(scaleSignal(double)), ui->versorXBox,SLOT(setValue(double)));
     connect(controller, SIGNAL(scaleSignal(double)), ui->versorYBox,SLOT(setValue(double)));
     connect(controller, SIGNAL(scaleSignal(double)), ui->versorZBox,SLOT(setValue(double)));
+    connect(controller, SIGNAL(allowUndo(bool)), this, SLOT(allowUndo(bool)));
+    connect(controller, SIGNAL(allowRedo(bool)), this, SLOT(allowRedo(bool)));
     addActions();
     addMenus();
     addToolbars();
@@ -198,11 +200,13 @@ void Window::addActions(){
     undoAct = new QAction(_("&Undo"), this);
     undoAct->setShortcuts(QKeySequence::Undo);
     undoAct->setStatusTip(_("Undo last action"));
+    undoAct->setEnabled(false);
     connect(undoAct, SIGNAL(triggered()), controller, SLOT(undo()));
 
     redoAct = new QAction(_("&Redo"), this);
     redoAct->setShortcuts(QKeySequence::Redo);
     redoAct->setStatusTip(_("Redo last action"));
+    redoAct->setEnabled(false);
     connect(redoAct, SIGNAL(triggered()), controller, SLOT(redo()));
 
     propertiesAct = new QAction(_("&Properties..."), this);
@@ -276,7 +280,7 @@ void Window::addToolbars()
     toolBar->addWidget(saveButton);
 
     undoButton = new QToolButton();
-    undoButton->setDefaultAction(undoAct);
+    undoButton->setDefaultAction(undoAct);    
     undoButton->setIcon(QIcon::fromTheme("edit-undo", QIcon("://Resources/undo.svg")));
     undoButton->setFixedSize(35, 30);
     toolBar->addWidget(undoButton);
@@ -360,6 +364,18 @@ void Window::setColorScheme()
 void Window::toggleMouseInvert()
 {
     ui->renderingWidget->invertMouse();
+}
+
+void Window::allowUndo(bool val)
+{
+    undoAct->setEnabled(val);
+    undoButton->setIcon(QIcon::fromTheme("edit-undo", QIcon("://Resources/undo.svg")));
+}
+
+void Window::allowRedo(bool val)
+{
+    redoAct->setEnabled(val);
+    redoButton->setIcon(QIcon::fromTheme("edit-redo", QIcon("://Resources/redo.svg")));
 }
 
 void Window::keyPressEvent(QKeyEvent *e)

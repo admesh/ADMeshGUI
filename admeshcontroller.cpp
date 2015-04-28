@@ -39,6 +39,7 @@ admeshController::admeshController(QObject *parent) :
     hiddenIcon = QIcon("://Resources/hide.svg");
     QSettings settings;
     history.setLimitSize(settings.value("sizeLimit", HISTORY_LIMIT).toInt());
+    allowFunctions();
     setDrawColor(settings.value("color",QColor(Qt::green)).value<QColor>(), settings.value("badColor",QColor(Qt::red)).value<QColor>());
 }
 
@@ -54,6 +55,14 @@ void admeshController::setMode(int m)
     mode = m;
 }
 
+void admeshController::allowFunctions()
+{
+    if(history.hasUndos())allowUndo(true);
+    else allowUndo(false);
+    if(history.hasRedos())allowRedo(true);
+    else allowRedo(false);
+}
+
 void admeshController::pushHistory()
 {
     unsigned long size = 0;
@@ -63,6 +72,7 @@ void admeshController::pushHistory()
         }
     }
     history.add(objectList, size);
+    allowFunctions();
 }
 
 void admeshController::renewListView()
@@ -96,6 +106,7 @@ void admeshController::undo()
     }
     if(selectedCount()>0)statusBar->setText(_("Status: Returned 1 step back in history."));
     reDrawSignal();
+    allowFunctions();
 }
 
 void admeshController::redo()
@@ -108,6 +119,7 @@ void admeshController::redo()
     }
     if(selectedCount()>0)statusBar->setText(_("Status: Returned 1 step forward in history."));
     reDrawSignal();
+    allowFunctions();
 }
 
 void admeshController::drawAll(QGLShaderProgram *program)

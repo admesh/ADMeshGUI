@@ -77,6 +77,18 @@ public:
      * Counted references of MeshObjects taken into account.
      */
     void cutRedos();
+
+    /*!
+     * \brief Returns whether it is possible to perform Undo.
+     * \return true if list has item to be undone.
+     */
+    bool hasUndos();
+
+    /*!
+     * \brief Returns whether it is possible to perform Redo.
+     * \return true if list has item to be redone.
+     */
+    bool hasRedos();
 private:
     QList <QList <MeshObject*> > history;                     ///< Editation history list
     QList <QList <MeshObject*> >::size_type current_index;    ///< Current index position

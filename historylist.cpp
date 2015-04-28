@@ -101,3 +101,15 @@ void historyList::cutRedos()
         --max_index;
     }
 }
+
+bool historyList::hasUndos()
+{
+    if(current_index > 1) return true;
+    else return false;
+}
+
+bool historyList::hasRedos()
+{
+    if(max_index != current_index) return true;
+    else return false;
+}

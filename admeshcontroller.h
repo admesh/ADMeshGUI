@@ -103,6 +103,16 @@ signals:
      */
     void scaleSignal(double);
 
+    /*!
+     * \brief Sends signal to enable or disable Undo in menu and in toolbar.
+     */
+    void allowUndo(bool);
+
+    /*!
+     * \brief Sends signal to enable or disable Redo in menu and in toolbar.
+     */
+    void allowRedo(bool);
+
 public slots:
     /*!
      * \brief Handle selection in ListView.
@@ -437,6 +447,13 @@ private:
      * \param item Item to be processed.
      */
     void addItemToView(MeshObject* item);
+
+    /*!
+     * \brief Allow use of selected actions based on scene state.
+     *
+     * E.g. allow undo/redo.
+     */
+    void allowFunctions();
 
     historyList history;    ///< History list
     QList <MeshObject*> objectList;  ///< List of currently drawn objects.
