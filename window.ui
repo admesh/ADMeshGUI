@@ -405,6 +405,9 @@ border-right: none;
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="0" column="0">
           <widget class="QPushButton" name="hideItemsButton">
+           <property name="toolTip">
+            <string>Hide selected files</string>
+           </property>
            <property name="text">
             <string>Hide</string>
            </property>
@@ -412,6 +415,9 @@ border-right: none;
          </item>
          <item row="0" column="1">
           <widget class="QPushButton" name="unhideItemsButton">
+           <property name="toolTip">
+            <string>Show selected files if hidden</string>
+           </property>
            <property name="text">
             <string>Show</string>
            </property>
@@ -521,6 +527,18 @@ border-right: none;
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="toolTip">
+            <string>Only check for perfectly matched edges</string>
+           </property>
+           <property name="toolTipDuration">
+            <number>-1</number>
+           </property>
+           <property name="statusTip">
+            <string/>
+           </property>
+           <property name="whatsThis">
+            <string/>
+           </property>
            <property name="text">
             <string>Exact</string>
            </property>
@@ -528,6 +546,9 @@ border-right: none;
          </item>
          <item row="2" column="0">
           <widget class="QCheckBox" name="toleranceBox">
+           <property name="toolTip">
+            <string>Initial tolerance to use for nearby check</string>
+           </property>
            <property name="text">
             <string>Tolerance</string>
            </property>
@@ -545,6 +566,9 @@ border-right: none;
          </item>
          <item row="3" column="0">
           <widget class="QCheckBox" name="incrementBox">
+           <property name="toolTip">
+            <string>Amount to increment tolerance after iteration</string>
+           </property>
            <property name="text">
             <string>Increment</string>
            </property>
@@ -562,6 +586,9 @@ border-right: none;
          </item>
          <item row="4" column="0">
           <widget class="QCheckBox" name="nearbyBox">
+           <property name="toolTip">
+            <string>Find and connect nearby facets. Correct bad facets</string>
+           </property>
            <property name="text">
             <string>Nearby</string>
            </property>
@@ -569,6 +596,9 @@ border-right: none;
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="IterationsLabel">
+           <property name="toolTip">
+            <string>Number of iterations for nearby check</string>
+           </property>
            <property name="text">
             <string>Iterations: </string>
            </property>
@@ -598,6 +628,9 @@ border-right: none;
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="toolTip">
+            <string>Remove facets that have 0 neighbors</string>
+           </property>
            <property name="text">
             <string>Remove unconnected</string>
            </property>
@@ -607,6 +640,9 @@ border-right: none;
           <widget class="QCheckBox" name="fillholesBox">
            <property name="enabled">
             <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>Add facets to fill holes</string>
            </property>
            <property name="text">
             <string>Fill holes</string>
@@ -618,6 +654,9 @@ border-right: none;
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="toolTip">
+            <string>Check and fix direction of normals (ie. CW, CCW)</string>
+           </property>
            <property name="text">
             <string>Normal directions</string>
            </property>
@@ -627,6 +666,9 @@ border-right: none;
           <widget class="QCheckBox" name="normalValBox">
            <property name="enabled">
             <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>Check and fix normal values</string>
            </property>
            <property name="text">
             <string>Normal values</string>
@@ -658,6 +700,9 @@ border-right: none;
          </item>
          <item row="0" column="0" colspan="2">
           <widget class="QPushButton" name="reverseButton">
+           <property name="toolTip">
+            <string>Reverse the directions of all facets and normals</string>
+           </property>
            <property name="text">
             <string>Reverse all facets</string>
            </property>
@@ -687,6 +732,9 @@ border-right: none;
           <height>27</height>
          </rect>
         </property>
+        <property name="toolTip">
+         <string>Merge selected files into one</string>
+        </property>
         <property name="text">
          <string>Merge</string>
         </property>
@@ -700,6 +748,9 @@ border-right: none;
           <height>27</height>
          </rect>
         </property>
+        <property name="toolTip">
+         <string>Split selected files by shells</string>
+        </property>
         <property name="text">
          <string>Split</string>
         </property>
@@ -712,6 +763,9 @@ border-right: none;
           <width>81</width>
           <height>27</height>
          </rect>
+        </property>
+        <property name="toolTip">
+         <string>Duplicate selected files</string>
         </property>
         <property name="text">
          <string>Duplicate</string>
@@ -738,6 +792,9 @@ border-right: none;
           <width>102</width>
           <height>22</height>
          </rect>
+        </property>
+        <property name="toolTip">
+         <string>If set, scaling factors are changed all at once</string>
         </property>
         <property name="text">
          <string>Fixed ratio</string>
@@ -766,6 +823,9 @@ border-right: none;
           <width>70</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Scale selected objects by x, y, z factors</string>
         </property>
         <property name="text">
          <string>Scale</string>
@@ -847,6 +907,9 @@ border-right: none;
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Mirror about the xy plane</string>
+        </property>
         <property name="text">
          <string>XY</string>
         </property>
@@ -872,6 +935,9 @@ border-right: none;
           <height>0</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Mirror about the xz plane</string>
+        </property>
         <property name="text">
          <string>XZ</string>
         </property>
@@ -890,6 +956,9 @@ border-right: none;
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Mirror about the yz plane</string>
         </property>
         <property name="text">
          <string>YZ</string>
@@ -966,6 +1035,9 @@ border-right: none;
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string>Rotate CCW about x-axis by angle degrees</string>
+           </property>
            <property name="text">
             <string>X</string>
            </property>
@@ -979,6 +1051,9 @@ border-right: none;
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string>Rotate CCW about y-axis by angle degrees</string>
+           </property>
            <property name="text">
             <string>Y</string>
            </property>
@@ -991,6 +1066,9 @@ border-right: none;
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Rotate CCW about z-axis by angle degrees</string>
            </property>
            <property name="text">
             <string>Z</string>
@@ -1141,6 +1219,9 @@ border-right: none;
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string>Translate selected objects</string>
+           </property>
            <property name="text">
             <string>Translate</string>
            </property>
@@ -1165,6 +1246,9 @@ border-right: none;
              <width>16777215</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>If set, translate moves selected objects by given values, otherwise moves minimum x, y, and z values of each object to the specified position.</string>
            </property>
            <property name="layoutDirection">
             <enum>Qt::LeftToRight</enum>
