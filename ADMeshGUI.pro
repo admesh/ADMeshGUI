@@ -64,10 +64,14 @@ bin.files += admeshgui
 bin.path = /usr/bin
 mainico.files += Resources/admeshgui.svg
 mainico.path = /usr/share/icons/hicolor/scalable/apps
-suppico.files += Resources/admeshgui.png
-suppico.path = /usr/share/icons/hicolor/48x48/apps
+16ico.files += Resources/16x16/admeshgui.png
+16ico.path = /usr/share/icons/hicolor/16x16/apps
+32ico.files += Resources/32x32/admeshgui.png
+32ico.path = /usr/share/icons/hicolor/32x32/apps
+48ico.files += Resources/48x48/admeshgui.png
+48ico.path = /usr/share/icons/hicolor/48x48/apps
 desktop.files += admeshgui.desktop
 desktop.path = /usr/share/applications
-INSTALLS += bin desktop suppico mainico
+INSTALLS += bin desktop mainico 16ico 32ico 48ico
 
 
