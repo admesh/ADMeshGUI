@@ -1034,27 +1034,34 @@ void admeshController::merge()
 
 void admeshController::split(){
     vector<stl_file*> result;
-    int added = 0;
+    int added = 0, notSplit = 0, split=0;
     renewList();
-    int orig = selectedCount();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isActive()){
             result = stl_split(objectList[i]->getStlPointer());
-            for(vector<stl_file*>::size_type j = 0; j < result.size(); j++){
-                MeshObject* item = new MeshObject(result[j], objectList[i]->getName());
-                item->setSplitName((int)j);
-                objectList.push_back(item);
-                added++;
+            if(result.size()>1){
+                for(vector<stl_file*>::size_type j = 0; j < result.size(); j++){
+                    MeshObject* item = new MeshObject(result[j], objectList[i]->getName());
+                    item->setSplitName((int)j);
+                    objectList.push_back(item);
+                    added++;
+                }
+                delete objectList[i];
+                objectList.erase(objectList.begin() + i);
+                --count;
+                --i;
+                split++;
+            }else{
+                notSplit++;
             }
-            delete objectList[i];
-            objectList.erase(objectList.begin() + i);
-            --count;
-            --i;
         }
     }
     count += added;
     renewListView();
-    statusBar->setText(QString(ngettext("Status: %1 mesh split", "Status: %1 meshes split", orig)).arg(orig));
+    QString status = "Status: ";
+    if(split) status += QString(ngettext("%1 mesh split into %2 meshes. ", "%1 meshes split into %2 meshes. ", split)).arg(split).arg(added);
+    if(notSplit) status += QString(ngettext("%1 mesh contains only 1 shell and cannot be split", "%1 meshes contain only 1 shell and cannot be split", notSplit)).arg(notSplit);
+    statusBar->setText(status);
     pushHistory();
     reDrawSignal();
 }
