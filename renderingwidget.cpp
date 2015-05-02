@@ -370,10 +370,13 @@ void RenderingWidget::toggleShift()
 void RenderingWidget::wheelEvent(QWheelEvent* event)
 {
     float tmp = zoom;
+    float factor;
+    if(this->devicePixelRatio()>1) factor=1.1;
+    else factor = 1.25;
     if(event->delta()<0){
-        tmp *= 1.25;
+        tmp *= factor;
     }else{
-        tmp *= 0.8;
+        tmp *= 1/factor;
     }
     if(tmp > MIN_ZOOM && tmp < MAX_ZOOM){
         zoom = tmp;
