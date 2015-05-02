@@ -512,7 +512,7 @@ border-right: none;
           <x>0</x>
           <y>20</y>
           <width>181</width>
-          <height>321</height>
+          <height>301</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
@@ -685,8 +685,30 @@ border-right: none;
            </property>
           </widget>
          </item>
+         <item row="0" column="0" colspan="2">
+          <widget class="QPushButton" name="reverseButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Reverse the directions of all facets and normals</string>
+           </property>
+           <property name="text">
+            <string>Reverse all facets</string>
+           </property>
+          </widget>
+         </item>
          <item row="11" column="0" colspan="2">
           <widget class="QPushButton" name="repairButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -695,16 +717,6 @@ border-right: none;
            </property>
            <property name="text">
             <string>REPAIR</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QPushButton" name="reverseButton">
-           <property name="toolTip">
-            <string>Reverse the directions of all facets and normals</string>
-           </property>
-           <property name="text">
-            <string>Reverse all facets</string>
            </property>
           </widget>
          </item>
@@ -732,6 +744,12 @@ border-right: none;
           <height>27</height>
          </rect>
         </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip">
          <string>Merge selected files into one</string>
         </property>
@@ -748,6 +766,12 @@ border-right: none;
           <height>27</height>
          </rect>
         </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip">
          <string>Split selected files by shells</string>
         </property>
@@ -763,6 +787,12 @@ border-right: none;
           <width>81</width>
           <height>27</height>
          </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
         <property name="toolTip">
          <string>Duplicate selected files</string>
@@ -1030,7 +1060,7 @@ border-right: none;
          <item>
           <widget class="QPushButton" name="rotateXButton">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -1046,7 +1076,7 @@ border-right: none;
          <item>
           <widget class="QPushButton" name="rotateYButton">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -1062,7 +1092,7 @@ border-right: none;
          <item>
           <widget class="QPushButton" name="rotateZButton">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -1093,8 +1123,8 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>20</y>
+          <x>1</x>
+          <y>21</y>
           <width>181</width>
           <height>117</height>
          </rect>
@@ -1211,22 +1241,6 @@ border-right: none;
            </property>
           </widget>
          </item>
-         <item row="0" column="2" rowspan="3">
-          <widget class="QPushButton" name="translateButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Translate selected objects</string>
-           </property>
-           <property name="text">
-            <string>Translate</string>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="0" colspan="3">
           <widget class="QCheckBox" name="translateRelBox">
            <property name="sizePolicy">
@@ -1264,6 +1278,22 @@ border-right: none;
            </property>
            <property name="tristate">
             <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" rowspan="3">
+          <widget class="QPushButton" name="translateButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Translate selected objects</string>
+           </property>
+           <property name="text">
+            <string>Translate</string>
            </property>
           </widget>
          </item>
