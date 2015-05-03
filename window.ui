@@ -1135,8 +1135,8 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>1</x>
-          <y>21</y>
+          <x>0</x>
+          <y>20</y>
           <width>181</width>
           <height>101</height>
          </rect>
@@ -1179,7 +1179,7 @@ border-right: none;
             </size>
            </property>
            <property name="decimals">
-            <number>1</number>
+            <number>4</number>
            </property>
            <property name="minimum">
             <double>-1000.000000000000000</double>
@@ -1217,7 +1217,7 @@ border-right: none;
             </sizepolicy>
            </property>
            <property name="decimals">
-            <number>1</number>
+            <number>4</number>
            </property>
            <property name="minimum">
             <double>-1000.000000000000000</double>
@@ -1255,7 +1255,7 @@ border-right: none;
             </sizepolicy>
            </property>
            <property name="decimals">
-            <number>1</number>
+            <number>4</number>
            </property>
            <property name="minimum">
             <double>-1000.000000000000000</double>
