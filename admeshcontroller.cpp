@@ -144,6 +144,8 @@ void admeshController::redo()
     reDrawSignal();
     allowFunctions();
     allowSelectionFunctions();
+    if(count == 0) enableEdit(false);
+    else enableEdit(true);
 }
 
 void admeshController::drawAll(QGLShaderProgram *program)
