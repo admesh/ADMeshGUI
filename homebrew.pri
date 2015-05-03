@@ -1,5 +1,5 @@
-packagesExist(brew) {
-    BREW_PREFIX = $$system(brew --prefix)
+BREW_PREFIX = $$system(brew --prefix 2> /dev/null)
+!isEmpty(BREW_PREFIX){
     exists($$BREW_PREFIX/opt/admesh/lib/*){
         QMAKE_CXXFLAGS += -I/usr/local/opt/admesh/include
         LIBS += -L/usr/local/opt/admesh/lib
@@ -13,4 +13,3 @@ packagesExist(brew) {
         LIBS += -L/usr/local/opt/gettext/lib
     }
 }
-
