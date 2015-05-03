@@ -218,7 +218,8 @@ void Window::addActions(){
     connect(redoAct, SIGNAL(triggered()), controller, SLOT(redo()));
 
     propertiesAct = new QAction(_("&Properties..."), this);
-    propertiesAct->setShortcut(PROPERTIES_SHORTCUT);
+    if(!QKeySequence(QKeySequence::Preferences).isEmpty())propertiesAct->setShortcut(QKeySequence::Preferences); // Check for Mac defined shortcut
+    else propertiesAct->setShortcut(PROPERTIES_SHORTCUT);
     propertiesAct->setStatusTip(_("Properties dialog"));
     connect(propertiesAct, SIGNAL(triggered()), this, SLOT(initProperties()));
 }
