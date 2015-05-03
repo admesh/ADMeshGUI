@@ -46,6 +46,7 @@ macx {
     TARGET = ADMeshGUI
     ICON = Resources/admeshgui.icns
     QMAKE_INFO_PLIST = Info.plist
+    include(homebrew.pri)
 }
 
 DISTFILES += \
@@ -59,7 +60,8 @@ RESOURCES += \
 OTHER_FILES += \
     picking_vshader.glsl \
     picking_fshader.glsl \
-    Info.plist
+    Info.plist \
+    homebrew.pri
 
 bin.files += admeshgui
 bin.path = /usr/bin
