@@ -404,7 +404,7 @@ border-right: none;
        <item>
         <layout class="QGridLayout" name="gridLayout_5">
          <property name="horizontalSpacing">
-          <number>0</number>
+          <number>3</number>
          </property>
          <item row="0" column="0">
           <widget class="QPushButton" name="hideItemsButton">
@@ -747,14 +747,17 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>22</y>
-          <width>181</width>
+          <x>1</x>
+          <y>24</y>
+          <width>178</width>
           <height>61</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_6">
-         <property name="spacing">
+         <property name="horizontalSpacing">
+          <number>3</number>
+         </property>
+         <property name="verticalSpacing">
           <number>0</number>
          </property>
          <item row="0" column="0">
@@ -807,10 +810,6 @@ border-right: none;
          </item>
         </layout>
        </widget>
-       <zorder>mergeButton</zorder>
-       <zorder>splitButton</zorder>
-       <zorder>duplicateButton</zorder>
-       <zorder>repairBox</zorder>
       </widget>
       <widget class="QGroupBox" name="scaleBox">
        <property name="geometry">
@@ -871,53 +870,53 @@ border-right: none;
          <string>Scale</string>
         </property>
        </widget>
-       <widget class="QDoubleSpinBox" name="versorYBox">
+       <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>61</x>
-          <y>21</y>
-          <width>60</width>
-          <height>25</height>
+          <x>0</x>
+          <y>20</y>
+          <width>181</width>
+          <height>27</height>
          </rect>
         </property>
-        <property name="singleStep">
-         <double>0.500000000000000</double>
-        </property>
-        <property name="value">
-         <double>1.000000000000000</double>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="versorZBox">
-        <property name="geometry">
-         <rect>
-          <x>121</x>
-          <y>21</y>
-          <width>59</width>
-          <height>25</height>
-         </rect>
-        </property>
-        <property name="singleStep">
-         <double>0.500000000000000</double>
-        </property>
-        <property name="value">
-         <double>1.000000000000000</double>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="versorXBox">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>21</y>
-          <width>60</width>
-          <height>25</height>
-         </rect>
-        </property>
-        <property name="singleStep">
-         <double>0.500000000000000</double>
-        </property>
-        <property name="value">
-         <double>1.000000000000000</double>
-        </property>
+        <layout class="QGridLayout" name="gridLayout_9">
+         <property name="horizontalSpacing">
+          <number>3</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QDoubleSpinBox" name="versorXBox">
+           <property name="singleStep">
+            <double>0.500000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QDoubleSpinBox" name="versorYBox">
+           <property name="singleStep">
+            <double>0.500000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QDoubleSpinBox" name="versorZBox">
+           <property name="singleStep">
+            <double>0.500000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
       <widget class="QGroupBox" name="mirrorBox">
@@ -932,77 +931,77 @@ border-right: none;
        <property name="title">
         <string>Mirror</string>
        </property>
-       <widget class="QPushButton" name="mirrorxyButton">
+       <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>121</x>
-          <y>21</y>
-          <width>59</width>
-          <height>27</height>
+          <x>0</x>
+          <y>20</y>
+          <width>181</width>
+          <height>29</height>
          </rect>
         </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Mirror about the xy plane</string>
-        </property>
-        <property name="text">
-         <string>XY</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="mirrorxzButton">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>21</y>
-          <width>60</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Mirror about the xz plane</string>
-        </property>
-        <property name="text">
-         <string>XZ</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="mirroryzButton">
-        <property name="geometry">
-         <rect>
-          <x>61</x>
-          <y>21</y>
-          <width>60</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Mirror about the yz plane</string>
-        </property>
-        <property name="text">
-         <string>YZ</string>
-        </property>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <property name="horizontalSpacing">
+          <number>3</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="mirrorxzButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Mirror about the xz plane</string>
+           </property>
+           <property name="text">
+            <string>XZ</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="mirroryzButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Mirror about the yz plane</string>
+           </property>
+           <property name="text">
+            <string>YZ</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="mirrorxyButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Mirror about the xy plane</string>
+           </property>
+           <property name="text">
+            <string>XY</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
       <widget class="QGroupBox" name="rotateBox">
@@ -1033,7 +1032,10 @@ border-right: none;
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_7">
-         <property name="spacing">
+         <property name="horizontalSpacing">
+          <number>3</number>
+         </property>
+         <property name="verticalSpacing">
           <number>0</number>
          </property>
          <item row="1" column="0">
@@ -1133,8 +1135,8 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>20</y>
+          <x>1</x>
+          <y>21</y>
           <width>181</width>
           <height>101</height>
          </rect>
@@ -1263,22 +1265,6 @@ border-right: none;
            </property>
           </widget>
          </item>
-         <item row="0" column="2" rowspan="3">
-          <widget class="QPushButton" name="translateButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Translate selected objects</string>
-           </property>
-           <property name="text">
-            <string>Translate</string>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="0" colspan="3">
           <widget class="QCheckBox" name="translateRelBox">
            <property name="sizePolicy">
@@ -1319,11 +1305,24 @@ border-right: none;
            </property>
           </widget>
          </item>
+         <item row="0" column="2" rowspan="3">
+          <widget class="QPushButton" name="translateButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Translate selected objects</string>
+           </property>
+           <property name="text">
+            <string>Translate</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
-       <zorder>layoutWidget</zorder>
-       <zorder>groupBox</zorder>
-       <zorder>groupBox</zorder>
       </widget>
      </widget>
     </widget>
