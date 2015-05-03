@@ -5,6 +5,7 @@
 
 #include "window.h"
 #include "data.h"
+#include "admeshEventFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +22,11 @@ int main(int argc, char *argv[])
     QSurfaceFormat::setDefaultFormat(format);
 
     Window window;
+
+#ifdef Q_OS_MAC
+    app.installEventFilter(new admeshEventFilter(&app, &window));
+#endif
+
     window.setWindowIcon(QIcon::fromTheme("admeshgui", QIcon("://Resources/admeshgui.svg")));
     window.resize(window.sizeHint());
     int desktopArea = QApplication::desktop()->width() *

@@ -34,7 +34,8 @@ HEADERS  += window.h \
     admeshcontroller.h \
     meshobject.h \
     historylist.h \
-    propertiesdialog.h
+    propertiesdialog.h \
+    admeshEventFilter.h
 
 FORMS    += window.ui \
     propertiesdialog.ui
