@@ -24,6 +24,7 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+.qmake.stash
 
 # Icon must end with two \r
 Icon
@@ -55,3 +56,4 @@ ui_window.h
 ui_propertiesdialog.h
 qrc_shaders.cpp
 qrc_Resources.cpp
+ADMeshGUI.app
