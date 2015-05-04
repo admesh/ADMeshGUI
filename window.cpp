@@ -217,10 +217,9 @@ void Window::addActions(){
     redoAct->setEnabled(false);
     connect(redoAct, SIGNAL(triggered()), controller, SLOT(redo()));
 
-    propertiesAct = new QAction(_("&Properties..."), this);
-    if(!QKeySequence(QKeySequence::Preferences).isEmpty())propertiesAct->setShortcut(QKeySequence::Preferences); // Check for Mac defined shortcut
-    else propertiesAct->setShortcut(PROPERTIES_SHORTCUT);
-    propertiesAct->setStatusTip(_("Properties dialog"));
+    propertiesAct = new QAction(_("&Preferences..."), this);
+    propertiesAct->setShortcut(PROPERTIES_SHORTCUT);
+    propertiesAct->setStatusTip(_("Preferences dialog"));
     connect(propertiesAct, SIGNAL(triggered()), this, SLOT(initProperties()));
 }
 
@@ -245,7 +244,6 @@ void Window::addMenus(){
     editMenu->addSeparator();
     editMenu->addAction(selectAllAct);
     editMenu->addAction(selectInverseAct);
-    editMenu->addSeparator();
     editMenu->addAction(propertiesAct);
     menu_bar->addAction(editMenu->menuAction());
     viewMenu = new QMenu(_("&View"));
