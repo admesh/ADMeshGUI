@@ -244,6 +244,9 @@ void Window::addMenus(){
     editMenu->addSeparator();
     editMenu->addAction(selectAllAct);
     editMenu->addAction(selectInverseAct);
+#ifndef Q_OS_MAC
+    editMenu->addSeparator();
+#endif
     editMenu->addAction(propertiesAct);
     menu_bar->addAction(editMenu->menuAction());
     viewMenu = new QMenu(_("&View"));
