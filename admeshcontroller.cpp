@@ -307,6 +307,8 @@ void admeshController::unhide()
         }
     }
     reDrawSignal();
+    allowFunctions();
+    allowSelectionFunctions();
 }
 
 void admeshController::unhideAll()
