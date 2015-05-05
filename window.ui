@@ -839,7 +839,7 @@ border-right: none;
          <string>Fixed ratio</string>
         </property>
         <property name="checked">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
        <widget class="QPushButton" name="scaleButton">

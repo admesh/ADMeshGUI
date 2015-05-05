@@ -15,7 +15,7 @@ admeshController::admeshController(QObject *parent) :
     versor[0] = 1.0;
     versor[1] = 1.0;
     versor[2] = 1.0;
-    useVersor = false;
+    useVersor = true;
     rot = 0.0;
     x_translate = 0.0;
     y_translate = 0.0;
@@ -403,9 +403,9 @@ QString admeshController::getInfo()
                 backward += arr[12];
                 normals_fixed += arr[13];
                 volume += arr[14];
-                if(arr[15]>sizex)sizex = arr[3];
-                if(arr[16]>sizey)sizey = arr[4];
-                if(arr[17]>sizez)sizez = arr[5];
+                if(arr[15]>sizex)sizex = arr[15];
+                if(arr[16]>sizey)sizey = arr[16];
+                if(arr[17]>sizez)sizez = arr[17];
             }
             objects++;
             delete []arr;
