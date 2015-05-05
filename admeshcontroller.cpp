@@ -97,8 +97,8 @@ void admeshController::pushHistory()
 
 void admeshController::renewListView()
 {
-    listModel->removeRows(0,listModel->rowCount());
-    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+    listModel->clear();
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){        
         addItemToView(objectList[i]);
     }
 }
@@ -219,12 +219,14 @@ void admeshController::drawPicking(QGLShaderProgram *program)
 {
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-        int index = (int)i;
-        float b = (float)(index%255)/255;
-        float g = (float)((index/255)%255)/255;
-        float r = (float)((index/(255*255))%255)/255;
-        program->setUniformValue("color", QVector3D(r,g,b));
-        objectList[i]->drawGeometry(program);
+        if(!objectList[i]->isHidden()){
+            int index = (int)i;
+            float b = (float)(index%255)/255;
+            float g = (float)((index/255)%255)/255;
+            float r = (float)((index/(255*255))%255)/255;
+            program->setUniformValue("color", QVector3D(r,g,b));
+            objectList[i]->drawGeometry(program);
+        }
     }
 }
 
@@ -238,9 +240,8 @@ int admeshController::selectedCount()
 }
 
 void admeshController::setActiveByIndex(GLuint id)
-{
+{    
     if((id<ITEMS_LIMIT && count > 1) || (id<ITEMS_LIMIT && count == 1 && !objectList[id]->isActive())) {
-        objectList[id]->toggleSelected();
         QStandardItem *item = listModel->item(id);
         listView->selectionModel()->select( listModel->indexFromItem(item), QItemSelectionModel::Toggle );
     }
@@ -250,9 +251,6 @@ void admeshController::setActiveByIndex(GLuint id)
 
 void admeshController::setAllActive()
 {
-    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-        objectList[i]->setSelected();
-    }
     listView->selectAll();
     reDrawSignal();
     allowSelectionFunctions();
@@ -261,9 +259,6 @@ void admeshController::setAllActive()
 void admeshController::setAllInactive()
 {
     if(count > 1){
-        for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-            objectList[i]->setDeselected();
-        }
         listView->clearSelection();
     }    
     reDrawSignal();
@@ -274,7 +269,6 @@ void admeshController::setAllInverseActive()
 {
     if(count > 1){
         for(QList<MeshObject*>::size_type i = 0; i < count;i++){
-            objectList[i]->toggleSelected();
             QStandardItem *item = listModel->item(i);
             listView->selectionModel()->select( listModel->indexFromItem(item), QItemSelectionModel::Toggle );
         }
@@ -337,13 +331,16 @@ void admeshController::addUIItems(QLabel *l,QListView *v)
     listModel = new QStandardItemModel();
 
     listView->setModel(listModel);
-    connect(listView,SIGNAL(pressed(QModelIndex)),this,SLOT(handleSelectionChanged(QModelIndex)));
+    connect(listView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(handleSelectionChanged(QItemSelection, QItemSelection)));
 }
 
-void admeshController::handleSelectionChanged(QModelIndex index)
+void admeshController::handleSelectionChanged(QItemSelection selection, QItemSelection deselection)
 {
-    if(QApplication::mouseButtons() == Qt::LeftButton){
-        if(index.row() < count) objectList[index.row()]->toggleSelected();
+    foreach(QModelIndex index, selection.indexes()){
+        if(index.row() < count) objectList[index.row()]->setSelected();
+    }
+    foreach(QModelIndex index, deselection.indexes()){
+        if(index.row() < count) objectList[index.row()]->setDeselected();
     }
     reDrawSignal();
     allowSelectionFunctions();

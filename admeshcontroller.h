@@ -141,7 +141,7 @@ public slots:
      *
      * \param modelindex index of item to change.
      */
-    void handleSelectionChanged(QModelIndex modelindex);
+    void handleSelectionChanged(QItemSelection selection, QItemSelection deselection);
 
     /*!
      * \brief Set rendering mode.
