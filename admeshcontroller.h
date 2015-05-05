@@ -351,6 +351,11 @@ public slots:
     void center();
 
     /*!
+     * \brief Snap selected model to zero Z coordinate.
+     */
+    void snapZ();
+
+    /*!
      * \brief Reverse all facets orientation of selected models.
      */
     void reverseAll();

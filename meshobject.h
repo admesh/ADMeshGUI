@@ -179,6 +179,11 @@ public:
     void center();
 
     /*!
+     * \brief Snap stl file to zero Z coordinate.
+     */
+    void snapZ();
+
+    /*!
      * \brief Reverse all facets orientation.
      */
     void reverseAll();

@@ -293,6 +293,15 @@ void MeshObject::center()
     saved = false;
 }
 
+void MeshObject::snapZ()
+{
+    float minX = stl->stats.min.x;
+    float minY = stl->stats.min.y;
+    stl_translate(stl, minX, minY, 0.0);
+    this->updateGeometry();
+    saved = false;
+}
+
 void MeshObject::reverseAll()
 {
     stl_reverse_all_facets(stl);

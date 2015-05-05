@@ -878,6 +878,17 @@ void admeshController::center()
     pushHistory();
 }
 
+void admeshController::snapZ()
+{
+    renewList();
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isActive())objectList[i]->snapZ();
+    }
+    int snapped = selectedCount();
+    statusBar->setText(QString(ngettext("Status: %1 mesh snapped to Z", "Status: %1 meshes snapped to Z", snapped)).arg(snapped));
+    pushHistory();
+}
+
 void admeshController::reverseAll()
 {
     renewList();
