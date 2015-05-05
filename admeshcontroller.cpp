@@ -502,6 +502,8 @@ void admeshController::closeSTL()
     else if(count == 0) enableEdit(false);
     renewListView();
     reDrawSignal();
+    allowFunctions();
+    allowSelectionFunctions();
 }
 
 void admeshController::saveAs()
