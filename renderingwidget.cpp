@@ -443,6 +443,8 @@ void RenderingWidget::mouseMoveEvent(QMouseEvent *event)
 }
 
 void RenderingWidget::initAxes(){
+    GLfloat val = 0.5;
+    if(this->devicePixelRatio()>1) val = 1.5f;
     GLfloat vertices[]={
        AXIS_SIZE, 0.0 , 0.0,    //Main axes
        1.0, 1.0, 1.0,
@@ -468,15 +470,15 @@ void RenderingWidget::initAxes(){
         1.0, 1.0, 1.0,
         0.0, 0.0, -AXIS_SIZE,
         1.0, 1.0, 1.0,           //Small corner axes
-       0.5, -0.5 , -0.5, //x
+       val, -0.5 , -0.5, //x
        1.0, 1.0, 1.0,
        -0.5, -0.5, -0.5,
        1.0, 1.0, 1.0,
        -0.5, -0.5, -0.5, //y
        1.0, 1.0, 1.0,
-       -0.5, 0.5, -0.5,
+       -0.5, val, -0.5,
        1.0, 1.0, 1.0,
-       -0.5, -0.5, 0.5, //z
+       -0.5, -0.5, val, //z
        1.0, 1.0, 1.0,
        -0.5, -0.5, -0.5,
        1.0, 1.0, 1.0,
