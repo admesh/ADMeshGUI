@@ -52,6 +52,7 @@ Window::Window(QWidget *parent) :
     connect(ui->translateZBox, SIGNAL(valueChanged(double)), controller, SLOT(setZTranslate(double)));
     connect(ui->translateRelBox, SIGNAL(stateChanged(int)), controller, SLOT(setRelativeTranslate()));
     connect(ui->translateButton, SIGNAL(clicked()), controller, SLOT(translate()));
+    connect(ui->centerButton, SIGNAL(clicked()), controller, SLOT(center()));
     connect(ui->mergeButton, SIGNAL(clicked()), controller, SLOT(merge()));
     connect(ui->splitButton, SIGNAL(clicked()), controller, SLOT(split()));
     connect(ui->duplicateButton, SIGNAL(clicked()), controller, SLOT(duplicate()));

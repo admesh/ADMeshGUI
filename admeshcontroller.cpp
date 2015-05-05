@@ -1,4 +1,4 @@
-﻿// (c) 2015 David Vyvlečka, AGPLv3
+// (c) 2015 David Vyvlečka, AGPLv3
 
 #include "admeshcontroller.h"
 #include <QFileDialog>
@@ -865,6 +865,17 @@ void admeshController::translate()
         #endif
     }
     reDrawSignal();
+}
+
+void admeshController::center()
+{
+    renewList();
+    for(QList<MeshObject*>::size_type i = 0; i < count;i++){
+        if(objectList[i]->isActive())objectList[i]->center();
+    }
+    int centered = selectedCount();
+    statusBar->setText(QString(ngettext("Status: %1 mesh centered", "Status: %1 meshes centered", centered)).arg(centered));
+    pushHistory();
 }
 
 void admeshController::reverseAll()

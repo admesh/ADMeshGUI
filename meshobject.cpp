@@ -283,6 +283,16 @@ void MeshObject::translate(bool relative, float x_trans, float y_trans, float z_
     saved = false;
 }
 
+void MeshObject::center()
+{
+    float xHalfSize = stl->stats.size.x / 2;
+    float yHalfSize = stl->stats.size.y / 2;
+    float zHalfSize = stl->stats.size.z / 2;
+    stl_translate(stl, -xHalfSize, -yHalfSize, -zHalfSize);
+    this->updateGeometry();
+    saved = false;
+}
+
 void MeshObject::reverseAll()
 {
     stl_reverse_all_facets(stl);

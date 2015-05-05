@@ -174,6 +174,11 @@ public:
     void translate(bool relative, float x_trans, float y_trans, float z_trans);
 
     /*!
+     * \brief Translate stl file to be centered around origin.
+     */
+    void center();
+
+    /*!
      * \brief Reverse all facets orientation.
      */
     void reverseAll();

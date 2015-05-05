@@ -346,6 +346,11 @@ public slots:
     void translate();
 
     /*!
+     * \brief Translate selected model to be centered around origin.
+     */
+    void center();
+
+    /*!
      * \brief Reverse all facets orientation of selected models.
      */
     void reverseAll();
