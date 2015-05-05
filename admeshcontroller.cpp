@@ -882,6 +882,7 @@ void admeshController::center()
     int centered = selectedCount();
     statusBar->setText(QString(ngettext("Status: %1 mesh centered", "Status: %1 meshes centered", centered)).arg(centered));
     pushHistory();
+    reDrawSignal();
 }
 
 void admeshController::snapZ()
@@ -893,6 +894,7 @@ void admeshController::snapZ()
     int snapped = selectedCount();
     statusBar->setText(QString(ngettext("Status: %1 mesh snapped to Z", "Status: %1 meshes snapped to Z", snapped)).arg(snapped));
     pushHistory();
+    reDrawSignal();
 }
 
 void admeshController::reverseAll()
