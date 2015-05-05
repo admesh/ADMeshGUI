@@ -383,9 +383,6 @@ QString admeshController::getInfo()
                 backward = arr[12];
                 normals_fixed = arr[13];
                 volume = arr[14];
-                sizex = arr[15];
-                sizey = arr[16];
-                sizez = arr[17];
                 initialized = true;
             }else{
                 if(arr[0]<minx)minx = arr[0];
@@ -403,13 +400,13 @@ QString admeshController::getInfo()
                 backward += arr[12];
                 normals_fixed += arr[13];
                 volume += arr[14];
-                if(arr[15]>sizex)sizex = arr[15];
-                if(arr[16]>sizey)sizey = arr[16];
-                if(arr[17]>sizez)sizez = arr[17];
             }
             objects++;
             delete []arr;
         }
+        sizex = maxx - minx;
+        sizey = maxy - miny;
+        sizez = maxz - minz;
     }
     if(initialized){
         QTextStream(&text) << "<tr><td width=\"60%\" class=\"desc\">"<<_("Objects selected:")<<"</td><td width=\"40%\">"<<objects<<"</td></tr>" <<
