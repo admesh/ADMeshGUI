@@ -199,7 +199,7 @@ float MeshObject::getDiameter()
 
 float* MeshObject::getInfo()
 {
-    float *arr = new float[15];
+    float *arr = new float[18];
     arr[0] = stl->stats.min.x;
     arr[1] = stl->stats.min.y;
     arr[2] = stl->stats.min.z;
@@ -215,6 +215,9 @@ float* MeshObject::getInfo()
     arr[12] = (float)stl->stats.backwards_edges;
     arr[13] = (float)stl->stats.normals_fixed;
     arr[14] = stl->stats.volume;
+    arr[15] = stl->stats.size.x;
+    arr[16] = stl->stats.size.y;
+    arr[17] = stl->stats.size.z;
     return arr;
 }
 

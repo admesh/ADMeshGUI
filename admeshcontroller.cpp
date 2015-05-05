@@ -362,8 +362,8 @@ void admeshController::addItemToView(MeshObject* item){
 QString admeshController::getInfo()
 {
     QString text = "<table>";
-    float minx, miny, minz, maxx, maxy, maxz, num_facets, deg_facets, edges_fixed, facets_removed, facet_sadded, facets_reversed, backward, normals_fixed, volume;
-    minx = miny = minz = maxx = maxy = maxz = num_facets = deg_facets = edges_fixed = facets_removed = facet_sadded = facets_reversed = backward = normals_fixed = volume = 0;
+    float minx, miny, minz, maxx, maxy, maxz, sizex, sizey, sizez, num_facets, deg_facets, edges_fixed, facets_removed, facet_sadded, facets_reversed, backward, normals_fixed, volume;
+    minx = miny = minz = maxx = maxy = maxz = sizex = sizey = sizez = num_facets = deg_facets = edges_fixed = facets_removed = facet_sadded = facets_reversed = backward = normals_fixed = volume = 0;
     int objects = 0;
     bool initialized = false;
     float* arr;
@@ -386,6 +386,9 @@ QString admeshController::getInfo()
                 backward = arr[12];
                 normals_fixed = arr[13];
                 volume = arr[14];
+                sizex = arr[15];
+                sizey = arr[16];
+                sizez = arr[17];
                 initialized = true;
             }else{
                 if(arr[0]<minx)minx = arr[0];
@@ -393,7 +396,7 @@ QString admeshController::getInfo()
                 if(arr[2]<minz)minz = arr[2];
                 if(arr[3]>maxx)maxx = arr[3];
                 if(arr[4]>maxy)maxy = arr[4];
-                if(arr[5]>maxz)maxz = arr[5];
+                if(arr[5]>maxz)maxz = arr[5];               
                 num_facets += arr[6];
                 deg_facets += arr[7];
                 edges_fixed += arr[8];
@@ -403,6 +406,9 @@ QString admeshController::getInfo()
                 backward += arr[12];
                 normals_fixed += arr[13];
                 volume += arr[14];
+                if(arr[15]>sizex)sizex = arr[3];
+                if(arr[16]>sizey)sizey = arr[4];
+                if(arr[17]>sizez)sizez = arr[5];
             }
             objects++;
             delete []arr;
@@ -411,11 +417,14 @@ QString admeshController::getInfo()
     if(initialized){
         QTextStream(&text) << "<tr><td width=\"60%\" class=\"desc\">"<<_("Objects selected:")<<"</td><td width=\"40%\">"<<objects<<"</td></tr>" <<
                               "<tr><td width=\"60%\" class=\"desc\">"<<_("Min X:")<<"</td><td width=\"40%\">"<<minx<<"</td></tr>" <<
-                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Min Y:")<<"</td><td width=\"40%\">"<<miny<<"</td></tr>" <<
-                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Min Z:")<<"</td><td width=\"40%\">"<<minz<<"</td></tr>" <<
                               "<tr><td width=\"60%\" class=\"desc\">"<<_("Max X:")<<"</td><td width=\"40%\">"<<maxx<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Size X:")<<"</td><td width=\"40%\">"<<sizex<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Min Y:")<<"</td><td width=\"40%\">"<<miny<<"</td></tr>" <<
                               "<tr><td width=\"60%\" class=\"desc\">"<<_("Max Y:")<<"</td><td width=\"40%\">"<<maxy<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Size Y:")<<"</td><td width=\"40%\">"<<sizey<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Min Z:")<<"</td><td width=\"40%\">"<<minz<<"</td></tr>" <<
                               "<tr><td width=\"60%\" class=\"desc\">"<<_("Max Z:")<<"</td><td width=\"40%\">"<<maxz<<"</td></tr>" <<
+                              "<tr><td width=\"60%\" class=\"desc\">"<<_("Size Z:")<<"</td><td width=\"40%\">"<<sizez<<"</td></tr>" <<
                               "<tr><td width=\"60%\" class=\"desc\">"<<_("Number of facets:")<<"</td><td width=\"40%\">"<<num_facets<<"</td></tr>" <<
                               "<tr><td width=\"60%\" class=\"desc\">"<<_("Degenerate facets:")<<"</td><td width=\"40%\">"<<deg_facets<<"</td></tr>" <<
                               "<tr><td width=\"60%\" class=\"desc\">"<<_("Edges fixed:")<<"</td><td width=\"40%\">"<<edges_fixed<<"</td></tr>" <<
