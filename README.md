@@ -11,11 +11,18 @@ Building
 
 In order to run ADMeshGUI, [ADMesh library](https://github.com/admesh/admesh), [stlsplit library](https://github.com/hroncok/stlsplit), [Qt 5.4](http://www.qt.io/download/) (or higher) with qmake, OpenGL and g++ are necessary.
 
-On Linux, unzip downloaded package, navigate to target directory and type following into terminal :
+On **Linux**, unzip downloaded package, navigate to target directory and type following into terminal :
 
     qmake # or qmake-qt5 on some distros
     make
     sudo make install
+    
+On **Mac OS X** use [homebrew](https://github.com/homebrew/homebrew) and type following into terminal (installs all required dependencies) :
+
+    brew tap admesh/admesh
+    brew install gettext qt5 admesh stlsplit
+    /usr/local/opt/qt5/bin/qmake 
+    make	
 
 It is also possible to build ADMeshGUI in Qt Creator which comes with Qt package.
 
