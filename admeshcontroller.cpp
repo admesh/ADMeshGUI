@@ -495,6 +495,7 @@ void admeshController::closeSTL()
     renewList();
     for(QList<MeshObject*>::size_type i = 0; i < count;i++){
         if(objectList[i]->isSelected()){
+            delete objectList[i];
             objectList.erase(objectList.begin() + i);
             --count;
             --i;
