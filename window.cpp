@@ -81,6 +81,9 @@ Window::Window(QWidget *parent) :
 
 Window::~Window()
 {
+    delete fileMenu;
+    delete editMenu;
+    delete viewMenu;
     delete ui;
     delete controller;    
 }
