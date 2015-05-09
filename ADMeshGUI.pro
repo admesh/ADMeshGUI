@@ -2,6 +2,9 @@
 #
 # Project created by QtCreator 2014-10-31T11:28:53
 #
+# [Information about Qt + OpenGL classes (e.g. how to use the API) obtained from Qt Reference Pages
+# http://doc.qt.io/qt-5/reference-overview.html 9. 5. 2015]
+#
 #-------------------------------------------------
 
 QT       += core gui opengl widgets svg

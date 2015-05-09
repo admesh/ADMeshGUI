@@ -1,4 +1,6 @@
 // (c) 2015 David Vyvlečka, AGPLv3
+/*[Information about Qt + OpenGL classes (e.g. how to use the API) obtained from Qt Reference Pages
+ http://doc.qt.io/qt-5/reference-overview.html 9. 5. 2015]*/
 
 #include <QApplication>
 #include <QDesktopWidget>
