@@ -5,6 +5,13 @@
 #include <QFileOpenEvent>
 #include "window.h"
 
+/*!
+ * \brief Filters events on given object.
+ *
+ * Mainly used for filtering FileOpen event on main application on Mac OS X.
+ * [Inspired by openSCAD EventFilter class, accessible on https://github.com/openscad/openscad/blob/master/src/EventFilter.h,
+ * version 4. 3. 2015, last access on 9. 5. 2015]
+ */
 class admeshEventFilter : public QObject
 {
     Q_OBJECT
