@@ -39,6 +39,7 @@ admeshController::admeshController(QObject *parent) :
     hiddenIcon = QIcon("://Resources/hide.svg");
     QSettings settings;
     history.setLimitSize(settings.value("sizeLimit", HISTORY_LIMIT).toInt());
+    openPath = settings.value("openPath", QStandardPaths::standardLocations(QStandardPaths::HomeLocation).at(0)).value<QString>();
     setDrawColor(settings.value("color",QColor(Qt::green)).value<QColor>(), settings.value("badColor",QColor(Qt::red)).value<QColor>());
 }
 
@@ -434,11 +435,12 @@ QString admeshController::getInfo()
 
 void admeshController::openSTL()
 {
-    QStringList fileNameList = QFileDialog::getOpenFileNames((QWidget*)parent(), _("Open STL"), QStandardPaths::standardLocations(QStandardPaths::HomeLocation).at(0), _("STL (*.stl *.STL)"));
+    QStringList fileNameList = QFileDialog::getOpenFileNames((QWidget*)parent(), _("Open STL"), openPath, _("STL (*.stl *.STL)"));
     int opened = 0;
     renewList();
+    QString fileName;
     for(QStringList::Iterator it = fileNameList.begin(); it != fileNameList.end(); it++){
-        QString fileName = *it;
+        fileName = *it;
         if(!fileName.isEmpty()){
             MeshObject* tmp = new MeshObject;
             if(!tmp->loadGeometry(fileName)){
@@ -454,10 +456,10 @@ void admeshController::openSTL()
             }
             count++;
         }
-    }
+    }    
     pushHistory();
     if(opened>0){
-
+        openPath = QFileInfo(fileName).path(); // save path used
         statusBar->setText(QString(ngettext("Status: %1 file opened", "Status: %1 files opened", opened)).arg(opened));
         reCalculatePosition();
         reDrawSignal();
@@ -644,8 +646,10 @@ void admeshController::exportSTL()
 }
 
 void admeshController::writeSettings()
-{    QSettings settings;
+{
+    QSettings settings;
     settings.setValue("rendermode", mode);
+    settings.setValue("openPath", openPath);
 }
 
 float admeshController::getMaxDiameter()

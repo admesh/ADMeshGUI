@@ -502,6 +502,7 @@ private:
     QList <MeshObject*>::size_type count;     ///< Count of all objects.
     QIcon hiddenIcon;         ///< Hidden icon
     QIcon visibleIcon;      ///< Visible icon
+    QString openPath;       ///< Last path used for file open
     int mode;               ///< Solid or wireframe or both mode
     float versor[3];        ///< Scale versor
     bool useVersor;         ///< Use versor or not
