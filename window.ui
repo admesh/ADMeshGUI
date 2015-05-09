@@ -747,8 +747,8 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>20</y>
+          <x>1</x>
+          <y>22</y>
           <width>181</width>
           <height>61</height>
          </rect>
@@ -1120,7 +1120,7 @@ border-right: none;
          <x>10</x>
          <y>210</y>
          <width>181</width>
-         <height>161</height>
+         <height>151</height>
         </rect>
        </property>
        <property name="title">
@@ -1129,8 +1129,8 @@ border-right: none;
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>20</y>
+          <x>1</x>
+          <y>21</y>
           <width>181</width>
           <height>101</height>
          </rect>
@@ -1180,22 +1180,6 @@ border-right: none;
            </property>
            <property name="maximum">
             <double>1000.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2" rowspan="3">
-          <widget class="QPushButton" name="translateButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Translate selected objects</string>
-           </property>
-           <property name="text">
-            <string>Translate</string>
            </property>
           </widget>
          </item>
@@ -1315,13 +1299,29 @@ border-right: none;
            </property>
           </widget>
          </item>
+         <item row="0" column="2" rowspan="3">
+          <widget class="QPushButton" name="translateButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Translate selected objects</string>
+           </property>
+           <property name="text">
+            <string>Translate</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>120</y>
+          <x>1</x>
+          <y>121</y>
           <width>181</width>
           <height>29</height>
          </rect>
