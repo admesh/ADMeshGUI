@@ -49,6 +49,11 @@ macx {
     include(homebrew.pri)
 }
 
+win32 {
+    LIBS += -lintl -liconv
+    RC_FILE = admeshgui.rc
+}
+
 DISTFILES += \
     fshader.glsl \
     vshader.glsl
@@ -61,7 +66,9 @@ OTHER_FILES += \
     picking_vshader.glsl \
     picking_fshader.glsl \
     Info.plist \
-    homebrew.pri
+    homebrew.pri \
+    Resources/admeshgui.ico \
+    admeshgui.rc
 
 bin.files += admeshgui
 bin.path = /usr/bin
