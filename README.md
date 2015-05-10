@@ -19,7 +19,7 @@ On **Linux**, unzip downloaded package, navigate to target directory and type fo
     
 On **Mac OS X** use [homebrew](https://github.com/homebrew/homebrew). You can install ADMeshGUI directly from our homebrew tap by typing following into terminal:
 
-    brew tap/tap
+    brew tap admesh/admesh
     brew install admeshgui --HEAD
     brew linkapps admeshgui
 
