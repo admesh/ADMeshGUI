@@ -50,11 +50,30 @@ macx {
     ICON = Resources/admeshgui.icns
     QMAKE_INFO_PLIST = Info.plist
     include(homebrew.pri)
+    app.files += ADMesGUI.app
+    app.path = /Applications
+    INSTALLS += app
 }
 
 win32 {
     LIBS += -lintl -liconv
     RC_FILE = admeshgui.rc
+}
+
+unix {
+    bin.files += admeshgui
+    bin.path = /usr/bin
+    mainico.files += Resources/admeshgui.svg
+    mainico.path = /usr/share/icons/hicolor/scalable/apps
+    16ico.files += Resources/16x16/admeshgui.png
+    16ico.path = /usr/share/icons/hicolor/16x16/apps
+    32ico.files += Resources/32x32/admeshgui.png
+    32ico.path = /usr/share/icons/hicolor/32x32/apps
+    48ico.files += Resources/48x48/admeshgui.png
+    48ico.path = /usr/share/icons/hicolor/48x48/apps
+    desktop.files += admeshgui.desktop
+    desktop.path = /usr/share/applications
+    INSTALLS += bin desktop mainico 16ico 32ico 48ico
 }
 
 DISTFILES += \
@@ -72,19 +91,5 @@ OTHER_FILES += \
     homebrew.pri \
     Resources/admeshgui.ico \
     admeshgui.rc
-
-bin.files += admeshgui
-bin.path = /usr/bin
-mainico.files += Resources/admeshgui.svg
-mainico.path = /usr/share/icons/hicolor/scalable/apps
-16ico.files += Resources/16x16/admeshgui.png
-16ico.path = /usr/share/icons/hicolor/16x16/apps
-32ico.files += Resources/32x32/admeshgui.png
-32ico.path = /usr/share/icons/hicolor/32x32/apps
-48ico.files += Resources/48x48/admeshgui.png
-48ico.path = /usr/share/icons/hicolor/48x48/apps
-desktop.files += admeshgui.desktop
-desktop.path = /usr/share/applications
-INSTALLS += bin desktop mainico 16ico 32ico 48ico
 
 
