@@ -30,7 +30,7 @@ or if you prefer to build it manually, type following into terminal (installs al
     /usr/local/opt/qt5/bin/qmake 
     make	
 
-On **Windows** download admeshgui-win.zip containing precompiled application.
+On **Windows** download [admeshgui-win.zip](https://github.com/vyvledav/ADMeshGUI/releases) containing precompiled application.
 
 If you intend to build ADMeshGUI on Windows by yourself, the process is not that straightforward though. You must make sure Qt5 and all other dependendencies (admesh, stlsplit, gettext) are properly installed and paths set, so it is possible to link them. Then run *qmake* and *make* in terminal.
 
