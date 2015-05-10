@@ -66,4 +66,4 @@ Features
 * **Save as** binary or ASCII STL
 * **Export** to .OBJ, .OFF, .VRML, .DXF file formats
 
-ADMeshGUI was succesfully run on following systems: Ubuntu 14.04 LTS, Fedora 21
+ADMeshGUI was succesfully run on following systems: Ubuntu 14.04 LTS, Fedora 21, Mac OS X 10.9 Mavericks, Mac OS X 10.10 Yosemite, Windows 7 64-bit
