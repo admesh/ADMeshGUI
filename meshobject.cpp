@@ -97,9 +97,10 @@ void MeshObject::setSplitName(int index)
 
 void MeshObject::setDuplicatedName()
 {
-    QString add = "_dulicated.stl";
+    QString add = "_duplicated.stl";
     file = file.section(".",0,0);
     file += add;
+    saved = false;
 }
 
 void MeshObject::mergedFilename()
@@ -107,6 +108,7 @@ void MeshObject::mergedFilename()
     QString add = "_merged.stl";
     file = file.section(".",0,0);
     file += add;
+    saved = false;
 }
 
 bool MeshObject::hasValidName()
@@ -142,11 +144,11 @@ void MeshObject::saveAs(QString fileName, int type)
 
 void MeshObject::save()
 {
-    char* filename = QStringToChar(file);
-    if(stl->stats.type == binary){
-        stl_write_binary(stl, filename, "ADMeshSTLmodel");
-    }else if(stl->stats.type == ascii){
+    char* filename = QStringToChar(file);    
+    if(stl->stats.type == ascii){
         stl_write_ascii(stl, filename, "ADMeshSTLmodel");
+    }else{
+        stl_write_binary(stl, filename, "ADMeshSTLmodel");
     }
     delete []filename;
     saved = true;
