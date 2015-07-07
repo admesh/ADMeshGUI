@@ -72,9 +72,11 @@ unix {
     32ico.path = $$PREFIX/share/icons/hicolor/32x32/apps
     48ico.files += Distribution/48x48/admeshgui.png
     48ico.path = $$PREFIX/share/icons/hicolor/48x48/apps
+    symbico.files += Distribution/symbolic/admeshgui-symbolic.svg
+    symbico.path = $$PREFIX/share/icons/hicolor/symbolic/apps
     desktop.files += Distribution/admeshgui.desktop
     desktop.path = $$PREFIX/share/applications
-    INSTALLS += bin desktop mainico 16ico 32ico 48ico
+    INSTALLS += bin desktop mainico 16ico 32ico 48ico symbico
 }
 
 DISTFILES += \
