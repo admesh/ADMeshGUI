@@ -61,18 +61,19 @@ win32 {
 }
 
 unix {
+    isEmpty(PREFIX):PREFIX = /usr
     bin.files += admeshgui
-    bin.path = /usr/bin
+    bin.path = $$PREFIX/bin
     mainico.files += Resources/admeshgui.svg
-    mainico.path = /usr/share/icons/hicolor/scalable/apps
+    mainico.path = $$PREFIX/share/icons/hicolor/scalable/apps
     16ico.files += Resources/16x16/admeshgui.png
-    16ico.path = /usr/share/icons/hicolor/16x16/apps
+    16ico.path = $$PREFIX/share/icons/hicolor/16x16/apps
     32ico.files += Resources/32x32/admeshgui.png
-    32ico.path = /usr/share/icons/hicolor/32x32/apps
+    32ico.path = $$PREFIX/share/icons/hicolor/32x32/apps
     48ico.files += Resources/48x48/admeshgui.png
-    48ico.path = /usr/share/icons/hicolor/48x48/apps
+    48ico.path = $$PREFIX/share/icons/hicolor/48x48/apps
     desktop.files += admeshgui.desktop
-    desktop.path = /usr/share/applications
+    desktop.path = $$PREFIX/share/applications
     INSTALLS += bin desktop mainico 16ico 32ico 48ico
 }
 
