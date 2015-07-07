@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop">
+ <id>admeshgui.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>AGPL-3.0</project_license>
+ <name>ADMeshGUI</name>
+ <summary>STL viewer and manipulation tool</summary>
+ <description>
+  <p>ADMeshGUI is a desktop application to view and manipulate STL 3D models. It supports the following features:</p>
+  <ul>
+    <li><strong>View</strong> STL files 
+    <ul>
+      <li>Highlighted flaws</li>
+      <li>3 modes: <strong>solid</strong>, <strong>solid with highlighted edges</strong> and <strong>wireframe</strong></li>
+      <li><strong>Selection</strong> of files. It is possible to have more files open and process only some.</li>
+      <li>User defined colors</li>
+    </ul></li>
+    <li><strong>Scale</strong> by <em>x</em>, <em>y</em> and <em>z</em> axes</li>
+    <li><strong>Mirror</strong> along <em>xz</em>, <em>xy</em> and <em>yz</em> planes</li>
+    <li><strong>Rotate</strong> along <em>x</em>, <em>y</em> and <em>z</em> axes</li>
+    <li><strong>Translate</strong> in <em>x</em>, <em>y</em> and <em>z</em> directions</li>
+    <li><strong>Merge</strong> files</li>
+    <li><strong>Split</strong> files</li>
+    <li><strong>Repair</strong> files
+    <ul>
+      <li><strong>Fill</strong> holes</li>
+      <li>Repair facets <strong>orientation</strong></li>
+      <li>Repair <strong>normals</strong></li>
+      <li>Remove <strong>degenerate</strong> facets</li>
+      <li>Repair facets by <strong>connecting nearby</strong> facets that are within a given tolerance</li>
+    </ul></li>
+    <li><strong>Save as</strong> binary or ASCII STL</li>
+    <li><strong>Export</strong> to .OBJ, .OFF, .VRML, .DXF file formats</li>
+  </ul>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>https://github.com/admesh/ADMeshGUI/raw/master/Distribution/screenshot1.png</image>
+  </screenshot>
+  <screenshot>
+   <image>https://github.com/admesh/ADMeshGUI/raw/master/Distribution/screenshot2.png</image>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">http://admesh.org/</url>
+</component>

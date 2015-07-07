@@ -76,7 +76,9 @@ unix {
     symbico.path = $$PREFIX/share/icons/hicolor/symbolic/apps
     desktop.files += Distribution/admeshgui.desktop
     desktop.path = $$PREFIX/share/applications
-    INSTALLS += bin desktop mainico 16ico 32ico 48ico symbico
+    appdata.files += Distribution/admeshgui.appdata.xml
+    appdata.path = $$PREFIX/share/appdata
+    INSTALLS += bin desktop mainico 16ico 32ico 48ico symbico appdata
 }
 
 DISTFILES += \
