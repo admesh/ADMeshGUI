@@ -48,7 +48,7 @@ macx {
     LIBS += -lintl
     TARGET = ADMeshGUI
     ICON = Resources/admeshgui.icns
-    QMAKE_INFO_PLIST = Info.plist
+    QMAKE_INFO_PLIST = Distribution/Info.plist
     include(homebrew.pri)
     app.files += ADMesGUI.app
     app.path = /Applications
@@ -64,15 +64,15 @@ unix {
     isEmpty(PREFIX):PREFIX = /usr
     bin.files += admeshgui
     bin.path = $$PREFIX/bin
-    mainico.files += Resources/admeshgui.svg
+    mainico.files += Distribution/admeshgui.svg
     mainico.path = $$PREFIX/share/icons/hicolor/scalable/apps
-    16ico.files += Resources/16x16/admeshgui.png
+    16ico.files += Distribution/16x16/admeshgui.png
     16ico.path = $$PREFIX/share/icons/hicolor/16x16/apps
-    32ico.files += Resources/32x32/admeshgui.png
+    32ico.files += Distribution/32x32/admeshgui.png
     32ico.path = $$PREFIX/share/icons/hicolor/32x32/apps
-    48ico.files += Resources/48x48/admeshgui.png
+    48ico.files += Distribution/48x48/admeshgui.png
     48ico.path = $$PREFIX/share/icons/hicolor/48x48/apps
-    desktop.files += admeshgui.desktop
+    desktop.files += Distribution/admeshgui.desktop
     desktop.path = $$PREFIX/share/applications
     INSTALLS += bin desktop mainico 16ico 32ico 48ico
 }
@@ -90,7 +90,7 @@ OTHER_FILES += \
     picking_fshader.glsl \
     Info.plist \
     homebrew.pri \
-    Resources/admeshgui.ico \
+    Distribution/admeshgui.ico \
     admeshgui.rc
 
 
