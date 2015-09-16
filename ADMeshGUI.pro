@@ -64,7 +64,7 @@ unix {
     isEmpty(PREFIX):PREFIX = /usr
     bin.files += admeshgui
     bin.path = $$PREFIX/bin
-    mainico.files += Distribution/admeshgui.svg
+    mainico.files += Resources/admeshgui.svg
     mainico.path = $$PREFIX/share/icons/hicolor/scalable/apps
     16ico.files += Distribution/16x16/admeshgui.png
     16ico.path = $$PREFIX/share/icons/hicolor/16x16/apps
