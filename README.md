@@ -6,6 +6,9 @@ STL viewer and manipulation tool.
 Manipulation and repair algorithms come from [ADMesh](https://github.com/admesh/admesh) library and [stlsplit](https://github.com/hroncok/stlsplit) library is used for splitting.
 ADMeshGUI is licensed under the _GNU Affero General Public License, version 3_. Whole text of the license comes in LICENSE file which is included in this package.
 
+![Screenshot 1](./Distribution/screenshot1.png)
+![Screenshot 2](./Distribution/screenshot2.png)
+
 Building
 --------
 
